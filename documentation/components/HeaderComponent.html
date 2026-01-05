@@ -1,0 +1,1281 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  HeaderComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/layouts/main-layout/components/header/header.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Main application header with navigation and cart.</p>
+<p>Provides:</p>
+<ul>
+<li>Logo and branding</li>
+<li>Navigation links (home, call center, contacts)</li>
+<li>Dark mode toggle</li>
+<li>Shopping cart with item count badge</li>
+<li>Mobile responsive hamburger menu</li>
+</ul>
+<p><strong>Features:</strong></p>
+<ul>
+<li>Sticky positioning at top of viewport</li>
+<li>Active link highlighting via router URL matching</li>
+<li>Tooltips for all interactive elements</li>
+<li>Cart badge shows total item count from CartService</li>
+<li>Dark mode managed by ThemeService</li>
+<li>Mobile menu toggle for small screens</li>
+</ul>
+<p>See <a href="../injectables/ThemeService.html">ThemeService</a>
+See <a href="../injectables/CartService.html">CartService</a></p>
+
+    </p>
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-header</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>RouterLink</code>
+                            <code>RouterLinkActive</code>
+                            <code>NgOptimizedImage</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./header.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#cart" >cart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#cartItemCount" >cartItemCount</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#currentRoute" >currentRoute</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#mobileMenuOpen" >mobileMenuOpen</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#showCallCenterTooltip" >showCallCenterTooltip</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#showCartTooltip" >showCartTooltip</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#showContactTooltip" >showContactTooltip</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#showLogoTooltip" >showLogoTooltip</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#showThemeTooltip" >showThemeTooltip</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#theme" >theme</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#isRouteActive" >isRouteActive</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRouteActive"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>isRouteActive</b></span>
+                        <a href="#isRouteActive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>isRouteActive(path: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Determines if a navigation link is currently active.</p>
+<p>Uses the reactive <code>currentRoute</code> signal to detect route changes automatically.
+This ensures the UI updates correctly when navigating programmatically.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>path</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The route path to check</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the current route matches the path, <code>false</code> otherwise</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cart"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>cart</b></span>
+                        <a href="#cart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CartService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:49</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reference to cart service for item count display.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cartItemCount"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>cartItemCount</b></span>
+                        <a href="#cartItemCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.cart.itemCount())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:109</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal for total number of items in the cart.</p>
+<p>Used to display the badge on the cart icon.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentRoute"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>currentRoute</b></span>
+                        <a href="#currentRoute"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>toSignal(
+    this.router.events.pipe(
+      filter((e): e is NavigationEnd &#x3D;&gt; e instanceof NavigationEnd),
+      map((e) &#x3D;&gt; e.urlAfterRedirects),
+      startWith(this.router.url),
+    ),
+    { initialValue: this.router.url },
+  )</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:64</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal that tracks the current route.</p>
+<p>Converts router navigation events to a signal for reactive route detection.
+Uses <code>toSignal()</code> to transform the Observable stream into a signal that
+updates automatically on every navigation.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mobileMenuOpen"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>mobileMenuOpen</b></span>
+                        <a href="#mobileMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:76</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Controls mobile hamburger menu visibility.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:54</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Router instance for active link detection.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showCallCenterTooltip"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>showCallCenterTooltip</b></span>
+                        <a href="#showCallCenterTooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:91</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tooltip visibility state for call center link.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showCartTooltip"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>showCartTooltip</b></span>
+                        <a href="#showCartTooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:101</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tooltip visibility state for cart link.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showContactTooltip"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>showContactTooltip</b></span>
+                        <a href="#showContactTooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:96</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tooltip visibility state for contact link.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showLogoTooltip"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>showLogoTooltip</b></span>
+                        <a href="#showLogoTooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:81</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tooltip visibility state for logo.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showThemeTooltip"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>showThemeTooltip</b></span>
+                        <a href="#showThemeTooltip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:86</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Tooltip visibility state for theme toggle button.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="theme"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>theme</b></span>
+                        <a href="#theme"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ThemeService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/layouts/main-layout/components/header/header.ts:44</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reference to theme service for dark mode toggle.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgOptimizedImage } from &#x27;@angular/common&#x27;;
+import { ChangeDetectionStrategy, Component, inject, signal, computed } from &#x27;@angular/core&#x27;;
+import { toSignal } from &#x27;@angular/core/rxjs-interop&#x27;;
+import { Router, RouterLink, RouterLinkActive, NavigationEnd } from &#x27;@angular/router&#x27;;
+import { filter, map, startWith } from &#x27;rxjs/operators&#x27;;
+
+import { ThemeService } from &#x27;@core/services/theme.service&#x27;;
+import { CartService } from &#x27;@core/services/cart.service&#x27;;
+
+/**
+ * Main application header with navigation and cart.
+ *
+ * Provides:
+ * - Logo and branding
+ * - Navigation links (home, call center, contacts)
+ * - Dark mode toggle
+ * - Shopping cart with item count badge
+ * - Mobile responsive hamburger menu
+ *
+ * @selector app-header
+ *
+ * @remarks
+ * **Features:**
+ * - Sticky positioning at top of viewport
+ * - Active link highlighting via router URL matching
+ * - Tooltips for all interactive elements
+ * - Cart badge shows total item count from CartService
+ * - Dark mode managed by ThemeService
+ * - Mobile menu toggle for small screens
+ *
+ * @see {@link ThemeService}
+ * @see {@link CartService}
+ */
+@Component({
+  selector: &#x27;app-header&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: &#x27;./header.html&#x27;,
+  imports: [RouterLink, RouterLinkActive, NgOptimizedImage],
+})
+export class HeaderComponent {
+  /**
+   * Reference to theme service for dark mode toggle.
+   */
+  protected readonly theme &#x3D; inject(ThemeService);
+
+  /**
+   * Reference to cart service for item count display.
+   */
+  protected readonly cart &#x3D; inject(CartService);
+
+  /**
+   * Router instance for active link detection.
+   */
+  private readonly router &#x3D; inject(Router);
+
+  /**
+   * Signal that tracks the current route.
+   *
+   * @remarks
+   * Converts router navigation events to a signal for reactive route detection.
+   * Uses &#x60;toSignal()&#x60; to transform the Observable stream into a signal that
+   * updates automatically on every navigation.
+   */
+  private readonly currentRoute &#x3D; toSignal(
+    this.router.events.pipe(
+      filter((e): e is NavigationEnd &#x3D;&gt; e instanceof NavigationEnd),
+      map((e) &#x3D;&gt; e.urlAfterRedirects),
+      startWith(this.router.url),
+    ),
+    { initialValue: this.router.url },
+  );
+
+  /**
+   * Controls mobile hamburger menu visibility.
+   */
+  protected readonly mobileMenuOpen &#x3D; signal(false);
+
+  /**
+   * Tooltip visibility state for logo.
+   */
+  protected readonly showLogoTooltip &#x3D; signal(false);
+
+  /**
+   * Tooltip visibility state for theme toggle button.
+   */
+  protected readonly showThemeTooltip &#x3D; signal(false);
+
+  /**
+   * Tooltip visibility state for call center link.
+   */
+  protected readonly showCallCenterTooltip &#x3D; signal(false);
+
+  /**
+   * Tooltip visibility state for contact link.
+   */
+  protected readonly showContactTooltip &#x3D; signal(false);
+
+  /**
+   * Tooltip visibility state for cart link.
+   */
+  protected readonly showCartTooltip &#x3D; signal(false);
+
+  /**
+   * Computed signal for total number of items in the cart.
+   *
+   * @remarks
+   * Used to display the badge on the cart icon.
+   */
+  protected readonly cartItemCount &#x3D; computed(() &#x3D;&gt; this.cart.itemCount());
+
+  /**
+   * Determines if a navigation link is currently active.
+   *
+   * @param path - The route path to check
+   * @returns &#x60;true&#x60; if the current route matches the path, &#x60;false&#x60; otherwise
+   *
+   * @remarks
+   * Uses the reactive &#x60;currentRoute&#x60; signal to detect route changes automatically.
+   * This ensures the UI updates correctly when navigating programmatically.
+   *
+   * @internal
+   */
+  protected isRouteActive(path: string): boolean {
+    return this.currentRoute() &#x3D;&#x3D;&#x3D; path;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;header class&#x3D;&quot;bg-redis fixed top-0 right-0 left-0 z-50 h-17.5 shadow-md dark:bg-gray-800&quot;&gt;
+  &lt;div class&#x3D;&quot;mx-auto h-full max-w-7xl px-4&quot;&gt;
+    &lt;div class&#x3D;&quot;flex h-full items-center justify-between&quot;&gt;
+      &lt;!-- REDIS logo --&gt;
+      &lt;div class&#x3D;&quot;relative shrink-0&quot; (mouseenter)&#x3D;&quot;showLogoTooltip.set(true)&quot; (mouseleave)&#x3D;&quot;showLogoTooltip.set(false)&quot;&gt;
+        &lt;a routerLink&#x3D;&quot;/&quot; [class.cursor-pointer]&#x3D;&quot;!isRouteActive(&#x27;/&#x27;)&quot; [class.cursor-default]&#x3D;&quot;isRouteActive(&#x27;/&#x27;)&quot;&gt;
+          &lt;img ngSrc&#x3D;&quot;/img/logo-redis.png&quot; alt&#x3D;&quot;Logo REDIS&quot; width&#x3D;&quot;213&quot; height&#x3D;&quot;48&quot; priority /&gt;
+        &lt;/a&gt;
+
+        &lt;!-- Tooltip logo --&gt;
+        @if (showLogoTooltip()) {
+          &lt;div class&#x3D;&quot;absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700&quot;&gt;
+            &lt;span&gt;{{ isRouteActive(&#x27;/&#x27;) ? &#x27;Simple y sencillo&#x27; : &#x27;Ir al escritorio&#x27; }}&lt;/span&gt;
+            &lt;div class&#x3D;&quot;absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;!-- Desktop Navigation --&gt;
+      &lt;nav class&#x3D;&quot;hidden items-center space-x-4 sm:flex&quot;&gt;
+        &lt;!-- Toggle theme --&gt;
+        &lt;div class&#x3D;&quot;relative&quot; (mouseenter)&#x3D;&quot;showThemeTooltip.set(true)&quot; (mouseleave)&#x3D;&quot;showThemeTooltip.set(false)&quot;&gt;
+          &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;group flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white&quot; (click)&#x3D;&quot;theme.toggle()&quot;&gt;
+            &lt;!-- Sun (show in dark mode) --&gt;
+            @if (theme.isDarkMode()) {
+              &lt;svg class&#x3D;&quot;h-8 w-8 text-white transition-colors group-hover:text-yellow-400&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+                &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1.5&quot; d&#x3D;&quot;M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z&quot; /&gt;
+              &lt;/svg&gt;
+            } @else {
+              &lt;!-- Moon (show in light mode) --&gt;
+              &lt;svg class&#x3D;&quot;h-8 w-8 text-white transition-colors group-hover:text-yellow-400&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+                &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1.5&quot; d&#x3D;&quot;M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z&quot; /&gt;
+              &lt;/svg&gt;
+            }
+          &lt;/button&gt;
+
+          &lt;!-- Tooltip theme --&gt;
+          @if (showThemeTooltip()) {
+            &lt;div class&#x3D;&quot;absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700&quot;&gt;
+              &lt;span&gt;{{ theme.isDarkMode() ? &#x27;Cambiar a tema claro&#x27; : &#x27;Cambiar a tema oscuro&#x27; }}&lt;/span&gt;
+              &lt;div class&#x3D;&quot;absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+
+        &lt;!-- Call center link --&gt;
+        &lt;div class&#x3D;&quot;relative&quot; (mouseenter)&#x3D;&quot;showCallCenterTooltip.set(true)&quot; (mouseleave)&#x3D;&quot;showCallCenterTooltip.set(false)&quot;&gt;
+          &lt;a routerLink&#x3D;&quot;/soporte/callcenter&quot; routerLinkActive&#x3D;&quot;bg-yellow-400&quot; [routerLinkActiveOptions]&#x3D;&quot;{ exact: true }&quot; class&#x3D;&quot;group flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white&quot; [class.cursor-pointer]&#x3D;&quot;!isRouteActive(&#x27;/soporte/callcenter&#x27;)&quot; [class.cursor-default]&#x3D;&quot;isRouteActive(&#x27;/soporte/callcenter&#x27;)&quot;&gt;
+            &lt;svg class&#x3D;&quot;h-8 w-8 text-white transition-colors group-hover:text-yellow-400&quot; routerLinkActive&#x3D;&quot;text-gray-800&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 23&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1&quot; d&#x3D;&quot;M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/a&gt;
+
+          &lt;!-- Tooltip Call center --&gt;
+          @if (showCallCenterTooltip()) {
+            &lt;div class&#x3D;&quot;absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700&quot;&gt;
+              &lt;span&gt;{{ isRouteActive(&#x27;/soporte/callcenter&#x27;) ? &#x27;en Pantalla&#x27; : &#x27;Consultas y reclamos&#x27; }}&lt;/span&gt;
+              &lt;div class&#x3D;&quot;absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+
+        &lt;!-- Contacts link --&gt;
+        &lt;div class&#x3D;&quot;relative&quot; (mouseenter)&#x3D;&quot;showContactTooltip.set(true)&quot; (mouseleave)&#x3D;&quot;showContactTooltip.set(false)&quot;&gt;
+          &lt;a routerLink&#x3D;&quot;/soporte/contactos&quot; routerLinkActive&#x3D;&quot;bg-yellow-400&quot; [routerLinkActiveOptions]&#x3D;&quot;{ exact: true }&quot; class&#x3D;&quot;group flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white&quot; [class.cursor-pointer]&#x3D;&quot;!isRouteActive(&#x27;/soporte/contactos&#x27;)&quot; [class.cursor-default]&#x3D;&quot;isRouteActive(&#x27;/soporte/contactos&#x27;)&quot;&gt;
+            &lt;svg class&#x3D;&quot;h-10 w-10 text-white transition-colors group-hover:text-yellow-400&quot; routerLinkActive&#x3D;&quot;text-gray-800&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1&quot; d&#x3D;&quot;M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/a&gt;
+
+          &lt;!-- Tooltip Contacts --&gt;
+          @if (showContactTooltip()) {
+            &lt;div class&#x3D;&quot;absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700&quot;&gt;
+              &lt;span&gt;{{ isRouteActive(&#x27;/soporte/contactos&#x27;) ? &#x27;en Pantalla&#x27; : &#x27;Ver contactos&#x27; }}&lt;/span&gt;
+              &lt;div class&#x3D;&quot;absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+
+        &lt;!-- Cart link --&gt;
+        &lt;div class&#x3D;&quot;relative&quot; (mouseenter)&#x3D;&quot;showCartTooltip.set(true)&quot; (mouseleave)&#x3D;&quot;showCartTooltip.set(false)&quot;&gt;
+          &lt;a routerLink&#x3D;&quot;/carrito&quot; routerLinkActive&#x3D;&quot;bg-yellow-400&quot; [routerLinkActiveOptions]&#x3D;&quot;{ exact: true }&quot; class&#x3D;&quot;group flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white&quot; [class.cursor-pointer]&#x3D;&quot;!isRouteActive(&#x27;/carrito&#x27;)&quot; [class.cursor-default]&#x3D;&quot;isRouteActive(&#x27;/carrito&#x27;)&quot;&gt;
+            &lt;svg class&#x3D;&quot;h-8 w-8 text-white transition-colors group-hover:text-yellow-400&quot; routerLinkActive&#x3D;&quot;text-gray-800&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1&quot; d&#x3D;&quot;M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z&quot; /&gt;
+            &lt;/svg&gt;
+
+            &lt;!-- Badge counter --&gt;
+            @if (cartItemCount() &gt; 0) {
+              &lt;span class&#x3D;&quot;absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-xs font-bold text-white&quot;&gt;
+                {{ cartItemCount() }}
+              &lt;/span&gt;
+            }
+          &lt;/a&gt;
+
+          &lt;!-- Tooltip Cart --&gt;
+          @if (showCartTooltip()) {
+            &lt;div class&#x3D;&quot;absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700&quot;&gt;
+              &lt;span&gt;{{ isRouteActive(&#x27;/carrito&#x27;) ? &#x27;en Pantalla&#x27; : cartItemCount() &gt; 0 ? &#x27;Ver carrito (&#x27; + cartItemCount() + &#x27;)&#x27; : &#x27;Carrito vacio&#x27; }}&lt;/span&gt;
+              &lt;div class&#x3D;&quot;absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      &lt;/nav&gt;
+
+      &lt;!-- Mobile Menu button (Hamburger) --&gt;
+      &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;hover:bg-redis/80 flex h-10 w-10 items-center justify-center rounded transition-colors sm:hidden&quot; aria-label&#x3D;&quot;Menu de navegacion&quot; [attr.aria-expanded]&#x3D;&quot;mobileMenuOpen()&quot; (click)&#x3D;&quot;mobileMenuOpen.set(!mobileMenuOpen())&quot;&gt;
+        &lt;div class&#x3D;&quot;space-y-1.5&quot;&gt;
+          &lt;span class&#x3D;&quot;block h-0.5 w-6 bg-white&quot;&gt;&lt;/span&gt;
+          &lt;span class&#x3D;&quot;block h-0.5 w-6 bg-white&quot;&gt;&lt;/span&gt;
+          &lt;span class&#x3D;&quot;block h-0.5 w-6 bg-white&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Mobile Menu dropdown --&gt;
+    @if (mobileMenuOpen()) {
+      &lt;div class&#x3D;&quot;absolute top-17.5 right-0 left-0 bg-white pt-2 shadow-lg sm:hidden dark:bg-gray-800&quot;&gt;
+        &lt;!-- Toggle theme (Mobile) --&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;flex w-full items-center px-4 pt-3 text-base text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700&quot; (click)&#x3D;&quot;theme.toggle()&quot;&gt;
+          @if (theme.isDarkMode()) {
+            &lt;svg class&#x3D;&quot;mr-3 h-6 w-6&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1.5&quot; d&#x3D;&quot;M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z&quot; /&gt;
+            &lt;/svg&gt;
+            &lt;span&gt;Cambiar a tema claro&lt;/span&gt;
+          } @else {
+            &lt;svg class&#x3D;&quot;mr-3 h-6 w-6&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1.5&quot; d&#x3D;&quot;M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z&quot; /&gt;
+            &lt;/svg&gt;
+            &lt;span&gt;Cambiar a tema oscuro&lt;/span&gt;
+          }
+        &lt;/button&gt;
+
+        &lt;!-- Call center link (Mobile) --&gt;
+        &lt;a routerLink&#x3D;&quot;/soporte/callcenter&quot; class&#x3D;&quot;flex items-center px-4 py-3 text-base text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700&quot; (click)&#x3D;&quot;mobileMenuOpen.set(false)&quot;&gt;
+          &lt;svg class&#x3D;&quot;mr-3 h-6 w-6&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+            &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1&quot; d&#x3D;&quot;M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z&quot; /&gt;
+          &lt;/svg&gt;
+          &lt;span&gt;Consultas y reclamos&lt;/span&gt;
+        &lt;/a&gt;
+
+        &lt;!-- Contacts link (Mobile) --&gt;
+        &lt;a routerLink&#x3D;&quot;/soporte/contactos&quot; class&#x3D;&quot;flex items-center px-4 py-3 text-base text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700&quot; (click)&#x3D;&quot;mobileMenuOpen.set(false)&quot;&gt;
+          &lt;svg class&#x3D;&quot;mr-3 h-6 w-6&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+            &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1&quot; d&#x3D;&quot;M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2&quot; /&gt;
+          &lt;/svg&gt;
+          &lt;span&gt;Ver contactos&lt;/span&gt;
+        &lt;/a&gt;
+
+        &lt;!-- Cart link (Mobile) --&gt;
+        &lt;a routerLink&#x3D;&quot;/carrito&quot; class&#x3D;&quot;flex items-center border-b-2 border-gray-100 px-4 pb-4 text-base text-gray-700 shadow-xl transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-700&quot; (click)&#x3D;&quot;mobileMenuOpen.set(false)&quot;&gt;
+          &lt;div class&#x3D;&quot;relative mr-3&quot;&gt;
+            &lt;svg class&#x3D;&quot;h-6 w-6&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;1&quot; d&#x3D;&quot;M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z&quot; /&gt;
+            &lt;/svg&gt;
+            @if (cartItemCount() &gt; 0) {
+              &lt;span class&#x3D;&quot;absolute -top-2 -right-2 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-red-600 px-1 text-xs font-bold text-white&quot;&gt;
+                {{ cartItemCount() }}
+              &lt;/span&gt;
+            }
+          &lt;/div&gt;
+          &lt;span&gt;Ver carrito&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+    }
+  &lt;/div&gt;
+&lt;/header&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><header class="bg-redis fixed top-0 right-0 left-0 z-50 h-17.5 shadow-md dark:bg-gray-800">  <div class="mx-auto h-full max-w-7xl px-4">    <div class="flex h-full items-center justify-between">      <!-- REDIS logo -->      <div class="relative shrink-0" (mouseenter)="showLogoTooltip.set(true)" (mouseleave)="showLogoTooltip.set(false)">        <a routerLink="/" [class.cursor-pointer]="!isRouteActive(\'/\')" [class.cursor-default]="isRouteActive(\'/\')">          <img ngSrc="/img/logo-redis.png" alt="Logo REDIS" width="213" height="48" priority />        </a>        <!-- Tooltip logo -->        @if (showLogoTooltip()) {          <div class="absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700">            <span>{{ isRouteActive(\'/\') ? \'Simple y sencillo\' : \'Ir al escritorio\' }}</span>            <div class="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700"></div>          </div>        }      </div>      <!-- Desktop Navigation -->      <nav class="hidden items-center space-x-4 sm:flex">        <!-- Toggle theme -->        <div class="relative" (mouseenter)="showThemeTooltip.set(true)" (mouseleave)="showThemeTooltip.set(false)">          <button type="button" class="group flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white" (click)="theme.toggle()">            <!-- Sun (show in dark mode) -->            @if (theme.isDarkMode()) {              <svg class="h-8 w-8 text-white transition-colors group-hover:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />              </svg>            } @else {              <!-- Moon (show in light mode) -->              <svg class="h-8 w-8 text-white transition-colors group-hover:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />              </svg>            }          </button>          <!-- Tooltip theme -->          @if (showThemeTooltip()) {            <div class="absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700">              <span>{{ theme.isDarkMode() ? \'Cambiar a tema claro\' : \'Cambiar a tema oscuro\' }}</span>              <div class="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700"></div>            </div>          }        </div>        <!-- Call center link -->        <div class="relative" (mouseenter)="showCallCenterTooltip.set(true)" (mouseleave)="showCallCenterTooltip.set(false)">          <a routerLink="/soporte/callcenter" routerLinkActive="bg-yellow-400" [routerLinkActiveOptions]="{ exact: true }" class="group flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white" [class.cursor-pointer]="!isRouteActive(\'/soporte/callcenter\')" [class.cursor-default]="isRouteActive(\'/soporte/callcenter\')">            <svg class="h-8 w-8 text-white transition-colors group-hover:text-yellow-400" routerLinkActive="text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 23">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />            </svg>          </a>          <!-- Tooltip Call center -->          @if (showCallCenterTooltip()) {            <div class="absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700">              <span>{{ isRouteActive(\'/soporte/callcenter\') ? \'en Pantalla\' : \'Consultas y reclamos\' }}</span>              <div class="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700"></div>            </div>          }        </div>        <!-- Contacts link -->        <div class="relative" (mouseenter)="showContactTooltip.set(true)" (mouseleave)="showContactTooltip.set(false)">          <a routerLink="/soporte/contactos" routerLinkActive="bg-yellow-400" [routerLinkActiveOptions]="{ exact: true }" class="group flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white" [class.cursor-pointer]="!isRouteActive(\'/soporte/contactos\')" [class.cursor-default]="isRouteActive(\'/soporte/contactos\')">            <svg class="h-10 w-10 text-white transition-colors group-hover:text-yellow-400" routerLinkActive="text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />            </svg>          </a>          <!-- Tooltip Contacts -->          @if (showContactTooltip()) {            <div class="absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700">              <span>{{ isRouteActive(\'/soporte/contactos\') ? \'en Pantalla\' : \'Ver contactos\' }}</span>              <div class="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700"></div>            </div>          }        </div>        <!-- Cart link -->        <div class="relative" (mouseenter)="showCartTooltip.set(true)" (mouseleave)="showCartTooltip.set(false)">          <a routerLink="/carrito" routerLinkActive="bg-yellow-400" [routerLinkActiveOptions]="{ exact: true }" class="group flex h-11 w-11 items-center justify-center rounded-full transition-colors hover:bg-white" [class.cursor-pointer]="!isRouteActive(\'/carrito\')" [class.cursor-default]="isRouteActive(\'/carrito\')">            <svg class="h-8 w-8 text-white transition-colors group-hover:text-yellow-400" routerLinkActive="text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />            </svg>            <!-- Badge counter -->            @if (cartItemCount() > 0) {              <span class="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-600 px-1 text-xs font-bold text-white">                {{ cartItemCount() }}              </span>            }          </a>          <!-- Tooltip Cart -->          @if (showCartTooltip()) {            <div class="absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700">              <span>{{ isRouteActive(\'/carrito\') ? \'en Pantalla\' : cartItemCount() > 0 ? \'Ver carrito (\' + cartItemCount() + \')\' : \'Carrito vacio\' }}</span>              <div class="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700"></div>            </div>          }        </div>      </nav>      <!-- Mobile Menu button (Hamburger) -->      <button type="button" class="hover:bg-redis/80 flex h-10 w-10 items-center justify-center rounded transition-colors sm:hidden" aria-label="Menu de navegacion" [attr.aria-expanded]="mobileMenuOpen()" (click)="mobileMenuOpen.set(!mobileMenuOpen())">        <div class="space-y-1.5">          <span class="block h-0.5 w-6 bg-white"></span>          <span class="block h-0.5 w-6 bg-white"></span>          <span class="block h-0.5 w-6 bg-white"></span>        </div>      </button>    </div>    <!-- Mobile Menu dropdown -->    @if (mobileMenuOpen()) {      <div class="absolute top-17.5 right-0 left-0 bg-white pt-2 shadow-lg sm:hidden dark:bg-gray-800">        <!-- Toggle theme (Mobile) -->        <button type="button" class="flex w-full items-center px-4 pt-3 text-base text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700" (click)="theme.toggle()">          @if (theme.isDarkMode()) {            <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />            </svg>            <span>Cambiar a tema claro</span>          } @else {            <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />            </svg>            <span>Cambiar a tema oscuro</span>          }        </button>        <!-- Call center link (Mobile) -->        <a routerLink="/soporte/callcenter" class="flex items-center px-4 py-3 text-base text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700" (click)="mobileMenuOpen.set(false)">          <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />          </svg>          <span>Consultas y reclamos</span>        </a>        <!-- Contacts link (Mobile) -->        <a routerLink="/soporte/contactos" class="flex items-center px-4 py-3 text-base text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700" (click)="mobileMenuOpen.set(false)">          <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2" />          </svg>          <span>Ver contactos</span>        </a>        <!-- Cart link (Mobile) -->        <a routerLink="/carrito" class="flex items-center border-b-2 border-gray-100 px-4 pb-4 text-base text-gray-700 shadow-xl transition-colors hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-700" (click)="mobileMenuOpen.set(false)">          <div class="relative mr-3">            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />            </svg>            @if (cartItemCount() > 0) {              <span class="absolute -top-2 -right-2 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-red-600 px-1 text-xs font-bold text-white">                {{ cartItemCount() }}              </span>            }          </div>          <span>Ver carrito</span>        </a>      </div>    }  </div></header></div>'
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'BusinessCardComponent', 'selector': 'app-service-card'},{'name': 'CallCenterComponent', 'selector': 'app-call-center'},{'name': 'CheckoutWizardComponent', 'selector': 'app-checkout-wizard'},{'name': 'CobranzaWizardComponent', 'selector': 'app-cobranza-wizard'},{'name': 'ConfirmationModalComponent', 'selector': 'app-confirmation-modal'},{'name': 'ContactCard', 'selector': 'app-contact-card'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'ContractSelectorComponent', 'selector': 'app-contract-selector'},{'name': 'DebtTableComponent', 'selector': 'app-debt-table'},{'name': 'ErrorAlertComponent', 'selector': 'app-error-alert'},{'name': 'ErrorModalComponent', 'selector': 'app-error-modal'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'MainLayoutComponent', 'selector': 'app-main-layout'},{'name': 'NotFoundPageComponent', 'selector': 'app-not-found'},{'name': 'ProximamentePageComponent', 'selector': 'app-proximamente-page'},{'name': 'QrDisplayComponent', 'selector': 'app-qr-display'},{'name': 'SearchAssociateComponent', 'selector': 'app-search-associate'},{'name': 'StepCard', 'selector': 'app-step-card'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'WizardHeaderComponent', 'selector': 'app-wizard-header'},{'name': 'WizardNavComponent', 'selector': 'app-wizard-nav'},{'name': 'WizardProgressComponent', 'selector': 'app-wizard-progress'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HeaderComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HeaderComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

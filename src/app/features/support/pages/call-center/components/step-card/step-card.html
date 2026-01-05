@@ -1,0 +1,17 @@
+<div class="relative">
+  <div class="flex flex-col items-center text-center">
+    <div class="bg-redis mb-4 flex h-16 w-16 items-center justify-center rounded-2xl text-2xl font-bold text-white shadow-lg">
+      {{ step() }}
+    </div>
+    <h3 class="mb-2 text-lg font-bold text-gray-900 dark:text-white">{{ title() }}</h3>
+    <ng-content />
+  </div>
+
+  @if (showArrow()) {
+    <div class="text-redis absolute top-8 -right-4 hidden lg:block">
+      <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+      </svg>
+    </div>
+  }
+</div>

@@ -1,0 +1,986 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >ConfirmationModalService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/services/confirmation-modal.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Manages the confirmation modal component state and user interactions.</p>
+<p>Provides a Promise-based API for displaying confirmation dialogs with two-button
+choices (confirm/cancel). Returns true if user confirms, false if user cancels.</p>
+<ul>
+<li>Uses reactive signals for modal visibility and configuration</li>
+<li>Promise-based confirm() method allows clean async/await syntax</li>
+<li>Default styling uses warning/amber theme</li>
+<li>Supports optional key-value details display</li>
+</ul>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">const confirmed = await this.confirmModal.confirm({
+  title: &#39;Eliminar item&#39;,
+  message: &#39;¿Desea eliminar este elemento del carrito?&#39;,
+  confirmText: &#39;Eliminar&#39;,
+  cancelText: &#39;Cancelar&#39;
+});
+
+
+if (confirmed) {
+  // User clicked confirm - proceed with action
+} else {
+  // User clicked cancel - abort operation
+}</code></pre></div><p>See <a href="../interfaces/ConfirmationModalConfig.html">ConfirmationModalConfig</a>
+See <a href="../components/ConfirmationModalComponent.html">ConfirmationModalComponent</a></p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#_config" >_config</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#_isVisible" >_isVisible</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#_resolveCallback" >_resolveCallback</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#config" >config</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#isVisible" >isVisible</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#confirm" >confirm</a>
+                            </li>
+                            <li>
+                                <a href="#handleCancel" >handleCancel</a>
+                            </li>
+                            <li>
+                                <a href="#handleConfirm" >handleConfirm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#hide" >hide</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#show" >show</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirm"></a>
+                    <span class="name">
+                        <span ><b>confirm</b></span>
+                        <a href="#confirm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirm(customConfig?: <a href="../undefineds/ConfirmationModalInput.html" target="_self">ConfirmationModalInput</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Shows the confirmation modal and returns a Promise that resolves when the user makes a choice.</p>
+<ul>
+<li>Merges custom configuration with default settings</li>
+<li>Modal stays visible until user clicks confirm or cancel</li>
+<li>Only one modal can be shown at a time (new calls override previous)</li>
+</ul>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">const result = await this.confirmModal.confirm({
+  title: &#39;Pago duplicado&#39;,
+  message: &#39;Ya existe un pago para este contrato.&#39;,
+  details: {
+    &#39;Contrato&#39;: &#39;12345&#39;,
+    &#39;Monto anterior&#39;: &#39;Bs. 100.00&#39;,
+    &#39;Monto nuevo&#39;: &#39;Bs. 150.00&#39;
+  },
+  confirmText: &#39;Reemplazar&#39;,
+  cancelText: &#39;Cancelar&#39;
+});</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>customConfig</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ConfirmationModalInput" target="_self" >ConfirmationModalInput</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Partial configuration to override defaults</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;boolean&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Promise that resolves to <code>true</code> if user confirms, <code>false</code> if user cancels</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleCancel"></a>
+                    <span class="name">
+                        <span ><b>handleCancel</b></span>
+                        <a href="#handleCancel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleCancel()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:158</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles the cancel button click.</p>
+<p>Resolves the pending promise with <code>false</code> and hides the modal.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleConfirm"></a>
+                    <span class="name">
+                        <span ><b>handleConfirm</b></span>
+                        <a href="#handleConfirm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>handleConfirm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="141"
+                                    class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:141</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Handles the confirm button click.</p>
+<p>Resolves the pending promise with <code>true</code> and hides the modal.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hide"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>hide</b></span>
+                        <a href="#hide"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>hide()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:129</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Hides the confirmation modal without resolving the promise.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="show"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>show</b></span>
+                        <a href="#show"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>show(customConfig?: <a href="../undefineds/ConfirmationModalInput.html" target="_self">ConfirmationModalInput</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="114"
+                                    class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:114</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Shows the confirmation modal with custom configuration.</p>
+<p>Merges the custom configuration with default settings and makes the modal visible.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>customConfig</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#ConfirmationModalInput" target="_self" >ConfirmationModalInput</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Optional custom configuration to override defaults</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_config"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>_config</b></span>
+                        <a href="#_config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;ConfirmationModalConfig&gt;(DEFAULT_CONFIG)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_isVisible"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>_isVisible</b></span>
+                        <a href="#_isVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_resolveCallback"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>_resolveCallback</b></span>
+                        <a href="#_resolveCallback"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;((confirmed: boolean) &#x3D;&gt; void) | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this._config.asReadonly()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:69</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Readonly signal containing the current modal configuration.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isVisible"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>isVisible</b></span>
+                        <a href="#isVisible"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this._isVisible.asReadonly()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/core/services/confirmation-modal.service.ts:64</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Readonly signal indicating whether the modal is currently visible.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal } from &#x27;@angular/core&#x27;;
+import { ConfirmationModalConfig, ConfirmationModalInput } from &#x27;../models/confirmation-modal.model&#x27;;
+
+/**
+ * Default configuration for the confirmation modal with warning styling.
+ *
+ * @internal
+ */
+const DEFAULT_CONFIG: ConfirmationModalConfig &#x3D; {
+  title: &#x27;Confirmar acción&#x27;,
+  message: &#x27;¿Está seguro que desea continuar con esta operación?&#x27;,
+  confirmText: &#x27;Continuar&#x27;,
+  cancelText: &#x27;Cancelar&#x27;,
+  details: {},
+  headerClass: &#x27;bg-amber-50 dark:bg-amber-900&#x27;,
+  iconClass: &#x27;bg-amber-500 text-white&#x27;,
+  confirmButtonClass: &#x27;bg-amber-500 hover:bg-amber-600&#x27;,
+  cancelButtonClass: &#x27;bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-100&#x27;,
+  borderClass: &#x27;border-amber-300 dark:border-amber-700&#x27;,
+};
+
+/**
+ * Manages the confirmation modal component state and user interactions.
+ *
+ * Provides a Promise-based API for displaying confirmation dialogs with two-button
+ * choices (confirm/cancel). Returns true if user confirms, false if user cancels.
+ *
+ * @remarks
+ * - Uses reactive signals for modal visibility and configuration
+ * - Promise-based confirm() method allows clean async/await syntax
+ * - Default styling uses warning/amber theme
+ * - Supports optional key-value details display
+ *
+ * @example
+ * &#x60;&#x60;&#x60;typescript
+ * const confirmed &#x3D; await this.confirmModal.confirm({
+ *   title: &#x27;Eliminar item&#x27;,
+ *   message: &#x27;¿Desea eliminar este elemento del carrito?&#x27;,
+ *   confirmText: &#x27;Eliminar&#x27;,
+ *   cancelText: &#x27;Cancelar&#x27;
+ * });
+ *
+ * if (confirmed) {
+ *   // User clicked confirm - proceed with action
+ * } else {
+ *   // User clicked cancel - abort operation
+ * }
+ * &#x60;&#x60;&#x60;
+ *
+ * @see {@link ConfirmationModalConfig}
+ * @see {@link ConfirmationModalComponent}
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+export class ConfirmationModalService {
+  private readonly _isVisible &#x3D; signal(false);
+  private readonly _config &#x3D; signal&lt;ConfirmationModalConfig&gt;(DEFAULT_CONFIG);
+  private readonly _resolveCallback &#x3D; signal&lt;((confirmed: boolean) &#x3D;&gt; void) | null&gt;(null);
+
+  /**
+   * Readonly signal indicating whether the modal is currently visible.
+   */
+  readonly isVisible &#x3D; this._isVisible.asReadonly();
+
+  /**
+   * Readonly signal containing the current modal configuration.
+   */
+  readonly config &#x3D; this._config.asReadonly();
+
+  /**
+   * Shows the confirmation modal and returns a Promise that resolves when the user makes a choice.
+   *
+   * @param customConfig - Partial configuration to override defaults
+   * @returns Promise that resolves to &#x60;true&#x60; if user confirms, &#x60;false&#x60; if user cancels
+   *
+   * @remarks
+   * - Merges custom configuration with default settings
+   * - Modal stays visible until user clicks confirm or cancel
+   * - Only one modal can be shown at a time (new calls override previous)
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * const result &#x3D; await this.confirmModal.confirm({
+   *   title: &#x27;Pago duplicado&#x27;,
+   *   message: &#x27;Ya existe un pago para este contrato.&#x27;,
+   *   details: {
+   *     &#x27;Contrato&#x27;: &#x27;12345&#x27;,
+   *     &#x27;Monto anterior&#x27;: &#x27;Bs. 100.00&#x27;,
+   *     &#x27;Monto nuevo&#x27;: &#x27;Bs. 150.00&#x27;
+   *   },
+   *   confirmText: &#x27;Reemplazar&#x27;,
+   *   cancelText: &#x27;Cancelar&#x27;
+   * });
+   * &#x60;&#x60;&#x60;
+   */
+  confirm(customConfig?: ConfirmationModalInput): Promise&lt;boolean&gt; {
+    return new Promise&lt;boolean&gt;((resolve) &#x3D;&gt; {
+      this._resolveCallback.set(resolve);
+      this.show(customConfig);
+    });
+  }
+
+  /**
+   * Shows the confirmation modal with custom configuration.
+   *
+   * @param customConfig - Optional custom configuration to override defaults
+   *
+   * @remarks
+   * Merges the custom configuration with default settings and makes the modal visible.
+   *
+   * @internal
+   */
+  private show(customConfig?: ConfirmationModalInput): void {
+    const mergedConfig: ConfirmationModalConfig &#x3D; {
+      ...DEFAULT_CONFIG,
+      ...customConfig,
+      details: { ...DEFAULT_CONFIG.details, ...(customConfig?.details ?? {}) },
+    };
+    this._config.set(mergedConfig);
+    this._isVisible.set(true);
+  }
+
+  /**
+   * Hides the confirmation modal without resolving the promise.
+   *
+   * @internal
+   */
+  private hide(): void {
+    this._isVisible.set(false);
+  }
+
+  /**
+   * Handles the confirm button click.
+   *
+   * @remarks
+   * Resolves the pending promise with &#x60;true&#x60; and hides the modal.
+   *
+   * @internal
+   */
+  handleConfirm(): void {
+    const resolve &#x3D; this._resolveCallback();
+    this.hide();
+    if (resolve) {
+      resolve(true);
+      this._resolveCallback.set(null);
+    }
+  }
+
+  /**
+   * Handles the cancel button click.
+   *
+   * @remarks
+   * Resolves the pending promise with &#x60;false&#x60; and hides the modal.
+   *
+   * @internal
+   */
+  handleCancel(): void {
+    const resolve &#x3D; this._resolveCallback();
+    this.hide();
+    if (resolve) {
+      resolve(false);
+      this._resolveCallback.set(null);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ConfirmationModalService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

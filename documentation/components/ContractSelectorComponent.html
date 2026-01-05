@@ -1,0 +1,652 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ContractSelectorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/features/business/components/contract-selector/contract-selector.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-contract-selector</code></td>
+            </tr>
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./contract-selector.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#isSelected" >isSelected</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#associateCode" >associateCode</a>
+                            </li>
+                            <li>
+                                <a href="#contracts" >contracts</a>
+                            </li>
+                            <li>
+                                <a href="#selectedContract" >selectedContract</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#selectContract" >selectContract</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="associateCode"></a>
+                        <b>associateCode</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/features/business/components/contract-selector/contract-selector.ts:13</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contracts"></a>
+                        <b>contracts</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Contrato.html" target="_self" >Contrato[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/features/business/components/contract-selector/contract-selector.ts:11</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectedContract"></a>
+                        <b>selectedContract</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Contrato.html" target="_self" >Contrato | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/features/business/components/contract-selector/contract-selector.ts:12</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="selectContract"></a>
+                        <b>selectContract</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Contrato.html" target="_self" >Contrato</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/features/business/components/contract-selector/contract-selector.ts:15</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSelected"></a>
+                    <span class="name">
+                        <span ><b>isSelected</b></span>
+                        <a href="#isSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isSelected(contrato: <a href="../interfaces/Contrato.html" target="_self">Contrato</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="17"
+                                    class="link-to-prism">src/app/features/business/components/contract-selector/contract-selector.ts:17</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>contrato</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Contrato.html" target="_self" >Contrato</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, input, output } from &#x27;@angular/core&#x27;;
+
+import { Contrato } from &#x27;@models/index&#x27;;
+
+@Component({
+  selector: &#x27;app-contract-selector&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: &#x27;./contract-selector.html&#x27;,
+})
+export class ContractSelectorComponent {
+  readonly contracts &#x3D; input.required&lt;Contrato[]&gt;();
+  readonly selectedContract &#x3D; input&lt;Contrato | null&gt;(null);
+  readonly associateCode &#x3D; input&lt;string&gt;(&#x27;&#x27;);
+
+  readonly selectContract &#x3D; output&lt;Contrato&gt;();
+
+  isSelected(contrato: Contrato): boolean {
+    return this.selectedContract()?.codigoContrato &#x3D;&#x3D;&#x3D; contrato.codigoContrato;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div&gt;
+  &lt;div class&#x3D;&quot;mb-4&quot;&gt;
+    &lt;p class&#x3D;&quot;mt-2 text-sm text-gray-600 dark:text-gray-400&quot;&gt;Seleccionar el contrato para consultar su deuda&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div&gt;
+    &lt;!-- Associate&#x27;s information --&gt;
+    &lt;div class&#x3D;&quot;mb-6&quot;&gt;
+      &lt;label class&#x3D;&quot;mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200&quot;&gt;Codigo del socio&lt;/label&gt;
+      &lt;input type&#x3D;&quot;text&quot; readonly class&#x3D;&quot;w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-base transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:font-semibold disabled:opacity-80 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:disabled:bg-gray-800&quot; [value]&#x3D;&quot;associateCode()&quot; /&gt;
+    &lt;/div&gt;
+
+    &lt;!-- List of contracts --&gt;
+    &lt;div class&#x3D;&quot;mb-6&quot;&gt;
+      &lt;label class&#x3D;&quot;mb-3 block text-lg font-semibold text-gray-800 dark:text-gray-200&quot;&gt; Contratos disponibles&lt;span class&#x3D;&quot;text-red-500&quot;&gt; *&lt;/span&gt;&lt;/label&gt;
+
+      &lt;div class&#x3D;&quot;space-y-3&quot;&gt;
+        @for (contract of contracts(); track contract.codigoContrato) {
+          @let selectedContract &#x3D; isSelected(contract);
+
+          &lt;div class&#x3D;&quot;relative cursor-pointer rounded-lg border-2 p-4 transition-all hover:border-blue-400 hover:shadow-md&quot; [class]&#x3D;&quot;selectedContract ? &#x27;border-blue-500 bg-blue-50 dark:bg-blue-900/20&#x27; : &#x27;border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-700&#x27;&quot; (click)&#x3D;&quot;selectContract.emit(contract)&quot;&gt;
+            &lt;!-- Radio button indicator --&gt;
+            &lt;div class&#x3D;&quot;absolute top-4 right-4&quot;&gt;
+              &lt;div class&#x3D;&quot;flex h-5 w-5 items-center justify-center rounded-full border-2&quot; [class]&#x3D;&quot;selectedContract ? &#x27;border-blue-500 bg-blue-500&#x27; : &#x27;border-gray-400&#x27;&quot;&gt;
+                @if (selectedContract) {
+                  &lt;div class&#x3D;&quot;h-2 w-2 rounded-full bg-white&quot;&gt;&lt;/div&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Contract details --&gt;
+            &lt;div class&#x3D;&quot;pr-8&quot;&gt;
+              &lt;div class&#x3D;&quot;mb-2 text-lg font-bold text-gray-800 dark:text-gray-100&quot;&gt;
+                {{ contract.datosAsociado.nombreAsociado }}
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;grid grid-cols-1 gap-2 text-sm sm:grid-cols-2&quot;&gt;
+                &lt;div class&#x3D;&quot;text-gray-600 dark:text-gray-400&quot;&gt;
+                  &lt;span class&#x3D;&quot;font-semibold&quot;&gt;Contrato:&lt;/span&gt;
+                  &lt;span&gt;{{ contract.codigoContrato }}&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;text-gray-600 dark:text-gray-400&quot;&gt;
+                  &lt;span class&#x3D;&quot;font-semibold&quot;&gt;CI:&lt;/span&gt;
+                  &lt;span&gt;{{ contract.datosAsociado.numeroDocumento }}&lt;/span&gt;
+                  @if (contract.datosAsociado.complementoDocumento) {
+                    &lt;span&gt; {{ contract.datosAsociado.complementoDocumento }}&lt;/span&gt;
+                  }
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;text-gray-600 dark:text-gray-400&quot;&gt;
+                  &lt;span class&#x3D;&quot;font-semibold&quot;&gt;Email:&lt;/span&gt;
+                  &lt;span&gt;{{ contract.datosAsociado.correoElectronico }}&lt;/span&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;text-gray-600 dark:text-gray-400&quot;&gt;
+                  &lt;span class&#x3D;&quot;font-semibold&quot;&gt;Telefono:&lt;/span&gt;
+                  &lt;span&gt;{{ contract.datosAsociado.numeroTelefono }}&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div>  <div class="mb-4">    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Seleccionar el contrato para consultar su deuda</p>  </div>  <div>    <!-- Associate\'s information -->    <div class="mb-6">      <label class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200">Codigo del socio</label>      <input type="text" readonly class="w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-base transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:font-semibold disabled:opacity-80 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:disabled:bg-gray-800" [value]="associateCode()" />    </div>    <!-- List of contracts -->    <div class="mb-6">      <label class="mb-3 block text-lg font-semibold text-gray-800 dark:text-gray-200"> Contratos disponibles<span class="text-red-500"> *</span></label>      <div class="space-y-3">        @for (contract of contracts(); track contract.codigoContrato) {          @let selectedContract = isSelected(contract);          <div class="relative cursor-pointer rounded-lg border-2 p-4 transition-all hover:border-blue-400 hover:shadow-md" [class]="selectedContract ? \'border-blue-500 bg-blue-50 dark:bg-blue-900/20\' : \'border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-700\'" (click)="selectContract.emit(contract)">            <!-- Radio button indicator -->            <div class="absolute top-4 right-4">              <div class="flex h-5 w-5 items-center justify-center rounded-full border-2" [class]="selectedContract ? \'border-blue-500 bg-blue-500\' : \'border-gray-400\'">                @if (selectedContract) {                  <div class="h-2 w-2 rounded-full bg-white"></div>                }              </div>            </div>            <!-- Contract details -->            <div class="pr-8">              <div class="mb-2 text-lg font-bold text-gray-800 dark:text-gray-100">                {{ contract.datosAsociado.nombreAsociado }}              </div>              <div class="grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">                <div class="text-gray-600 dark:text-gray-400">                  <span class="font-semibold">Contrato:</span>                  <span>{{ contract.codigoContrato }}</span>                </div>                <div class="text-gray-600 dark:text-gray-400">                  <span class="font-semibold">CI:</span>                  <span>{{ contract.datosAsociado.numeroDocumento }}</span>                  @if (contract.datosAsociado.complementoDocumento) {                    <span> {{ contract.datosAsociado.complementoDocumento }}</span>                  }                </div>                <div class="text-gray-600 dark:text-gray-400">                  <span class="font-semibold">Email:</span>                  <span>{{ contract.datosAsociado.correoElectronico }}</span>                </div>                <div class="text-gray-600 dark:text-gray-400">                  <span class="font-semibold">Telefono:</span>                  <span>{{ contract.datosAsociado.numeroTelefono }}</span>                </div>              </div>            </div>          </div>        }      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'BusinessCardComponent', 'selector': 'app-service-card'},{'name': 'CallCenterComponent', 'selector': 'app-call-center'},{'name': 'CheckoutWizardComponent', 'selector': 'app-checkout-wizard'},{'name': 'CobranzaWizardComponent', 'selector': 'app-cobranza-wizard'},{'name': 'ConfirmationModalComponent', 'selector': 'app-confirmation-modal'},{'name': 'ContactCard', 'selector': 'app-contact-card'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'ContractSelectorComponent', 'selector': 'app-contract-selector'},{'name': 'DebtTableComponent', 'selector': 'app-debt-table'},{'name': 'ErrorAlertComponent', 'selector': 'app-error-alert'},{'name': 'ErrorModalComponent', 'selector': 'app-error-modal'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'MainLayoutComponent', 'selector': 'app-main-layout'},{'name': 'NotFoundPageComponent', 'selector': 'app-not-found'},{'name': 'ProximamentePageComponent', 'selector': 'app-proximamente-page'},{'name': 'QrDisplayComponent', 'selector': 'app-qr-display'},{'name': 'SearchAssociateComponent', 'selector': 'app-search-associate'},{'name': 'StepCard', 'selector': 'app-step-card'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'WizardHeaderComponent', 'selector': 'app-wizard-header'},{'name': 'WizardNavComponent', 'selector': 'app-wizard-nav'},{'name': 'WizardProgressComponent', 'selector': 'app-wizard-progress'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ContractSelectorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ContractSelectorComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

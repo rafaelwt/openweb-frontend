@@ -1,0 +1,2956 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CobranzaWizardComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Generic multi-step wizard for cobranza (debt collection) services.</p>
+<p>Handles the following workflow:</p>
+<ol>
+<li><strong>Step 1 (BUSQUEDA)</strong>: Search for associate by debt code</li>
+<li><strong>Step 2 (SELECCION CONTRATO)</strong>: Select contract if multiple found</li>
+<li><strong>Step 3 (SELECCION DEUDAS)</strong>: Select debts to pay with cascading selection logic</li>
+</ol>
+<p><strong>Routing:</strong></p>
+<ul>
+<li>Route: <code>/servicio/:aliasServicio</code></li>
+<li>Extracts <code>aliasServicio</code> from ActivatedRoute params</li>
+<li>Only works for services with <code>formaOperaciones: &quot;C&quot;</code></li>
+<li>Redirects to &quot;proximamente&quot; page for R/P services</li>
+</ul>
+<p><strong>API Endpoints (v1 cobranzas):</strong></p>
+<ul>
+<li><code>/api/v1/cobranzas/{servicio}/contratos</code></li>
+<li><code>/api/v1/cobranzas/{servicio}/deudas</code></li>
+</ul>
+<p><strong>Key features:</strong></p>
+<ul>
+<li>Auto-advances to step 3 when only one contract is found</li>
+<li>Uses reactive forms for step 1 (searchForm)</li>
+<li>Uses signals for steps 2-3 state management</li>
+<li>Implements cascading debt selection (selecting N auto-selects 0 to N-1)</li>
+<li>Integrates with CartService to add selected debts to cart</li>
+<li>Uses Decimal.js for precise currency calculations</li>
+</ul>
+<p>See <a href="../injectables/CartService.html">CartService</a>
+See <a href="../injectables/ApiService.html">ApiService</a>
+See <a href="../interfaces/ItemCarrito.html">ItemCarrito</a></p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-cobranza-wizard</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="../components/LoadingComponent.html" target="_self" >LoadingComponent</a></code>
+                                <code><a href="../components/ErrorAlertComponent.html" target="_self" >ErrorAlertComponent</a></code>
+                                <code><a href="../components/WizardProgressComponent.html" target="_self" >WizardProgressComponent</a></code>
+                                <code><a href="../components/WizardNavComponent.html" target="_self" >WizardNavComponent</a></code>
+                                <code><a href="../components/WizardHeaderComponent.html" target="_self" >WizardHeaderComponent</a></code>
+                                <code><a href="../components/SearchAssociateComponent.html" target="_self" >SearchAssociateComponent</a></code>
+                                <code><a href="../components/ContractSelectorComponent.html" target="_self" >ContractSelectorComponent</a></code>
+                                <code><a href="../components/DebtTableComponent.html" target="_self" >DebtTableComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./cobranza-wizard.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#aliasServicio" >aliasServicio</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#api" >api</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#associateData" >associateData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#cart" >cart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#config" >config</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#confirmModal" >confirmModal</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#contracts" >contracts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#currentStep" >currentStep</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#errorModal" >errorModal</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#errors" >errors</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#fb" >fb</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#hasOutstandingDebts" >hasOutstandingDebts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#outstandingDebts" >outstandingDebts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#quantitySelectedDebts" >quantitySelectedDebts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#route" >route</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#searchForm" >searchForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#selectedContract" >selectedContract</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#selectedDebts" >selectedDebts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#stepLabel" >stepLabel</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalCommission" >totalCommission</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalGeneral" >totalGeneral</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalService" >totalService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalSteps" >totalSteps</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#addError" >addError</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addToCart" >addToCart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#canAdvance" >canAdvance</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#clearErrors" >clearErrors</a>
+                            </li>
+                            <li>
+                                <a href="#confirmContract" >confirmContract</a>
+                            </li>
+                            <li>
+                                <a href="#consultContracts" >consultContracts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#consultDebts$" >consultDebts$</a>
+                            </li>
+                            <li>
+                                <a href="#goToHome" >goToHome</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleApiError" >handleApiError</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadServicioConfig" >loadServicioConfig</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#prevStep" >prevStep</a>
+                            </li>
+                            <li>
+                                <a href="#selectContract" >selectContract</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDeuda" >toggleDeuda</a>
+                            </li>
+                            <li>
+                                <a href="#toggleTodasDeudas" >toggleTodasDeudas</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addError"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>addError</b></span>
+                        <a href="#addError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addError(message: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="551"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:551</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>message</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addToCart"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>addToCart</b></span>
+                        <a href="#addToCart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addToCart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="416"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:416</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Step 3: Adds selected debts to the shopping cart and navigates to /carrito.</p>
+<p><strong>Process:</strong></p>
+<ol>
+<li>Validates at least one debt is selected</li>
+<li>Checks for duplicate items (same service + contract)</li>
+<li>If duplicate found:<ul>
+<li>Shows confirmation modal with old vs new amounts</li>
+<li>If user cancels, aborts operation</li>
+<li>If user confirms, proceeds to replace</li>
+</ul>
+</li>
+<li>Builds DeudaSeleccionada[] from selected debts</li>
+<li>Creates DatosFacturacion from associate data</li>
+<li>Builds ItemCarrito with totals calculated via Decimal.js</li>
+<li>Adds/replaces item in cart via CartService</li>
+<li>Navigates to /carrito on success</li>
+</ol>
+<p><strong>Totals calculation:</strong></p>
+<ul>
+<li>Uses Decimal.js for precision</li>
+<li>totalServicio = sum of periodoServicio</li>
+<li>totalComision = sum of periodoComision</li>
+<li>totalGeneral = totalServicio + totalComision</li>
+</ul>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canAdvance"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>canAdvance</b></span>
+                        <a href="#canAdvance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>canAdvance()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Determines if the user can advance to the next step.</p>
+<p><strong>Validation by step:</strong></p>
+<ul>
+<li>Step 1: Debt code must not be empty</li>
+<li>Step 2: A contract must be selected</li>
+<li>Step 3: At least one debt must be selected</li>
+</ul>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> if the current step has valid data, <code>false</code> otherwise</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearErrors"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>clearErrors</b></span>
+                        <a href="#clearErrors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>clearErrors()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="555"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:555</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmContract"></a>
+                    <span class="name">
+                        <span ><b>confirmContract</b></span>
+                        <a href="#confirmContract"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>confirmContract()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="287"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:287</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Step 2: Confirms the selected contract and advances to step 3.</p>
+<p>Loads outstanding debts for the selected contract via API.
+Advances to step 3 after successful debt retrieval.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="consultContracts"></a>
+                    <span class="name">
+                        <span ><b>consultContracts</b></span>
+                        <a href="#consultContracts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>consultContracts()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="218"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:218</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Step 1: Queries contracts associated with the entered debt code.</p>
+<p><strong>Flow:</strong></p>
+<ol>
+<li>Validates debt code is not empty</li>
+<li>Calls API to fetch contracts</li>
+<li>If 1 contract found: auto-selects it and advances to step 3 (loads debts)</li>
+<li>If multiple contracts found: advances to step 2 (contract selection)</li>
+<li>If no contracts found: displays error</li>
+</ol>
+<p>Uses RxJS <code>switchMap</code> to conditionally chain debt consultation.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="consultDebts$"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>consultDebts$</b></span>
+                        <a href="#consultDebts$"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>consultDebts$(contract: <a href="../interfaces/Contrato.html" target="_self">Contrato</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="309"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:309</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>contract</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Contrato.html" target="_self" >Contrato</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToHome"></a>
+                    <span class="name">
+                        <span ><b>goToHome</b></span>
+                        <a href="#goToHome"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToHome()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="546"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:546</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleApiError"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleApiError</b></span>
+                        <a href="#handleApiError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleApiError(error: unknown, fallbackMessage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="560"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:560</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>error</td>
+                                            <td>
+                                                        <code>unknown</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>fallbackMessage</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadServicioConfig"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>loadServicioConfig</b></span>
+                        <a href="#loadServicioConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadServicioConfig()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="177"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:177</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="165"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:165</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="prevStep"></a>
+                    <span class="name">
+                        <span ><b>prevStep</b></span>
+                        <a href="#prevStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>prevStep()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="539"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:539</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectContract"></a>
+                    <span class="name">
+                        <span ><b>selectContract</b></span>
+                        <a href="#selectContract"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectContract(contract: <a href="../interfaces/Contrato.html" target="_self">Contrato</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="274"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:274</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Step 2: Sets the selected contract.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>contract</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Contrato.html" target="_self" >Contrato</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The contract to select</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDeuda"></a>
+                    <span class="name">
+                        <span ><b>toggleDeuda</b></span>
+                        <a href="#toggleDeuda"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDeuda(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, checked: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="361"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:361</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Step 3: Toggles debt selection with cascading logic.</p>
+<p><strong>Cascading rules:</strong></p>
+<ul>
+<li><strong>Selecting debt N:</strong> Auto-selects all previous debts (0 to N-1)</li>
+<li><strong>Deselecting debt N:</strong> Auto-deselects all following debts (N+1 to end)</li>
+</ul>
+<p>This ensures debts are paid in chronological order without gaps.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">// User selects debt at index 3
+toggleDeuda(3, true);
+// Result: debts [0,1,2,3] are now selected
+
+
+// User deselects debt at index 2
+toggleDeuda(2, false);
+// Result: debts [2,3,4,...] are now deselected, [0,1] remain selected</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Zero-based index of the debt to toggle</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>checked</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>New checked state</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleTodasDeudas"></a>
+                    <span class="name">
+                        <span ><b>toggleTodasDeudas</b></span>
+                        <a href="#toggleTodasDeudas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleTodasDeudas(checked: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="386"
+                                    class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:386</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Step 3: Toggles selection for all debts.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>checked</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li><code>true</code> to select all, <code>false</code> to deselect all</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="aliasServicio"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>aliasServicio</b></span>
+                        <a href="#aliasServicio"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:72</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Service alias extracted from route params.
+Used to identify which service to load and for API calls.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="api"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>api</b></span>
+                        <a href="#api"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ApiService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="associateData"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>associateData</b></span>
+                        <a href="#associateData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;DatosAsociado | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cart"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>cart</b></span>
+                        <a href="#cart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CartService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="config"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>config</b></span>
+                        <a href="#config"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;ServicioConfig | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:75</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="confirmModal"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>confirmModal</b></span>
+                        <a href="#confirmModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ConfirmationModalService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contracts"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>contracts</b></span>
+                        <a href="#contracts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Contrato[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentStep"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>currentStep</b></span>
+                        <a href="#currentStep"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(1)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:78</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorModal"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>errorModal</b></span>
+                        <a href="#errorModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ErrorModalService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errors"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>errors</b></span>
+                        <a href="#errors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fb"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>fb</b></span>
+                        <a href="#fb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(FormBuilder)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasOutstandingDebts"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>hasOutstandingDebts</b></span>
+                        <a href="#hasOutstandingDebts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.outstandingDebts().length &gt; 0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="111" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="80" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="outstandingDebts"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>outstandingDebts</b></span>
+                        <a href="#outstandingDebts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;PagoPendiente[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="quantitySelectedDebts"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>quantitySelectedDebts</b></span>
+                        <a href="#quantitySelectedDebts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.selectedDebts().filter((s) &#x3D;&gt; s).length)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="138" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:138</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed quantity of selected debts.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="route"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>route</b></span>
+                        <a href="#route"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ActivatedRoute)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchForm"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>searchForm</b></span>
+                        <a href="#searchForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.fb.group({
+    codigoDeuda: [&#x27;&#x27;],
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedContract"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>selectedContract</b></span>
+                        <a href="#selectedContract"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Contrato | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedDebts"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>selectedDebts</b></span>
+                        <a href="#selectedDebts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:94</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stepLabel"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>stepLabel</b></span>
+                        <a href="#stepLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    switch (this.currentStep()) {
+      case 1:
+        return &#x27;BUSQUEDA&#x27;;
+      case 2:
+        return &#x27;SELECCION CONTRATO&#x27;;
+      case 3:
+        return &#x27;SELECCION DEUDAS&#x27;;
+      default:
+        return &#x27;&#x27;;
+    }
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalCommission"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalCommission</b></span>
+                        <a href="#totalCommission"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const outstandingDebts &#x3D; this.outstandingDebts();
+    const selectedDebts &#x3D; this.selectedDebts();
+    return outstandingDebts
+      .filter((_, i) &#x3D;&gt; selectedDebts[i])
+      .reduce((sum, p) &#x3D;&gt; sum.plus(p.periodoComision), new Decimal(0))
+      .toDecimalPlaces(2)
+      .toNumber();
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:123</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalGeneral"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalGeneral</b></span>
+                        <a href="#totalGeneral"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; new Decimal(this.totalService()).plus(this.totalCommission()).toDecimalPlaces(2).toNumber())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="133" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:133</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalService"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalService</b></span>
+                        <a href="#totalService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const outstandingDebts &#x3D; this.outstandingDebts();
+    const selectedDebts &#x3D; this.selectedDebts();
+    return outstandingDebts
+      .filter((_, i) &#x3D;&gt; selectedDebts[i])
+      .reduce((sum, p) &#x3D;&gt; sum.plus(p.periodoServicio), new Decimal(0))
+      .toDecimalPlaces(2)
+      .toNumber();
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="113" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:113</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalSteps"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalSteps</b></span>
+                        <a href="#totalSteps"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>3</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/features/business/pages/cobranza-wizard/cobranza-wizard.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, OnInit, inject, signal, computed } from &#x27;@angular/core&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { FormBuilder } from &#x27;@angular/forms&#x27;;
+import { of, EMPTY } from &#x27;rxjs&#x27;;
+import { switchMap, tap, catchError, finalize } from &#x27;rxjs/operators&#x27;;
+
+import Decimal from &#x27;decimal.js-light&#x27;;
+
+import { ApiService, CartService, ErrorModalService, ConfirmationModalService } from &#x27;@core/services&#x27;;
+import { ServicioConfig, Contrato, DatosAsociado, PagoPendiente, ItemCarrito, DatosFacturacion, DeudaSeleccionada } from &#x27;@models/index&#x27;;
+import { LoadingComponent } from &#x27;@shared/components/loading/loading&#x27;;
+import { ErrorAlertComponent } from &#x27;@features/business/components/error-alert/error-alert&#x27;;
+import { WizardProgressComponent } from &#x27;@features/business/components/wizard-progress/wizard-progress&#x27;;
+import { WizardNavComponent } from &#x27;@features/business/components/wizard-nav/wizard-nav&#x27;;
+import { WizardHeaderComponent } from &#x27;@shared/components/wizard-header/wizard-header&#x27;;
+import { SearchAssociateComponent } from &#x27;@features/business/components/search-associate/search-associate&#x27;;
+import { ContractSelectorComponent } from &#x27;@features/business/components/contract-selector/contract-selector&#x27;;
+import { DebtTableComponent } from &#x27;@features/business/components/debt-table/debt-table&#x27;;
+
+/**
+ * Generic multi-step wizard for cobranza (debt collection) services.
+ *
+ * Handles the following workflow:
+ * 1. **Step 1 (BUSQUEDA)**: Search for associate by debt code
+ * 2. **Step 2 (SELECCION CONTRATO)**: Select contract if multiple found
+ * 3. **Step 3 (SELECCION DEUDAS)**: Select debts to pay with cascading selection logic
+ *
+ * @remarks
+ * **Routing:**
+ * - Route: &#x60;/servicio/:aliasServicio&#x60;
+ * - Extracts &#x60;aliasServicio&#x60; from ActivatedRoute params
+ * - Only works for services with &#x60;formaOperaciones: &quot;C&quot;&#x60;
+ * - Redirects to &quot;proximamente&quot; page for R/P services
+ *
+ * **API Endpoints (v1 cobranzas):**
+ * - &#x60;/api/v1/cobranzas/{servicio}/contratos&#x60;
+ * - &#x60;/api/v1/cobranzas/{servicio}/deudas&#x60;
+ *
+ * **Key features:**
+ * - Auto-advances to step 3 when only one contract is found
+ * - Uses reactive forms for step 1 (searchForm)
+ * - Uses signals for steps 2-3 state management
+ * - Implements cascading debt selection (selecting N auto-selects 0 to N-1)
+ * - Integrates with CartService to add selected debts to cart
+ * - Uses Decimal.js for precise currency calculations
+ *
+ * @selector app-cobranza-wizard
+ *
+ * @see {@link CartService}
+ * @see {@link ApiService}
+ * @see {@link ItemCarrito}
+ */
+@Component({
+  selector: &#x27;app-cobranza-wizard&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: &#x27;./cobranza-wizard.html&#x27;,
+  imports: [LoadingComponent, ErrorAlertComponent, WizardProgressComponent, WizardNavComponent, WizardHeaderComponent, SearchAssociateComponent, ContractSelectorComponent, DebtTableComponent],
+})
+export class CobranzaWizardComponent implements OnInit {
+  private readonly api &#x3D; inject(ApiService);
+  private readonly cart &#x3D; inject(CartService);
+  private readonly router &#x3D; inject(Router);
+  private readonly route &#x3D; inject(ActivatedRoute);
+  private readonly errorModal &#x3D; inject(ErrorModalService);
+  private readonly confirmModal &#x3D; inject(ConfirmationModalService);
+  private readonly fb &#x3D; inject(FormBuilder);
+
+  /**
+   * Service alias extracted from route params.
+   * Used to identify which service to load and for API calls.
+   */
+  private aliasServicio &#x3D; &#x27;&#x27;;
+
+  // Service configuration
+  protected readonly config &#x3D; signal&lt;ServicioConfig | null&gt;(null);
+
+  // Wizard status
+  protected readonly currentStep &#x3D; signal(1);
+  protected readonly totalSteps &#x3D; 3;
+  protected readonly loading &#x3D; signal(false);
+  protected readonly errors &#x3D; signal&lt;string[]&gt;([]);
+
+  // Reactive Form - Step 1
+  protected readonly searchForm &#x3D; this.fb.group({
+    codigoDeuda: [&#x27;&#x27;],
+  });
+
+  // Form Data - Step 2
+  protected readonly contracts &#x3D; signal&lt;Contrato[]&gt;([]);
+  protected readonly selectedContract &#x3D; signal&lt;Contrato | null&gt;(null);
+
+  // Form Data - Step 3
+  protected readonly outstandingDebts &#x3D; signal&lt;PagoPendiente[]&gt;([]);
+  protected readonly selectedDebts &#x3D; signal&lt;boolean[]&gt;([]);
+  protected readonly associateData &#x3D; signal&lt;DatosAsociado | null&gt;(null);
+
+  // Computed
+  protected readonly stepLabel &#x3D; computed(() &#x3D;&gt; {
+    switch (this.currentStep()) {
+      case 1:
+        return &#x27;BUSQUEDA&#x27;;
+      case 2:
+        return &#x27;SELECCION CONTRATO&#x27;;
+      case 3:
+        return &#x27;SELECCION DEUDAS&#x27;;
+      default:
+        return &#x27;&#x27;;
+    }
+  });
+
+  protected readonly hasOutstandingDebts &#x3D; computed(() &#x3D;&gt; this.outstandingDebts().length &gt; 0);
+
+  protected readonly totalService &#x3D; computed(() &#x3D;&gt; {
+    const outstandingDebts &#x3D; this.outstandingDebts();
+    const selectedDebts &#x3D; this.selectedDebts();
+    return outstandingDebts
+      .filter((_, i) &#x3D;&gt; selectedDebts[i])
+      .reduce((sum, p) &#x3D;&gt; sum.plus(p.periodoServicio), new Decimal(0))
+      .toDecimalPlaces(2)
+      .toNumber();
+  });
+
+  protected readonly totalCommission &#x3D; computed(() &#x3D;&gt; {
+    const outstandingDebts &#x3D; this.outstandingDebts();
+    const selectedDebts &#x3D; this.selectedDebts();
+    return outstandingDebts
+      .filter((_, i) &#x3D;&gt; selectedDebts[i])
+      .reduce((sum, p) &#x3D;&gt; sum.plus(p.periodoComision), new Decimal(0))
+      .toDecimalPlaces(2)
+      .toNumber();
+  });
+
+  protected readonly totalGeneral &#x3D; computed(() &#x3D;&gt; new Decimal(this.totalService()).plus(this.totalCommission()).toDecimalPlaces(2).toNumber());
+
+  /**
+   * Computed quantity of selected debts.
+   */
+  protected readonly quantitySelectedDebts &#x3D; computed(() &#x3D;&gt; this.selectedDebts().filter((s) &#x3D;&gt; s).length);
+
+  /**
+   * Determines if the user can advance to the next step.
+   *
+   * @returns &#x60;true&#x60; if the current step has valid data, &#x60;false&#x60; otherwise
+   *
+   * @remarks
+   * **Validation by step:**
+   * - Step 1: Debt code must not be empty
+   * - Step 2: A contract must be selected
+   * - Step 3: At least one debt must be selected
+   */
+  protected canAdvance(): boolean {
+    const step &#x3D; this.currentStep();
+    switch (step) {
+      case 1:
+        return (this.searchForm.get(&#x27;codigoDeuda&#x27;)?.value ?? &#x27;&#x27;).trim().length &gt; 0;
+      case 2:
+        return this.selectedContract() !&#x3D;&#x3D; null;
+      case 3:
+        return this.quantitySelectedDebts() &gt; 0;
+      default:
+        return false;
+    }
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) &#x3D;&gt; {
+      const alias &#x3D; params.get(&#x27;aliasServicio&#x27;);
+      if (alias) {
+        this.aliasServicio &#x3D; alias;
+        this.loadServicioConfig();
+      } else {
+        this.router.navigate([&#x27;/&#x27;]);
+      }
+    });
+  }
+
+  private loadServicioConfig(): void {
+    this.loading.set(true);
+    this.api.getServiceConfig(this.aliasServicio).subscribe({
+      next: (response) &#x3D;&gt; {
+        if (response?.success &amp;&amp; response.data) {
+          const config &#x3D; response.data;
+
+          // Validate formaOperaciones - only &quot;C&quot; (cobranza) is supported
+          if (config.formaOperaciones !&#x3D;&#x3D; &#x27;C&#x27;) {
+            this.router.navigate([&#x27;/servicio&#x27;, this.aliasServicio, &#x27;proximamente&#x27;]);
+            return;
+          }
+
+          this.config.set(config);
+        } else {
+          this.addError(&#x27;Servicio no encontrado&#x27;);
+        }
+        this.loading.set(false);
+      },
+      error: (error: unknown) &#x3D;&gt; {
+        this.handleApiError(error, &#x27;Error al cargar configuración del servicio&#x27;);
+        this.loading.set(false);
+      },
+    });
+  }
+
+  /**
+   * Step 1: Queries contracts associated with the entered debt code.
+   *
+   * @remarks
+   * **Flow:**
+   * 1. Validates debt code is not empty
+   * 2. Calls API to fetch contracts
+   * 3. If 1 contract found: auto-selects it and advances to step 3 (loads debts)
+   * 4. If multiple contracts found: advances to step 2 (contract selection)
+   * 5. If no contracts found: displays error
+   *
+   * Uses RxJS &#x60;switchMap&#x60; to conditionally chain debt consultation.
+   *
+   * @internal
+   */
+  consultContracts(): void {
+    if (this.loading()) return;
+    const debtCode &#x3D; this.searchForm.get(&#x27;codigoDeuda&#x27;)?.value ?? &#x27;&#x27;;
+    if (!debtCode.trim()) {
+      this.addError(&#x27;Ingrese el código de socio&#x27;);
+      return;
+    }
+
+    this.loading.set(true);
+    this.clearErrors();
+
+    this.api
+      .consultCollectionContracts(
+        {
+          codigoEncriptado: &#x27;&#x27;,
+          medioPago: &#x27;Q&#x27;,
+          codigoDeuda: debtCode,
+        },
+        this.aliasServicio,
+      )
+      .pipe(
+        switchMap((response) &#x3D;&gt; {
+          // 1. Validate response
+          if (!response?.success || !response.data?.contratosAsociado?.length) {
+            this.addError(&#x27;No se encontraron contratos&#x27;);
+            return of(null);
+          }
+
+          const contracts &#x3D; response.data.contratosAsociado;
+          this.contracts.set(contracts);
+
+          // 2. Branching: 1 contract → step 3, multiple → step 2
+          if (contracts.length &#x3D;&#x3D;&#x3D; 1) {
+            this.selectedContract.set(contracts[0]);
+            return this.consultDebts$(contracts[0]);
+          }
+
+          this.currentStep.set(2);
+          return of(null);
+        }),
+        catchError((error: unknown) &#x3D;&gt; {
+          this.handleApiError(error, &#x27;Error al consultar contratos&#x27;);
+          return EMPTY;
+        }),
+        finalize(() &#x3D;&gt; this.loading.set(false)),
+      )
+      .subscribe();
+  }
+
+  /**
+   * Step 2: Sets the selected contract.
+   *
+   * @param contract - The contract to select
+   *
+   * @internal
+   */
+  selectContract(contract: Contrato): void {
+    this.selectedContract.set(contract);
+  }
+
+  /**
+   * Step 2: Confirms the selected contract and advances to step 3.
+   *
+   * @remarks
+   * Loads outstanding debts for the selected contract via API.
+   * Advances to step 3 after successful debt retrieval.
+   *
+   * @internal
+   */
+  confirmContract(): void {
+    const contract &#x3D; this.selectedContract();
+    if (!contract) {
+      this.addError(&#x27;Seleccione un contrato&#x27;);
+      return;
+    }
+
+    this.loading.set(true);
+    this.clearErrors();
+
+    this.consultDebts$(contract)
+      .pipe(
+        catchError((error: unknown) &#x3D;&gt; {
+          this.handleApiError(error, &#x27;Error al consultar deudas&#x27;);
+          return EMPTY;
+        }),
+        finalize(() &#x3D;&gt; this.loading.set(false)),
+      )
+      .subscribe();
+  }
+
+  // Observable for checking debts (reusable)
+  private consultDebts$(contract: Contrato) {
+    return this.api
+      .consultCollectionDebts(
+        {
+          codigoContrato: contract.codigoContrato,
+          checksumContrato: contract.checksumContrato,
+        },
+        this.aliasServicio,
+      )
+      .pipe(
+        tap((response) &#x3D;&gt; {
+          if (response?.success &amp;&amp; response.data?.pagosPendientes) {
+            const outstandingDebts &#x3D; response.data.pagosPendientes;
+            this.outstandingDebts.set(outstandingDebts);
+            this.associateData.set(contract.datosAsociado);
+            this.selectedDebts.set(outstandingDebts.map(() &#x3D;&gt; true));
+            this.currentStep.set(3);
+          } else {
+            this.outstandingDebts.set([]);
+            this.selectedDebts.set([]);
+            this.currentStep.set(3);
+          }
+        }),
+      );
+  }
+
+  /**
+   * Step 3: Toggles debt selection with cascading logic.
+   *
+   * @param index - Zero-based index of the debt to toggle
+   * @param checked - New checked state
+   *
+   * @remarks
+   * **Cascading rules:**
+   * - **Selecting debt N:** Auto-selects all previous debts (0 to N-1)
+   * - **Deselecting debt N:** Auto-deselects all following debts (N+1 to end)
+   *
+   * This ensures debts are paid in chronological order without gaps.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * // User selects debt at index 3
+   * toggleDeuda(3, true);
+   * // Result: debts [0,1,2,3] are now selected
+   *
+   * // User deselects debt at index 2
+   * toggleDeuda(2, false);
+   * // Result: debts [2,3,4,...] are now deselected, [0,1] remain selected
+   * &#x60;&#x60;&#x60;
+   *
+   * @internal
+   */
+  toggleDeuda(index: number, checked: boolean): void {
+    const selectedDebts &#x3D; [...this.selectedDebts()];
+
+    if (checked) {
+      // CASCADE SELECTION: When you select N, auto-select all the previous ones (0 to N-1)
+      for (let i &#x3D; 0; i &lt;&#x3D; index; i++) {
+        selectedDebts[i] &#x3D; true;
+      }
+    } else {
+      // CASCADE DESELECTION: When you deselect N, automatically deselect all the following ones (N+1 to end)
+      for (let i &#x3D; index; i &lt; selectedDebts.length; i++) {
+        selectedDebts[i] &#x3D; false;
+      }
+    }
+
+    this.selectedDebts.set(selectedDebts);
+  }
+
+  /**
+   * Step 3: Toggles selection for all debts.
+   *
+   * @param checked - &#x60;true&#x60; to select all, &#x60;false&#x60; to deselect all
+   *
+   * @internal
+   */
+  toggleTodasDeudas(checked: boolean): void {
+    const selectedDebts &#x3D; this.outstandingDebts().map(() &#x3D;&gt; checked);
+    this.selectedDebts.set(selectedDebts);
+  }
+
+  /**
+   * Step 3: Adds selected debts to the shopping cart and navigates to /carrito.
+   *
+   * @remarks
+   * **Process:**
+   * 1. Validates at least one debt is selected
+   * 2. Checks for duplicate items (same service + contract)
+   * 3. If duplicate found:
+   *    - Shows confirmation modal with old vs new amounts
+   *    - If user cancels, aborts operation
+   *    - If user confirms, proceeds to replace
+   * 4. Builds DeudaSeleccionada[] from selected debts
+   * 5. Creates DatosFacturacion from associate data
+   * 6. Builds ItemCarrito with totals calculated via Decimal.js
+   * 7. Adds/replaces item in cart via CartService
+   * 8. Navigates to /carrito on success
+   *
+   * **Totals calculation:**
+   * - Uses Decimal.js for precision
+   * - totalServicio &#x3D; sum of periodoServicio
+   * - totalComision &#x3D; sum of periodoComision
+   * - totalGeneral &#x3D; totalServicio + totalComision
+   *
+   * @internal
+   */
+  async addToCart(): Promise&lt;void&gt; {
+    if (this.quantitySelectedDebts() &#x3D;&#x3D;&#x3D; 0) {
+      this.addError(&#x27;Seleccione al menos una deuda&#x27;);
+      return;
+    }
+
+    const selectedContract &#x3D; this.selectedContract();
+    const associateData &#x3D; this.associateData();
+    const cfg &#x3D; this.config();
+
+    if (!selectedContract || !associateData || !cfg) {
+      this.addError(&#x27;Datos incompletos&#x27;);
+      return;
+    }
+
+    // Validate currency
+    const currencyValidation &#x3D; this.cart.canAddItemWithCurrency(cfg.abreviacionMoneda);
+
+    if (!currencyValidation.canAdd) {
+      // Show error modal with currency mismatch details
+      this.errorModal.showWarning({
+        code: &#x27;WARN_CURRENCY&#x27;,
+        message: &#x60;El carrito contiene pagos en ${currencyValidation.existingCurrency}. No se pueden mezclar diferentes monedas en una misma transacción.&#x60;,
+        details: {
+          &#x27;Moneda del carrito&#x27;: currencyValidation.existingCurrency ?? &#x27;&#x27;,
+          &#x27;Moneda del nuevo pago&#x27;: cfg.abreviacionMoneda,
+          Servicio: cfg.nombreServicio,
+          Contrato: selectedContract.codigoContrato,
+        },
+        buttonText: &#x27;Entendido&#x27;,
+        redirectToMain: false,
+      });
+      return;
+    }
+
+    // Check for duplicates
+    const duplicateIndex &#x3D; this.cart.findDuplicateIndex(cfg.aliasServicio, selectedContract.codigoContrato);
+
+    if (duplicateIndex !&#x3D;&#x3D; -1) {
+      // Duplicate found - show confirmation modal
+      const existingItem &#x3D; this.cart.items()[duplicateIndex];
+
+      const confirmed &#x3D; await this.confirmModal.confirm({
+        title: &#x27;Pago duplicado detectado&#x27;,
+        message: &#x60;Ya existe un pago pendiente para el contrato &quot;${selectedContract.codigoContrato}&quot; del servicio &quot;${cfg.nombreServicio}&quot;. Si continúa, el pago anterior será reemplazado por esta nueva selección.&#x60;,
+        details: {
+          Contrato: selectedContract.codigoContrato,
+          Socio: associateData.nombreAsociado,
+          &#x27;Monto anterior&#x27;: &#x60;${cfg.abreviacionMoneda} ${existingItem.totalGeneral.toFixed(2)}&#x60;,
+          &#x27;Monto nuevo&#x27;: &#x60;${cfg.abreviacionMoneda} ${this.totalGeneral().toFixed(2)}&#x60;,
+        },
+        confirmText: &#x27;Continuar y reemplazar&#x27;,
+        cancelText: &#x27;Cancelar&#x27;,
+      });
+
+      if (!confirmed) {
+        // User cancelled - do nothing
+        return;
+      }
+
+      // User confirmed - will replace below
+    }
+
+    // Build selected debts
+    const outstandingDebts &#x3D; this.outstandingDebts();
+    const selectedDebts &#x3D; this.selectedDebts();
+    const debtsForCart: DeudaSeleccionada[] &#x3D; outstandingDebts
+      .filter((_, i) &#x3D;&gt; selectedDebts[i])
+      .map((p) &#x3D;&gt; ({
+        documentoPago: p.documentoPago,
+        periodoGestion: p.periodoGestion,
+        periodoMes: p.periodoMes,
+        periodoCobro: p.periodoCobro,
+        periodoServicio: p.periodoServicio,
+        periodoComision: p.periodoComision,
+        periodoTotal: p.periodoTotal,
+        periodoCode: p.periodoCode,
+      }));
+
+    // Build billing data
+    const billingData: DatosFacturacion &#x3D; {
+      tipoDocumento: associateData.tipoDocumento,
+      complementoDocumento: associateData.complementoDocumento,
+      numeroDocumento: associateData.numeroDocumento,
+      nombreRazonsocial: associateData.nombreRazonsocial,
+      correoElectronico: associateData.correoElectronico,
+      numeroTelefono: associateData.numeroTelefono,
+    };
+
+    // Build cart item
+    const itemCart: ItemCarrito &#x3D; {
+      fechaAdicion: Date.now(),
+      aliasServicio: cfg.aliasServicio,
+      nombreServicio: cfg.nombreServicio,
+      abreviacionMoneda: cfg.abreviacionMoneda,
+      descripcionDocOficial: cfg.descripcionDocOficial,
+      codigoDeuda: this.searchForm.get(&#x27;codigoDeuda&#x27;)?.value ?? &#x27;&#x27;,
+      codigoContrato: selectedContract.codigoContrato,
+      nombreAsociado: associateData.nombreAsociado,
+      datosFacturacion: billingData,
+      totalServicio: this.totalService(),
+      totalComision: this.totalCommission(),
+      totalGeneral: this.totalGeneral(),
+      deudasSeleccionadas: debtsForCart,
+    };
+
+    // Add or replace in cart
+    let success &#x3D; false;
+    if (duplicateIndex !&#x3D;&#x3D; -1) {
+      success &#x3D; this.cart.replaceItem(duplicateIndex, itemCart);
+    } else {
+      success &#x3D; this.cart.addItem(itemCart);
+    }
+
+    if (success) {
+      // Redirect to cart
+      this.router.navigate([&#x27;/carrito&#x27;]);
+    } else {
+      this.addError(&#x27;Error al agregar al carrito&#x27;);
+    }
+  }
+
+  // Navigation
+  prevStep(): void {
+    if (this.currentStep() &gt; 1) {
+      this.clearErrors();
+      this.currentStep.update((s) &#x3D;&gt; s - 1);
+    }
+  }
+
+  goToHome(): void {
+    this.router.navigate([&#x27;/&#x27;]);
+  }
+
+  // Errores
+  private addError(message: string): void {
+    this.errors.update((errs) &#x3D;&gt; [...errs, message]);
+  }
+
+  private clearErrors(): void {
+    this.errors.set([]);
+  }
+
+  // API error handling
+  private handleApiError(error: unknown, fallbackMessage: string): void {
+    if (!this.errorModal.handleHttpError(error)) {
+      this.addError(fallbackMessage);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;main class&#x3D;&quot;dark:bg-gray-900&quot;&gt;
+  &lt;div class&#x3D;&quot;mx-auto max-w-7xl px-4 sm:px-6 lg:px-8&quot;&gt;
+    &lt;!-- Loading overlay --&gt;
+    @if (loading()) {
+      &lt;div class&#x3D;&quot;fixed inset-0 z-50 flex items-center justify-center bg-black/50&quot;&gt;
+        &lt;app-loading size&#x3D;&quot;lg&quot; text&#x3D;&quot;Procesando...&quot;&gt;&lt;/app-loading&gt;
+      &lt;/div&gt;
+    }
+
+    &lt;!-- Cart wizard --&gt;
+    &lt;div class&#x3D;&quot;relative mx-auto max-w-250 py-5&quot;&gt;
+      &lt;!-- Page title --&gt;
+      &lt;app-wizard-header [cardTitle]&#x3D;&quot;config()?.nombreServicio&quot; (buttonClose)&#x3D;&quot;goToHome()&quot; /&gt;
+
+      &lt;!-- Wizard container --&gt;
+      &lt;div class&#x3D;&quot;relative overflow-visible rounded-lg bg-gray-100 p-4 shadow-md sm:p-8 dark:bg-gray-800&quot;&gt;
+        &lt;!-- Progress bar + Badge --&gt;
+        &lt;app-wizard-progress [currentStep]&#x3D;&quot;currentStep()&quot; [totalSteps]&#x3D;&quot;totalSteps&quot; [stepLabel]&#x3D;&quot;stepLabel()&quot; /&gt;
+
+        &lt;!-- Error alerts --&gt;
+        &lt;app-error-alert [errors]&#x3D;&quot;errors()&quot; /&gt;
+
+        &lt;!-- Step-by-step content --&gt;
+        @switch (currentStep()) {
+          &lt;!-- STEP 1: Enter associate code --&gt;
+          @case (1) {
+            &lt;app-search-associate [form]&#x3D;&quot;searchForm&quot; [isLoading]&#x3D;&quot;loading()&quot; (search)&#x3D;&quot;consultContracts()&quot; /&gt;
+          }
+
+          &lt;!-- STEP 2: Select contract --&gt;
+          @case (2) {
+            &lt;app-contract-selector [contracts]&#x3D;&quot;contracts()&quot; [selectedContract]&#x3D;&quot;selectedContract()&quot; [associateCode]&#x3D;&quot;searchForm.get(&#x27;codigoDeuda&#x27;)?.value ?? &#x27;&#x27;&quot; (selectContract)&#x3D;&quot;selectContract($event)&quot; /&gt;
+
+            &lt;app-wizard-nav [loading]&#x3D;&quot;loading()&quot; [canAdvance]&#x3D;&quot;selectedContract() !&#x3D;&#x3D; null&quot; [showBack]&#x3D;&quot;true&quot; nextLabel&#x3D;&quot;Consultar contrato&quot; (backButton)&#x3D;&quot;prevStep()&quot; (nextButton)&#x3D;&quot;confirmContract()&quot; /&gt;
+          }
+
+          &lt;!-- STEP 3: Debt table (Selection) --&gt;
+          @case (3) {
+            &lt;app-debt-table [outstandingDebts]&#x3D;&quot;outstandingDebts()&quot; [selectedDebts]&#x3D;&quot;selectedDebts()&quot; [currencyAbbreviation]&#x3D;&quot;config()?.abreviacionMoneda ?? &#x27;Bs&#x27;&quot; [officialDocDescription]&#x3D;&quot;config()?.descripcionDocOficial ?? &#x27;Factura&#x27;&quot; [associateCode]&#x3D;&quot;searchForm.get(&#x27;codigoDeuda&#x27;)?.value ?? &#x27;&#x27;&quot; [associateData]&#x3D;&quot;associateData()&quot; (toggleOne)&#x3D;&quot;toggleDeuda($event.index, $event.checked)&quot; (toggleAll)&#x3D;&quot;toggleTodasDeudas($event)&quot; /&gt;
+
+            &lt;app-wizard-nav [loading]&#x3D;&quot;loading()&quot; [canAdvance]&#x3D;&quot;quantitySelectedDebts() &gt; 0&quot; [showBack]&#x3D;&quot;true&quot; nextLabel&#x3D;&quot;Agregar al carrito&quot; nextIcon&#x3D;&quot;cart&quot; (backButton)&#x3D;&quot;prevStep()&quot; (nextButton)&#x3D;&quot;addToCart()&quot; /&gt;
+          }
+        }
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/main&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><main class="dark:bg-gray-900">  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">    <!-- Loading overlay -->    @if (loading()) {      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">        <app-loading size="lg" text="Procesando..."></app-loading>      </div>    }    <!-- Cart wizard -->    <div class="relative mx-auto max-w-250 py-5">      <!-- Page title -->      <app-wizard-header [cardTitle]="config()?.nombreServicio" (buttonClose)="goToHome()" />      <!-- Wizard container -->      <div class="relative overflow-visible rounded-lg bg-gray-100 p-4 shadow-md sm:p-8 dark:bg-gray-800">        <!-- Progress bar + Badge -->        <app-wizard-progress [currentStep]="currentStep()" [totalSteps]="totalSteps" [stepLabel]="stepLabel()" />        <!-- Error alerts -->        <app-error-alert [errors]="errors()" />        <!-- Step-by-step content -->        @switch (currentStep()) {          <!-- STEP 1: Enter associate code -->          @case (1) {            <app-search-associate [form]="searchForm" [isLoading]="loading()" (search)="consultContracts()" />          }          <!-- STEP 2: Select contract -->          @case (2) {            <app-contract-selector [contracts]="contracts()" [selectedContract]="selectedContract()" [associateCode]="searchForm.get(\'codigoDeuda\')?.value ?? \'\'" (selectContract)="selectContract($event)" />            <app-wizard-nav [loading]="loading()" [canAdvance]="selectedContract() !== null" [showBack]="true" nextLabel="Consultar contrato" (backButton)="prevStep()" (nextButton)="confirmContract()" />          }          <!-- STEP 3: Debt table (Selection) -->          @case (3) {            <app-debt-table [outstandingDebts]="outstandingDebts()" [selectedDebts]="selectedDebts()" [currencyAbbreviation]="config()?.abreviacionMoneda ?? \'Bs\'" [officialDocDescription]="config()?.descripcionDocOficial ?? \'Factura\'" [associateCode]="searchForm.get(\'codigoDeuda\')?.value ?? \'\'" [associateData]="associateData()" (toggleOne)="toggleDeuda($event.index, $event.checked)" (toggleAll)="toggleTodasDeudas($event)" />            <app-wizard-nav [loading]="loading()" [canAdvance]="quantitySelectedDebts() > 0" [showBack]="true" nextLabel="Agregar al carrito" nextIcon="cart" (backButton)="prevStep()" (nextButton)="addToCart()" />          }        }      </div>    </div>  </div></main></div>'
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'BusinessCardComponent', 'selector': 'app-service-card'},{'name': 'CallCenterComponent', 'selector': 'app-call-center'},{'name': 'CheckoutWizardComponent', 'selector': 'app-checkout-wizard'},{'name': 'CobranzaWizardComponent', 'selector': 'app-cobranza-wizard'},{'name': 'ConfirmationModalComponent', 'selector': 'app-confirmation-modal'},{'name': 'ContactCard', 'selector': 'app-contact-card'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'ContractSelectorComponent', 'selector': 'app-contract-selector'},{'name': 'DebtTableComponent', 'selector': 'app-debt-table'},{'name': 'ErrorAlertComponent', 'selector': 'app-error-alert'},{'name': 'ErrorModalComponent', 'selector': 'app-error-modal'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'MainLayoutComponent', 'selector': 'app-main-layout'},{'name': 'NotFoundPageComponent', 'selector': 'app-not-found'},{'name': 'ProximamentePageComponent', 'selector': 'app-proximamente-page'},{'name': 'QrDisplayComponent', 'selector': 'app-qr-display'},{'name': 'SearchAssociateComponent', 'selector': 'app-search-associate'},{'name': 'StepCard', 'selector': 'app-step-card'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'WizardHeaderComponent', 'selector': 'app-wizard-header'},{'name': 'WizardNavComponent', 'selector': 'app-wizard-nav'},{'name': 'WizardProgressComponent', 'selector': 'app-wizard-progress'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CobranzaWizardComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CobranzaWizardComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

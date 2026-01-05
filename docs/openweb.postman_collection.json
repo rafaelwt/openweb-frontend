@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "def1abe0-6b67-4f3d-a9ca-4eb81557f655",
+		"name": "openweb",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4574044",
+		"_collection_link": "https://galactic-shadow-736387.postman.co/workspace/REDIS~76bfe2b3-736c-4e9c-a1f6-85c0e6b7157b/collection/4574044-def1abe0-6b67-4f3d-a9ca-4eb81557f655?action=share&source=collection_link&creator=4574044"
+	},
+	"item": [
+		{
+			"name": "health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "services",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/v1/services",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deudas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"codigoContrato\": \"CONT-3737-001\",\r\n  \"checksumContrato\": \"05fd185258ee4b8656f7dc0e29661c432e9ee8cab58f85ef2bc432c25a17e96c3737\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/v1/services/coopappi/deudas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"services",
+						"coopappi",
+						"deudas"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

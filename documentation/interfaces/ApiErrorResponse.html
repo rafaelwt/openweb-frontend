@@ -1,0 +1,691 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  ApiErrorResponse</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/services/error-modal.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>API error response structure from backend.</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#code" 
+>
+                                            code
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#details" 
+>
+                                            details
+                                        </a>
+                                </li>
+                                <li>
+                                            <span class="modifier">Optional</span>
+                                        <a href="#message" 
+>
+                                            message
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#type" 
+>
+                                            type
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="code"></a>
+                                        <span class="name "><b>code</b>
+                                            <a href="#code">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>code:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="details"></a>
+                                        <span class="name "><b>details</b>
+                                            <a href="#details">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>details:     <code>Record&lt;string | string&gt;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>Record&lt;string | string&gt;</code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="message"></a>
+                                        <span class="name "><b>message</b>
+                                            <a href="#message">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>message:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Optional</i>
+                                        </td>
+                                    </tr>
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="type"></a>
+                                        <span class="name "><b>type</b>
+                                            <a href="#type">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>type:         <code><a href="../miscellaneous/typealiases.html#ErrorType" target="_self" >ErrorType</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ErrorType" target="_self" >ErrorType</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, inject, signal, computed } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { HttpErrorResponse } from &#x27;@angular/common/http&#x27;;
+import { ErrorType, ErrorModalConfig, ErrorModalInput } from &#x27;../models/error-modal.model&#x27;;
+
+/**
+ * API error response structure from backend.
+ *
+ * @internal
+ */
+interface ApiErrorResponse {
+  type: ErrorType;
+  code?: string;
+  message?: string;
+  details?: Record&lt;string, string&gt;;
+}
+
+/**
+ * Default configurations for each error type.
+ *
+ * @remarks
+ * Provides pre-configured styling and behavior based on severity level.
+ *
+ * @internal
+ */
+const DEFAULT_CONFIGS: Record&lt;ErrorType, ErrorModalConfig&gt; &#x3D; {
+  error: {
+    type: &#x27;error&#x27;,
+    code: &#x27;ERR_500&#x27;,
+    message: &#x27;Se ha producido un error crítico en el sistema que impide continuar con la operación actual.&#x27;,
+    details: {},
+    buttonText: &#x27;Volver al inicio&#x27;,
+    redirectToMain: true,
+    headerClass: &#x27;bg-red-50 dark:bg-red-900&#x27;,
+    iconClass: &#x27;bg-red-600 text-white&#x27;,
+    buttonClass: &#x27;bg-red-600 hover:bg-red-700&#x27;,
+    borderClass: &#x27;border-red-300 dark:border-red-700&#x27;,
+  },
+  warning: {
+    type: &#x27;warning&#x27;,
+    code: &#x27;WARN_400&#x27;,
+    message: &#x27;Se ha detectado una situación que requiere su atención antes de continuar.&#x27;,
+    details: {},
+    buttonText: &#x27;Entendido&#x27;,
+    redirectToMain: false,
+    headerClass: &#x27;bg-amber-50 dark:bg-amber-900&#x27;,
+    iconClass: &#x27;bg-amber-500 text-white&#x27;,
+    buttonClass: &#x27;bg-amber-500 hover:bg-amber-600&#x27;,
+    borderClass: &#x27;border-amber-300 dark:border-amber-700&#x27;,
+  },
+  alert: {
+    type: &#x27;alert&#x27;,
+    code: &#x27;ALERT_300&#x27;,
+    message: &#x27;El sistema ha detectado una actividad inusual que debe ser revisada.&#x27;,
+    details: {},
+    buttonText: &#x27;Continuar&#x27;,
+    redirectToMain: false,
+    headerClass: &#x27;bg-gray-50 dark:bg-gray-800&#x27;,
+    iconClass: &#x27;bg-gray-600 text-white&#x27;,
+    buttonClass: &#x27;bg-gray-600 hover:bg-gray-700&#x27;,
+    borderClass: &#x27;border-gray-300 dark:border-gray-600&#x27;,
+  },
+  info: {
+    type: &#x27;info&#x27;,
+    code: &#x27;INFO_100&#x27;,
+    message: &#x27;Le informamos sobre una circunstancia importante del sistema.&#x27;,
+    details: {},
+    buttonText: &#x27;Aceptar&#x27;,
+    redirectToMain: false,
+    headerClass: &#x27;bg-blue-50 dark:bg-blue-900&#x27;,
+    iconClass: &#x27;bg-blue-600 text-white&#x27;,
+    buttonClass: &#x27;bg-blue-600 hover:bg-blue-700&#x27;,
+    borderClass: &#x27;border-blue-300 dark:border-blue-700&#x27;,
+  },
+};
+
+/**
+ * Manages the error modal component state and configuration.
+ *
+ * Provides methods to show different types of error/warning/info modals with customizable content.
+ * Automatically handles HTTP errors from API responses.
+ *
+ * @remarks
+ * - Uses reactive signals for modal visibility and configuration
+ * - Supports 4 severity levels: error, warning, alert, info
+ * - Can auto-redirect to home page after dismissal (configurable)
+ * - Extracts structured errors from HttpErrorResponse automatically
+ *
+ * @see {@link ErrorModalConfig}
+ * @see {@link ErrorModalComponent}
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+export class ErrorModalService {
+  private readonly router &#x3D; inject(Router);
+
+  private readonly _isVisible &#x3D; signal(false);
+  private readonly _config &#x3D; signal&lt;ErrorModalConfig&gt;(DEFAULT_CONFIGS.error);
+
+  /**
+   * Readonly signal indicating whether the modal is currently visible.
+   */
+  readonly isVisible &#x3D; this._isVisible.asReadonly();
+
+  /**
+   * Readonly signal containing the current modal configuration.
+   */
+  readonly config &#x3D; this._config.asReadonly();
+
+  /**
+   * Computed signal for modal title based on error type.
+   */
+  readonly title &#x3D; computed(() &#x3D;&gt; {
+    const type &#x3D; this._config().type;
+    const titles: Record&lt;ErrorType, string&gt; &#x3D; {
+      error: &#x27;Error Crítico&#x27;,
+      warning: &#x27;Advertencia&#x27;,
+      alert: &#x27;Alerta del Sistema&#x27;,
+      info: &#x27;Información&#x27;,
+    };
+    return titles[type];
+  });
+
+  /**
+   * Shows the error modal with a specific type and custom configuration.
+   *
+   * @param type - Error severity level
+   * @param customConfig - Optional custom configuration to override defaults
+   *
+   * @remarks
+   * Merges the custom configuration with default settings for the specified type.
+   * Sets the modal visible after configuring.
+   */
+  show(type: ErrorType, customConfig?: ErrorModalInput): void {
+    const baseConfig &#x3D; DEFAULT_CONFIGS[type];
+    const mergedConfig: ErrorModalConfig &#x3D; {
+      ...baseConfig,
+      ...customConfig,
+      type,
+      details: { ...baseConfig.details, ...(customConfig?.details ?? {}) },
+    };
+    this._config.set(mergedConfig);
+    this._isVisible.set(true);
+  }
+
+  /**
+   * Hides the error modal.
+   *
+   * @remarks
+   * If the current configuration has &#x60;redirectToMain: true&#x60;, navigates to the home page.
+   */
+  hide(): void {
+    const shouldRedirect &#x3D; this._config().redirectToMain;
+    this._isVisible.set(false);
+
+    if (shouldRedirect) {
+      this.router.navigate([&#x27;/&#x27;]);
+    }
+  }
+
+  /**
+   * Shows an error modal with &#x27;error&#x27; severity.
+   *
+   * @param customConfig - Optional custom configuration
+   */
+  showError(customConfig?: ErrorModalInput): void {
+    this.show(&#x27;error&#x27;, customConfig);
+  }
+
+  /**
+   * Shows a warning modal with &#x27;warning&#x27; severity.
+   *
+   * @param customConfig - Optional custom configuration
+   */
+  showWarning(customConfig?: ErrorModalInput): void {
+    this.show(&#x27;warning&#x27;, customConfig);
+  }
+
+  /**
+   * Shows an alert modal with &#x27;alert&#x27; severity.
+   *
+   * @param customConfig - Optional custom configuration
+   */
+  showAlert(customConfig?: ErrorModalInput): void {
+    this.show(&#x27;alert&#x27;, customConfig);
+  }
+
+  /**
+   * Shows an info modal with &#x27;info&#x27; severity.
+   *
+   * @param customConfig - Optional custom configuration
+   */
+  showInfo(customConfig?: ErrorModalInput): void {
+    this.show(&#x27;info&#x27;, customConfig);
+  }
+
+  /**
+   * Handles HTTP errors from API calls.
+   *
+   * @param error - The error object (typically HttpErrorResponse)
+   * @returns &#x60;true&#x60; if the modal was shown, &#x60;false&#x60; if the error wasn&#x27;t a structured API error
+   *
+   * @remarks
+   * Extracts structured error information from HttpErrorResponse and displays the modal.
+   * Works with errors that follow the ApiErrorResponse structure (type, code, message, details).
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * this.api.getServices().subscribe({
+   *   error: (error) &#x3D;&gt; {
+   *     if (!this.errorModal.handleHttpError(error)) {
+   *       // Handle non-API errors
+   *       console.error(&#x27;Unexpected error:&#x27;, error);
+   *     }
+   *   }
+   * });
+   * &#x60;&#x60;&#x60;
+   */
+  handleHttpError(error: unknown): boolean {
+    const apiError &#x3D; this.extractApiError(error);
+
+    if (apiError) {
+      this.show(apiError.type, {
+        code: apiError.code,
+        message: apiError.message,
+        details: apiError.details,
+      });
+      return true;
+    }
+
+    return false;
+  }
+
+  private extractApiError(error: unknown): ApiErrorResponse | null {
+    // HttpErrorResponse: el body está en error.error
+    if (error instanceof HttpErrorResponse &amp;&amp; this.isApiError(error.error)) {
+      return error.error;
+    }
+
+    // Direct error with API structure
+    if (this.isApiError(error)) {
+      return error;
+    }
+
+    return null;
+  }
+
+  private isApiError(error: unknown): error is ApiErrorResponse {
+    return typeof error &#x3D;&#x3D;&#x3D; &#x27;object&#x27; &amp;&amp; error !&#x3D;&#x3D; null &amp;&amp; &#x27;type&#x27; in error &amp;&amp; typeof (error as { type: unknown }).type &#x3D;&#x3D;&#x3D; &#x27;string&#x27; &amp;&amp; [&#x27;error&#x27;, &#x27;warning&#x27;, &#x27;alert&#x27;, &#x27;info&#x27;].includes((error as { type: string }).type);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ApiErrorResponse.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

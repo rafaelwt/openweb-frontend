@@ -1,0 +1,38 @@
+<main class="dark:bg-gray-900">
+  <!-- Hero section -->
+  <section class="bg-white pt-8 pb-10 lg:pt-10 lg:pb-16 dark:bg-gray-900">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-16">
+        <!-- Left column - Content -->
+        <div>
+          <h1 class="font-outfit text-redis mb-6 text-5xl font-bold lg:text-6xl xl:text-7xl">Nuestro equipo</h1>
+
+          <p class="mb-4 text-lg leading-relaxed text-gray-600 lg:mb-8 lg:text-xl dark:text-gray-300">Conozca a los líderes de nuestra innovadora empresa, prestos para darle toda la ayuda que Ud. necesite.</p>
+
+          <div class="mb-10 text-base font-medium text-gray-700 lg:text-lg dark:text-gray-300">
+            <span>Contáctese por correo</span>
+            <span class="mx-3">|</span>
+            <span>Llame por Whatsapp</span>
+          </div>
+        </div>
+
+        <!-- Right column - Illustration -->
+        <div class="relative">
+          <img ngSrc="/img/soporte-contactos.png" alt="Ilustracion de equipo de trabajo" class="mx-auto h-auto w-full max-w-2xl" width="680" height="710" priority />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacts section -->
+  <section class="bg-gray-100 py-10 lg:py-16 dark:bg-gray-800">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <!-- Contact card grid -->
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        @for (contact of contacts; track contact.correo) {
+          <app-contact-card [contact]="contact" />
+        }
+      </div>
+    </div>
+  </section>
+</main>

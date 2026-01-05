@@ -1,0 +1,98 @@
+<main class="dark:bg-gray-900">
+  <!-- Hero section -->
+  <section class="bg-white pt-8 pb-10 lg:pt-10 lg:pb-16 dark:bg-gray-900">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="grid grid-cols-1 items-center gap-0 lg:grid-cols-2 lg:gap-16">
+        <!-- Left column - Content -->
+        <div>
+          <h1 class="font-outfit text-redis mb-6 text-5xl font-bold lg:text-6xl xl:text-7xl">Convierta sus mensajes en soluciones</h1>
+
+          <p class="mb-4 text-lg leading-relaxed text-gray-600 lg:mb-8 lg:text-xl dark:text-gray-300">Gestione ayuda de forma rápida, sencilla y automática a través de WhatsApp y Telegram.</p>
+
+          <div class="mb-10 text-base font-medium text-gray-700 lg:text-lg dark:text-gray-300">
+            <span>Sin apps adicionales</span>
+            <span class="mx-3">|</span>
+            <span>Fácil de usar</span>
+          </div>
+        </div>
+
+        <!-- Right column - Illustration -->
+        <div class="relative">
+          <img ngSrc="/img/soporte-callcenter.png" alt="Ilustracion de sistema de mensajeria" class="mx-auto h-auto w-full max-w-2xl" width="346" height="410" priority />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works section -->
+  <section class="bg-gray-100 py-10 lg:py-16 dark:bg-gray-800">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mb-16 text-center">
+        <h2 class="mb-4 text-3xl font-bold text-gray-900 lg:text-4xl dark:text-white">¿Cómo funciona?</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300">Proceso simple en 5 pasos</p>
+      </div>
+
+      <!-- Steps grid -->
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
+        <app-step-card [step]="1" title="Cliente inicia">
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            Escribe <span class="font-bold">Hola</span><br />
+            por WhatsApp o Telegram
+          </p>
+        </app-step-card>
+
+        <app-step-card [step]="2" title="Formulario guiado">
+          <p class="text-sm text-gray-600 dark:text-gray-300">Whatsapp solicita que seleccione <span class="font-bold">Soporte</span>.</p>
+          <p class="text-sm text-gray-600 dark:text-gray-300">Telegram solicita que envíe <span class="font-bold">99</span></p>
+        </app-step-card>
+
+        <app-step-card [step]="3" title="Consultas y reclamos">
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            Escribe el mensaje sin contener las palabras <span class="font-bold">Hola</span> o
+            <span class="font-bold">Menu</span>
+          </p>
+        </app-step-card>
+
+        <app-step-card [step]="4" title="Procesamiento">
+          <p class="text-sm text-gray-600 dark:text-gray-300">Solicitud es enviada al panel del Call-Center</p>
+        </app-step-card>
+
+        <app-step-card [step]="5" title="Respuesta" [showArrow]="false">
+          <p class="text-sm text-gray-600 dark:text-gray-300">En horarios de oficina, la atención es procesada de acuerdo al órden de ingreso</p>
+        </app-step-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authorized contacts section -->
+  <section class="bg-white py-10 lg:py-16 dark:bg-gray-900">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mb-8 text-center">
+        <h2 class="mb-4 text-3xl font-bold text-gray-900 lg:text-4xl dark:text-white">Contactos autorizados</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300">Favor seleccionar el canal de ayuda:</p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <!-- WhatsApp -->
+        <button type="button" class="block cursor-pointer rounded-2xl border border-green-100 bg-linear-to-br from-green-100 to-white p-6 text-left transition-shadow duration-300 hover:shadow-lg dark:border-green-700 dark:from-green-900 dark:to-gray-800" (click)="openWhatsApp()">
+          <img ngSrc="/img/logo-whatsapp.png" alt="Logo Whatsapp" width="48" height="48" class="mb-2" />
+          <h3 class="mb-2 text-lg font-bold text-gray-900 dark:text-white">Soporte WhatsApp</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            Será redireccionado al Bot
+            <span class="text-green-500 dark:text-green-400">+591 6 923 3354</span>
+          </p>
+        </button>
+
+        <!-- Telegram -->
+        <button type="button" class="block cursor-pointer rounded-2xl border border-blue-100 bg-linear-to-br from-blue-100 to-white p-6 text-left transition-shadow duration-300 hover:shadow-lg dark:border-blue-700 dark:from-blue-900 dark:to-gray-800" (click)="openTelegram()">
+          <img ngSrc="/img/logo-telegram.png" alt="Logo Telegram" width="48" height="48" class="mb-2" />
+          <h3 class="mb-2 text-lg font-bold text-gray-900 dark:text-white">Soporte Telegram</h3>
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            Será redireccionado al Bot
+            <span class="text-blue-500 dark:text-blue-400">&#64;RedisBot</span>
+          </p>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>

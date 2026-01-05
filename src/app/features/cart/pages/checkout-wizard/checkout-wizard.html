@@ -1,0 +1,553 @@
+<main class="dark:bg-gray-900">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Loading overlay -->
+    @if (loading()) {
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <app-loading size="lg" text="Procesando..."></app-loading>
+      </div>
+    }
+
+    <!-- Cart wizard -->
+    <div class="relative mx-auto max-w-250 py-5">
+      <!-- Page title -->
+      <app-wizard-header cardTitle="CARRITO" (buttonClose)="goToHome()" />
+
+      <!-- Wizard container -->
+      <div class="relative overflow-visible rounded-lg bg-gray-100 p-4 shadow-md sm:p-8 dark:bg-gray-800">
+        <!-- Badge step number -->
+        @if (hasItems() || currentStep() === 5) {
+          <div class="absolute -top-2 right-4 z-10 flex h-20 w-20 items-center justify-center rounded bg-blue-500 text-5xl font-bold text-white shadow-lg dark:bg-blue-600">
+            {{ currentStep() }}
+          </div>
+        }
+
+        <!-- Progress bar -->
+        @if (hasItems() || currentStep() === 5) {
+          <div class="mb-8">
+            <div class="mb-2 flex justify-between text-sm text-gray-800 dark:text-gray-200">
+              <span>{{ stepLabel() }}</span>
+            </div>
+            <div class="relative h-2 w-full overflow-hidden rounded-full bg-gray-300 dark:bg-gray-600">
+              <div class="relative h-full rounded-full bg-linear-to-r from-blue-500 to-blue-600 transition-all duration-400 ease-in-out" [style.width.%]="progress()"></div>
+            </div>
+          </div>
+        }
+
+        <!-- Error alerts -->
+        @if (errors().length > 0) {
+          <div class="mb-4 flex items-start gap-3 rounded-md border-t border-r border-b border-l-4 border-red-500 bg-red-100 px-4 py-4 text-red-800 dark:border-red-700 dark:bg-red-900/30 dark:text-red-200">
+            <div class="flex-1">
+              <div class="mb-1 font-semibold">
+                {{ errors().length > 1 ? 'Errores de validacion:' : 'Error de validacion:' }}
+              </div>
+              <ul class="mt-2 list-inside list-disc text-xl">
+                @for (error of errors(); track error) {
+                  <li>{{ error }}</li>
+                }
+              </ul>
+            </div>
+          </div>
+        }
+
+        <!-- STEP 1: Cart review -->
+        @if (currentStep() === 1) {
+          <div>
+            <!-- Empty cart -->
+            @if (!hasItems()) {
+              <div class="pt-12 pb-3 text-center">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <h3 class="mt-2 text-lg font-medium text-gray-900 dark:text-white">El carrito esta vacio</h3>
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Agregue servicios desde la pagina principal</p>
+              </div>
+            }
+
+            <!-- Items in cart -->
+            @if (hasItems()) {
+              <div class="space-y-4">
+                <!-- Mobile view: Cards (< sm breakpoint) -->
+                <div class="sm:hidden">
+                  @for (item of itemsCart(); track item.fechaAdicion; let i = $index) {
+                    <div class="mb-4 rounded-lg border border-gray-200 dark:border-gray-700">
+                      <!-- Service Header -->
+                      <div class="bg-gray-200 px-4 py-3 dark:bg-gray-700">
+                        <div class="flex items-center justify-between">
+                          <div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                              {{ item.nombreServicio }}
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ item.nombreAsociado }} (#{{ item.codigoDeuda }})</p>
+                          </div>
+
+                          <!-- Delete button (mobile - sin tooltip) -->
+                          <button type="button" class="inline-flex cursor-pointer text-red-600 hover:text-red-800 dark:text-red-400" (click)="removeItem(i)" [attr.aria-label]="'Eliminar pago de ' + item.nombreServicio">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Debt Cards (nested loop) -->
+                      <div class="space-y-2 p-4">
+                        @for (deuda of item.deudasSeleccionadas; track deuda.documentoPago) {
+                          <div class="rounded-md border border-gray-300 bg-white p-3 dark:border-gray-600 dark:bg-gray-800">
+                            <!-- Period (prominent) -->
+                            <div class="mb-2 text-base font-bold text-gray-900 dark:text-gray-100">
+                              {{ deuda.periodoCobro }}
+                            </div>
+
+                            <!-- Document -->
+                            <div class="flex justify-between text-sm">
+                              <span class="text-gray-600 dark:text-gray-400">{{ item.descripcionDocOficial }}:</span>
+                              <span class="font-medium text-gray-900 dark:text-gray-100">
+                                {{ deuda.documentoPago }}
+                              </span>
+                            </div>
+
+                            <!-- Amount -->
+                            <div class="flex justify-between text-base">
+                              <span class="font-semibold text-gray-700 dark:text-gray-300"> Deuda {{ currencySymbol() }}: </span>
+                              <span class="font-bold text-gray-900 dark:text-gray-100">
+                                {{ formatNumber(deuda.periodoServicio) }}
+                              </span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+
+                      <!-- Commission Row (if applicable) -->
+                      @if (item.totalComision > 0) {
+                        <div class="border-t border-gray-300 bg-yellow-50 px-4 py-3 dark:border-gray-600 dark:bg-yellow-900/20">
+                          <div class="flex justify-between">
+                            <span class="text-sm font-semibold text-gray-700 dark:text-gray-300"> Comision facturable </span>
+                            <span class="text-base font-semibold text-gray-900 dark:text-gray-100">
+                              {{ formatNumber(item.totalComision) }}
+                            </span>
+                          </div>
+                        </div>
+                      }
+
+                      <!-- Service Subtotal -->
+                      <div class="border-t-2 border-gray-400 bg-gray-200 px-4 py-3 dark:border-gray-500 dark:bg-gray-700">
+                        <div class="flex justify-between">
+                          <span class="text-base font-bold text-gray-900 dark:text-gray-100"> Subtotal {{ currencySymbol() }} </span>
+                          <span class="text-lg font-bold text-blue-600 dark:text-blue-400">
+                            {{ formatNumber(item.totalServicio + item.totalComision) }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <!-- Grand Total (mobile) -->
+                  <div class="mt-2 mb-6 text-right">
+                    <div class="w-full rounded-md border border-gray-300 bg-blue-500 px-4 py-3 text-3xl font-bold text-white dark:border-blue-700 dark:bg-blue-600">Total {{ currencySymbol() }} {{ formatNumber(totalGeneral()) }}</div>
+                  </div>
+                </div>
+
+                <!-- Desktop view: Table (>= sm breakpoint) -->
+                <div class="hidden sm:block">
+                  @for (item of itemsCart(); track item.fechaAdicion; let i = $index) {
+                    <div class="mb-4 rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                      <!-- Service Header -->
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                          <div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                              {{ item.nombreServicio }}
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">{{ item.nombreAsociado }} (#{{ item.codigoDeuda }})</p>
+                          </div>
+                        </div>
+
+                        <!-- Delete button with tooltip -->
+                        <div class="relative">
+                          <button type="button" class="inline-flex cursor-pointer text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300" (click)="removeItem(i)" (mouseenter)="showDeleteTooltip.set(i)" (mouseleave)="showDeleteTooltip.set(null)">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+
+                          @if (showDeleteTooltip() === i) {
+                            <div class="pointer-events-none absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700">
+                              <span>Eliminar pago</span>
+                              <div class="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700"></div>
+                            </div>
+                          }
+                        </div>
+                      </div>
+
+                      <!-- Debt table -->
+                      <div class="mt-4">
+                        <div class="mt-4 overflow-x-auto rounded-md border border-gray-300 dark:border-gray-600">
+                          <table class="w-full border-collapse text-lg dark:text-gray-200">
+                            <thead class="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                              <tr>
+                                <th class="px-3 py-3 text-left text-base font-semibold tracking-wide uppercase">Periodo</th>
+                                <th class="px-3 py-3 text-left text-base font-semibold tracking-wide uppercase">{{ item.descripcionDocOficial }}</th>
+                                <th class="px-3 py-3 text-right text-base font-semibold tracking-wide uppercase">Deuda {{ currencySymbol() }}</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              @for (deuda of item.deudasSeleccionadas; track deuda.documentoPago) {
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                  <td class="px-3 text-left">{{ deuda.periodoCobro }}</td>
+                                  <td class="px-3 text-left">{{ deuda.documentoPago }}</td>
+                                  <td class="px-3 text-right">
+                                    {{ formatNumber(deuda.periodoServicio) }}
+                                  </td>
+                                </tr>
+                              }
+                            </tbody>
+                            <tfoot class="border-b border-gray-200 dark:border-gray-700">
+                              @if (item.totalComision > 0) {
+                                <tr class="bg-yellow-50 dark:bg-yellow-900/20">
+                                  <td colspan="2" class="border-b border-gray-300 px-3 py-3 dark:border-gray-600 dark:text-gray-200">Comision facturable a cobrar</td>
+                                  <td class="border-b border-gray-300 px-3 py-3 text-right dark:border-gray-600 dark:text-gray-200">
+                                    {{ formatNumber(item.totalComision) }}
+                                  </td>
+                                </tr>
+                              }
+                              <tr class="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                <td colspan="3" class="border-t-2 border-gray-400 px-3 py-3 text-right font-semibold dark:border-gray-500 dark:text-gray-200">{{ currencySymbol() }} {{ formatNumber(item.totalServicio + item.totalComision) }}</td>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  }
+
+                  <!-- Total amount collected -->
+                  <div class="mt-2 mb-6 text-right">
+                    <div class="w-full rounded-md border border-gray-300 bg-blue-500 px-4 py-3 text-3xl font-bold text-white transition-all dark:border-blue-700 dark:bg-blue-600">Total {{ currencySymbol() }} {{ formatNumber(totalGeneral()) }}</div>
+                  </div>
+                </div>
+              </div>
+            }
+
+            <!-- Navigation buttons -->
+            <div class="mt-8 flex" [class.justify-center]="!hasItems()" [class.justify-between]="hasItems()">
+              <button type="button" class="inline-flex cursor-pointer items-center gap-2 rounded-md bg-blue-500 px-4 py-3 text-base leading-normal font-semibold whitespace-nowrap text-white hover:bg-blue-600 hover:shadow-lg" (click)="addMoreServices()">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <span>Agregar servicios</span>
+              </button>
+
+              @if (hasItems()) {
+                <button type="button" class="inline-flex cursor-pointer items-center gap-2 rounded-md bg-blue-500 px-4 py-3 text-base leading-normal font-semibold whitespace-nowrap text-white hover:bg-blue-600 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50" [disabled]="loading()" (click)="handleProcessPaymentClick()">
+                  <span class="sm:hidden">Pagar</span>
+                  <span class="hidden sm:inline">Continuar el pago</span>
+                  <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- STEP 2: Payment method -->
+        @if (currentStep() === 2) {
+          <div>
+            <div>
+              <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Seleccionar metodo de pago</p>
+            </div>
+
+            <div class="min-h-25">
+              <div class="grid grid-cols-1 gap-6 pt-2 sm:grid-cols-2">
+                <!-- QR option -->
+                @let esQR = medioPago === 'Q';
+                <div class="relative cursor-pointer rounded-lg border-2 border-gray-300 bg-gray-200 p-6 shadow-lg transition-all hover:border-blue-500 hover:shadow-lg hover:grayscale-0 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-blue-400" [class]="esQR ? 'ring-1 ring-blue-500 grayscale-0' : 'grayscale'" (click)="setPaymentMethod('Q')">
+                  <div class="text-center">
+                    <img ngSrc="/img/servicio/metodoPagoQR.webp" alt="Pago QR" width="128" height="128" class="mx-auto mb-4 object-contain" />
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">PAGO QR</h3>
+                    <p class="text-md mt-2 text-gray-600 dark:text-gray-400">Escanear y pagar desde su banca movil</p>
+                  </div>
+                  @if (esQR) {
+                    <div class="absolute top-2 right-2">
+                      <svg class="h-6 w-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                  }
+                </div>
+
+                <!-- Card option -->
+                @let esTarjeta = medioPago === 'T';
+                <div class="relative cursor-pointer rounded-lg border-2 border-gray-300 bg-gray-200 p-6 shadow-lg transition-all hover:border-blue-500 hover:shadow-lg hover:grayscale-0 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-blue-400" [class]="esTarjeta ? 'ring-1 ring-blue-500 grayscale-0' : 'grayscale'" (click)="setPaymentMethod('T')">
+                  <div class="text-center">
+                    <img ngSrc="/img/servicio/metodoPagoTarjeta.webp" alt="Pago Tarjeta" width="128" height="128" class="mx-auto mb-4 object-contain" />
+                    <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100">TARJETA</h3>
+                    <p class="text-md mt-2 text-gray-600 dark:text-gray-400">Pagar con Tarjeta Debito / Credito</p>
+                  </div>
+                  @if (esTarjeta) {
+                    <div class="absolute top-2 right-2">
+                      <svg class="h-6 w-6 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="mt-4 flex justify-end">
+              <button type="button" class="inline-flex cursor-pointer items-center gap-2 rounded-md bg-blue-500 px-4 py-3 text-base leading-normal font-semibold whitespace-nowrap text-white hover:bg-blue-600 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50" [disabled]="loading() || !canAdvance()" (click)="handleNextStep()">
+                <span>Continuar</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- STEP 3: Billing/Shipping information -->
+        @if (currentStep() === 3) {
+          <div [formGroup]="form">
+            <div class="space-y-6">
+              <!-- Billing fields (only if there is a commission) -->
+              @if (hasCommissions()) {
+                <!-- Article 25 alert -->
+                <div class="mb-6 flex items-start gap-3 rounded-md border-t border-r border-b border-l-4 border-yellow-500 bg-yellow-100 px-4 py-4 text-yellow-800 dark:border-yellow-700 dark:bg-yellow-900 dark:text-yellow-200">
+                  <div class="flex-1"><span class="font-bold">Importante:</span> Cuando se desconozcan los datos del comprador, se debera registrar en el campo Nombre o Razon Social la leyenda "Control Tributario"; y en el campo correspondiente al NIT/CI consignar el numero 99002. (RND No 102100000011 - CAPITULO IV - Articulo 25 - Inciso V)</div>
+                </div>
+
+                <!-- Unnamed? -->
+                @let esSinNombre = sinNombre === 'SI';
+                <div class="mb-6">
+                  <label class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200">Sin nombre?</label>
+                  <div class="flex flex-wrap gap-4 pl-5">
+                    <label class="flex cursor-pointer items-center text-lg">
+                      <input type="radio" name="sin-nombre" value="SI" [checked]="esSinNombre" (click)="changeBillingDataMode(true)" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500" />
+                      <span class="pl-3 text-gray-800 dark:text-gray-200">Si</span>
+                    </label>
+                    <label class="flex cursor-pointer items-center text-lg">
+                      <input type="radio" name="sin-nombre" value="NO" [checked]="!esSinNombre" (click)="changeBillingDataMode(false)" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500" />
+                      <span class="pl-3 text-gray-800 dark:text-gray-200">No</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Name/Company name -->
+                <div class="mb-6">
+                  <label for="input-razon-social" class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200"> Nombre / Razon social<span class="text-red-500"> *</span> </label>
+                  <input type="text" id="input-razon-social" formControlName="razonSocial" maxlength="250" class="w-full rounded-md border border-gray-300 px-4 py-3 text-sm uppercase transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:font-semibold disabled:opacity-80 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:disabled:bg-gray-800" [class]="esSinNombre ? 'cursor-not-allowed bg-gray-100 opacity-80' : 'bg-white'" [readOnly]="esSinNombre" />
+                </div>
+
+                <!-- Document type and Document number -->
+                <div class="mb-6 flex flex-col gap-3 md:flex-row md:gap-4">
+                  <!-- Document type -->
+                  <div class="w-full md:w-1/2">
+                    <label for="select-tipo-documento" class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200"> Tipo documento<span class="text-red-500"> *</span> </label>
+                    <select id="select-tipo-documento" formControlName="tipoDocumento" class="w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-sm transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:font-semibold disabled:opacity-80 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:disabled:bg-gray-800">
+                      <option [ngValue]="1">Carnet identidad</option>
+                      <option [ngValue]="2">Carnet identidad extranjero</option>
+                      <option [ngValue]="3">Pasaporte</option>
+                      <option [ngValue]="4">Otro documento de identidad</option>
+                      <option [ngValue]="5">NIT (Nro.Identificacion Tributaria)</option>
+                    </select>
+                  </div>
+
+                  <!-- Document number -->
+                  <div class="w-full md:w-1/2">
+                    <label for="input-documento-sin" class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200"> Nro.Documento<span class="text-red-500"> *</span> </label>
+                    <input type="text" id="input-documento-sin" formControlName="documentoSIN" maxlength="14" class="w-full rounded-md border border-gray-300 px-4 py-3 text-sm transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:font-semibold disabled:opacity-80 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:disabled:bg-gray-800" [class]="esSinNombre ? 'cursor-not-allowed bg-gray-100 opacity-80' : 'bg-white'" [readOnly]="esSinNombre" />
+                  </div>
+                </div>
+
+                <!-- Complement (only if it is CI) -->
+                @if (tipoDocumento === 1) {
+                  <div class="mb-6">
+                    <label for="input-complemento-sin" class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200"> Complemento (Opcional) </label>
+                    <input type="text" id="input-complemento-sin" formControlName="complementoSIN" maxlength="2" placeholder="Ej: 1A" class="w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-sm uppercase transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200" />
+                  </div>
+                }
+
+                <!-- Exception with NIT -->
+                @if (showExceptionNIT()) {
+                  <div class="mb-6">
+                    <label class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200">Excepcion con NIT?</label>
+                    <div class="flex flex-wrap gap-4">
+                      <label class="flex cursor-pointer items-center text-lg select-none">
+                        <input type="radio" name="excepcion-nit" value="false" [checked]="excepcionNIT === 'false'" (change)="setExceptionNIT('false')" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500" />
+                        <span class="pl-3 text-gray-800 dark:text-gray-200">No</span>
+                      </label>
+                      <label class="flex cursor-pointer items-center text-lg select-none">
+                        <input type="radio" name="excepcion-nit" value="true" [checked]="excepcionNIT === 'true'" (change)="setExceptionNIT('true')" class="h-4 w-4 border-gray-300 text-blue-600 focus:ring-blue-500" />
+                        <span class="pl-3 text-gray-800 dark:text-gray-200">Si</span>
+                      </label>
+                    </div>
+                  </div>
+                }
+              }
+
+              <!-- Email and Telephone (always visible) -->
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div class="mb-6">
+                  <label for="correo-electronico-input" class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200"> Correo electronico<span class="text-red-500"> *</span> </label>
+                  <input type="email" id="correo-electronico-input" formControlName="correoElectronico" maxlength="100" placeholder="ejemplo&#64;correo.com" class="w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-sm transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200" />
+                </div>
+
+                <div class="mb-6">
+                  <label for="telefono-input" class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200"> Telefono (Opcional) </label>
+                  <input type="tel" id="telefono-input" formControlName="numeroTelefono" maxlength="20" placeholder="+591 XX XXX XXXX" class="w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-sm transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="mt-4 flex justify-end">
+              <button type="button" class="inline-flex cursor-pointer items-center gap-2 rounded-md bg-blue-500 px-4 py-3 text-base leading-normal font-semibold whitespace-nowrap text-white hover:bg-blue-600 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50" [disabled]="loading() || !canAdvance()" (click)="handleNextStep()">
+                <span>Continuar</span>
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- STEP 4: Final summary -->
+        @if (currentStep() === 4) {
+          <div>
+            <div class="space-y-6">
+              <!-- Included services -->
+              <div class="rounded-lg border border-gray-200 px-6 pt-6 pb-2 dark:border-gray-700">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Servicios a pagar</h3>
+
+                @for (item of itemsCart(); track item.fechaAdicion; let i = $index) {
+                  <div class="mt-4 border-b border-gray-200 pb-4 last:border-b-0 dark:border-gray-700">
+                    <div class="mb-2 flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <div class="flex items-center justify-center rounded bg-blue-100 px-4 dark:bg-blue-900">
+                          <span class="text-sm font-bold text-blue-600 dark:text-blue-300">
+                            {{ item.nombreServicio }}
+                          </span>
+                        </div>
+                      </div>
+                      <span class="text-sm text-gray-600 dark:text-gray-400">
+                        {{ item.deudasSeleccionadas.length }}
+                        {{ item.deudasSeleccionadas.length === 1 ? item.descripcionDocOficial : getOfficialDocDescriptionPlural() }}
+                      </span>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ item.nombreAsociado }} (#{{ item.codigoDeuda }})</p>
+                  </div>
+                }
+              </div>
+
+              <!-- Totals -->
+              <div class="rounded-lg border border-gray-200 p-6 dark:border-gray-700">
+                <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">Detalle a pagar</h3>
+
+                <div class="space-y-2">
+                  <div class="flex justify-between text-gray-700 dark:text-gray-300">
+                    <span>Subtotal {{ quantitySelectedDebts() }} {{ getOfficialDocDescriptionPlural() }}:</span>
+                    <span>{{ currencySymbol() }} {{ formatNumber(totalServices()) }}</span>
+                  </div>
+                  @if (totalCommissions() > 0) {
+                    <div class="flex justify-between text-gray-700 dark:text-gray-300">
+                      <span>Comision total:</span>
+                      <span>{{ currencySymbol() }} {{ formatNumber(totalCommissions()) }}</span>
+                    </div>
+                  }
+                  <div class="mt-4 flex justify-between border-t border-gray-300 pt-4 text-xl font-bold text-gray-900 dark:border-gray-600 dark:text-white">
+                    <span>TOTAL A PAGAR:</span>
+                    <span class="text-blue-600 dark:text-blue-400">{{ currencySymbol() }} {{ formatNumber(totalGeneral()) }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Billing information (if applicable) -->
+              @if (hasCommissions()) {
+                <div class="rounded-lg border border-gray-200 p-6 dark:border-gray-700">
+                  <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">Datos de Facturacion</h3>
+
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                      <span class="text-gray-600 dark:text-gray-400">Razon Social:</span>
+                      <span class="font-medium text-gray-900 dark:text-white">{{ razonSocial }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-600 dark:text-gray-400">NIT/CI:</span>
+                      <span class="font-medium text-gray-900 dark:text-white">
+                        {{ documentoSIN }}
+                        @if (complementoSIN) {
+                          <span>-{{ complementoSIN }}</span>
+                        }
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              }
+
+              <!-- Shipping information -->
+              <div class="rounded-lg border border-gray-200 p-6 dark:border-gray-700">
+                <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">Datos de Envio</h3>
+
+                <div class="space-y-2 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600 dark:text-gray-400">Correo:</span>
+                    <span class="font-medium text-gray-900 dark:text-white">{{ correoElectronico }}</span>
+                  </div>
+                  @if (numeroTelefono && numeroTelefono !== '0') {
+                    <div class="flex justify-between">
+                      <span class="text-gray-600 dark:text-gray-400">Telefono:</span>
+                      <span class="font-medium text-gray-900 dark:text-white">{{ numeroTelefono }}</span>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Important information -->
+              <div class="flex items-start gap-3 rounded-md border-t border-r border-b border-l-4 border-blue-500 bg-blue-100 px-4 py-4 text-blue-800 dark:border-blue-700 dark:bg-blue-900 dark:text-blue-200">
+                <div class="flex-1">
+                  <div class="font-bold">Importante:</div>
+                  <div>Al confirmar, se generara un codigo QR con validez de 24 horas.</div>
+                  <div>Los documentos de pago se enviaran al correo electronico indicado.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Navigation buttons -->
+            <div class="mt-8 flex justify-between">
+              <button type="button" class="inline-flex cursor-pointer items-center gap-2 rounded-md bg-blue-500 px-4 py-3 text-base leading-normal font-semibold whitespace-nowrap text-white hover:bg-blue-600 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50" [disabled]="loading()" (click)="prevStep()">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                <span>Atras</span>
+              </button>
+
+              <button type="button" class="inline-flex cursor-pointer items-center gap-2 rounded-md bg-green-500 px-4 py-3 text-base leading-normal font-semibold whitespace-nowrap text-white hover:bg-green-600 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50" [disabled]="loading()" (click)="processPayment()">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{ loading() ? 'Procesando...' : 'Generar QR de pago' }}</span>
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- STEP 5: QR Code generated -->
+        @if (currentStep() === 5) {
+          <div>
+            <app-qr-display [qrImage]="qrData().qrImage" [validity]="qrData().validity" [email]="correoElectronico">
+              <!-- Exit button projected into the slot -->
+              <button type="button" class="inline-flex cursor-pointer items-center gap-2 rounded-md bg-gray-500 px-4 py-3 text-base leading-normal font-semibold whitespace-nowrap text-white hover:bg-gray-600 hover:shadow-lg" (click)="exitCart()">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span>Salir del carrito</span>
+              </button>
+            </app-qr-display>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</main>

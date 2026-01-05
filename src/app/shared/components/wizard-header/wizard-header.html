@@ -1,0 +1,24 @@
+<div class="mb-6 rounded-lg bg-gray-100 p-3 shadow-md dark:bg-gray-800">
+  <div class="flex items-start justify-between">
+    <div class="p-3">
+      <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100">
+        <span class="mr-1 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">PAGAR</span>
+        @if (cardTitle(); as cardTitle) {
+          <span>{{ cardTitle }}</span>
+        }
+      </h1>
+    </div>
+
+    <button type="button" class="relative cursor-pointer text-2xl font-bold text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-100" (mouseenter)="showTooltip.set(true)" (mouseleave)="showTooltip.set(false)" (click)="buttonClose.emit()">
+      &times;
+
+      <!-- Tooltip close -->
+      @if (showTooltip()) {
+        <div class="pointer-events-none absolute top-full left-1/2 z-50 mt-2 -translate-x-1/2 rounded-md bg-gray-800 px-3 py-1.5 text-sm whitespace-nowrap text-white shadow-lg dark:bg-gray-700">
+          <span>Salir</span>
+          <div class="absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-gray-800 dark:bg-gray-700"></div>
+        </div>
+      }
+    </button>
+  </div>
+</div>

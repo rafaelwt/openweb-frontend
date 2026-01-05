@@ -1,0 +1,67 @@
+<div>
+  <div class="mb-4">
+    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Seleccionar el contrato para consultar su deuda</p>
+  </div>
+
+  <div>
+    <!-- Associate's information -->
+    <div class="mb-6">
+      <label class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200">Codigo del socio</label>
+      <input type="text" readonly class="w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-base transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:font-semibold disabled:opacity-80 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:disabled:bg-gray-800" [value]="associateCode()" />
+    </div>
+
+    <!-- List of contracts -->
+    <div class="mb-6">
+      <label class="mb-3 block text-lg font-semibold text-gray-800 dark:text-gray-200"> Contratos disponibles<span class="text-red-500"> *</span></label>
+
+      <div class="space-y-3">
+        @for (contract of contracts(); track contract.codigoContrato) {
+          @let selectedContract = isSelected(contract);
+
+          <div class="relative cursor-pointer rounded-lg border-2 p-4 transition-all hover:border-blue-400 hover:shadow-md" [class]="selectedContract ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-700'" (click)="selectContract.emit(contract)">
+            <!-- Radio button indicator -->
+            <div class="absolute top-4 right-4">
+              <div class="flex h-5 w-5 items-center justify-center rounded-full border-2" [class]="selectedContract ? 'border-blue-500 bg-blue-500' : 'border-gray-400'">
+                @if (selectedContract) {
+                  <div class="h-2 w-2 rounded-full bg-white"></div>
+                }
+              </div>
+            </div>
+
+            <!-- Contract details -->
+            <div class="pr-8">
+              <div class="mb-2 text-lg font-bold text-gray-800 dark:text-gray-100">
+                {{ contract.datosAsociado.nombreAsociado }}
+              </div>
+
+              <div class="grid grid-cols-1 gap-2 text-sm sm:grid-cols-2">
+                <div class="text-gray-600 dark:text-gray-400">
+                  <span class="font-semibold">Contrato:</span>
+                  <span>{{ contract.codigoContrato }}</span>
+                </div>
+
+                <div class="text-gray-600 dark:text-gray-400">
+                  <span class="font-semibold">CI:</span>
+                  <span>{{ contract.datosAsociado.numeroDocumento }}</span>
+                  @if (contract.datosAsociado.complementoDocumento) {
+                    <span> {{ contract.datosAsociado.complementoDocumento }}</span>
+                  }
+                </div>
+
+                <div class="text-gray-600 dark:text-gray-400">
+                  <span class="font-semibold">Email:</span>
+                  <span>{{ contract.datosAsociado.correoElectronico }}</span>
+                </div>
+
+                <div class="text-gray-600 dark:text-gray-400">
+                  <span class="font-semibold">Telefono:</span>
+                  <span>{{ contract.datosAsociado.numeroTelefono }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

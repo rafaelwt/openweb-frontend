@@ -1,0 +1,620 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ContactCard</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/features/support/pages/contacts/components/contact-card/contact-card.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-contact-card</code></td>
+            </tr>
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./contact-card.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#getColorClasses" >getColorClasses</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#getPlaceholderColor" >getPlaceholderColor</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#contact" >contact</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="contact"></a>
+                        <b>contact</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Contacto.html" target="_self" >Contacto</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Required : </i>&nbsp;<b>true</b>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/features/support/pages/contacts/components/contact-card/contact-card.ts:10</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getColorClasses"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>getColorClasses</b></span>
+                        <a href="#getColorClasses"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getColorClasses(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="12"
+                                    class="link-to-prism">src/app/features/support/pages/contacts/components/contact-card/contact-card.ts:12</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>color</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getPlaceholderColor"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>getPlaceholderColor</b></span>
+                        <a href="#getPlaceholderColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getPlaceholderColor(color: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">src/app/features/support/pages/contacts/components/contact-card/contact-card.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>color</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, input } from &#x27;@angular/core&#x27;;
+import { Contacto } from &#x27;@core/models/contacto.model&#x27;;
+
+@Component({
+  selector: &#x27;app-contact-card&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: &#x27;./contact-card.html&#x27;,
+})
+export class ContactCard {
+  contact &#x3D; input.required&lt;Contacto&gt;();
+
+  protected getColorClasses(color: string): { ring: string; text: string; hover: string } {
+    const colors: Record&lt;string, { ring: string; text: string; hover: string }&gt; &#x3D; {
+      blue: {
+        ring: &#x27;ring-blue-500&#x27;,
+        text: &#x27;text-blue-600 dark:text-blue-400&#x27;,
+        hover: &#x27;hover:text-blue-600 dark:hover:text-blue-400&#x27;,
+      },
+      green: {
+        ring: &#x27;ring-green-500&#x27;,
+        text: &#x27;text-green-600 dark:text-green-400&#x27;,
+        hover: &#x27;hover:text-green-600 dark:hover:text-green-400&#x27;,
+      },
+      orange: {
+        ring: &#x27;ring-orange-500&#x27;,
+        text: &#x27;text-orange-600 dark:text-orange-400&#x27;,
+        hover: &#x27;hover:text-orange-600 dark:hover:text-orange-400&#x27;,
+      },
+    };
+    return colors[color] || colors[&#x27;blue&#x27;];
+  }
+
+  protected getPlaceholderColor(color: string): string {
+    const colors: Record&lt;string, string&gt; &#x3D; {
+      blue: &#x27;3b82f6&#x27;,
+      green: &#x27;10b981&#x27;,
+      orange: &#x27;f97316&#x27;,
+    };
+    return colors[color] || &#x27;3b82f6&#x27;;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-2xl dark:border-gray-700 dark:bg-gray-900&quot;&gt;
+  &lt;div class&#x3D;&quot;p-6 text-center&quot;&gt;
+    &lt;!-- Profile picture --&gt;
+    &lt;img [src]&#x3D;&quot;&#x27;https://placehold.co/128x128/&#x27; + getPlaceholderColor(contact().color) + &#x27;/ffffff?text&#x3D;&#x27; + contact().iniciales&quot; [alt]&#x3D;&quot;&#x27;Foto de &#x27; + contact().nombre&quot; class&#x3D;&quot;mx-auto mb-4 h-32 w-32 rounded-full object-cover ring-4 ring-offset-4 dark:ring-offset-gray-800&quot; [class]&#x3D;&quot;getColorClasses(contact().color).ring&quot; /&gt;
+    &lt;h2 class&#x3D;&quot;text-2xl font-bold text-gray-900 dark:text-white&quot;&gt;{{ contact().nombre }}&lt;/h2&gt;
+    &lt;p class&#x3D;&quot;mb-4 text-sm font-semibold tracking-wider uppercase&quot; [class]&#x3D;&quot;getColorClasses(contact().color).text&quot;&gt;
+      {{ contact().cargo }}
+    &lt;/p&gt;
+
+    &lt;!-- Contact information --&gt;
+    &lt;div class&#x3D;&quot;mt-4 space-y-3 border-t border-gray-200 pt-4 text-left dark:border-gray-700&quot;&gt;
+      &lt;!-- Phone --&gt;
+      &lt;div class&#x3D;&quot;flex items-center text-gray-700 dark:text-gray-300&quot;&gt;
+        &lt;svg class&#x3D;&quot;mr-3 h-5 w-5 shrink-0 text-gray-400 dark:text-gray-500&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+          &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z&quot; /&gt;
+        &lt;/svg&gt;
+        &lt;a [href]&#x3D;&quot;&#x27;tel:&#x27; + contact().telefono.replace(&#x27; &#x27;, &#x27;&#x27;)&quot; class&#x3D;&quot;transition&quot; [class]&#x3D;&quot;getColorClasses(contact().color).hover&quot;&gt;
+          {{ contact().telefono }}
+        &lt;/a&gt;
+      &lt;/div&gt;
+      &lt;!-- Email --&gt;
+      &lt;div class&#x3D;&quot;flex items-center text-gray-700 dark:text-gray-300&quot;&gt;
+        &lt;svg class&#x3D;&quot;mr-3 h-5 w-5 shrink-0 text-gray-400 dark:text-gray-500&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+          &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z&quot; /&gt;
+          &lt;polyline points&#x3D;&quot;22,6 12,13 2,6&quot; /&gt;
+        &lt;/svg&gt;
+        &lt;a [href]&#x3D;&quot;&#x27;mailto:&#x27; + contact().correo&quot; class&#x3D;&quot;truncate transition&quot; [class]&#x3D;&quot;getColorClasses(contact().color).hover&quot; [title]&#x3D;&quot;contact().correo&quot;&gt;
+          {{ contact().correo }}
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-lg transition-all duration-300 hover:scale-102 hover:shadow-2xl dark:border-gray-700 dark:bg-gray-900">  <div class="p-6 text-center">    <!-- Profile picture -->    <img [src]="\'https://placehold.co/128x128/\' + getPlaceholderColor(contact().color) + \'/ffffff?text=\' + contact().iniciales" [alt]="\'Foto de \' + contact().nombre" class="mx-auto mb-4 h-32 w-32 rounded-full object-cover ring-4 ring-offset-4 dark:ring-offset-gray-800" [class]="getColorClasses(contact().color).ring" />    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ contact().nombre }}</h2>    <p class="mb-4 text-sm font-semibold tracking-wider uppercase" [class]="getColorClasses(contact().color).text">      {{ contact().cargo }}    </p>    <!-- Contact information -->    <div class="mt-4 space-y-3 border-t border-gray-200 pt-4 text-left dark:border-gray-700">      <!-- Phone -->      <div class="flex items-center text-gray-700 dark:text-gray-300">        <svg class="mr-3 h-5 w-5 shrink-0 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.07 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />        </svg>        <a [href]="\'tel:\' + contact().telefono.replace(\' \', \'\')" class="transition" [class]="getColorClasses(contact().color).hover">          {{ contact().telefono }}        </a>      </div>      <!-- Email -->      <div class="flex items-center text-gray-700 dark:text-gray-300">        <svg class="mr-3 h-5 w-5 shrink-0 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />          <polyline points="22,6 12,13 2,6" />        </svg>        <a [href]="\'mailto:\' + contact().correo" class="truncate transition" [class]="getColorClasses(contact().color).hover" [title]="contact().correo">          {{ contact().correo }}        </a>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'BusinessCardComponent', 'selector': 'app-service-card'},{'name': 'CallCenterComponent', 'selector': 'app-call-center'},{'name': 'CheckoutWizardComponent', 'selector': 'app-checkout-wizard'},{'name': 'CobranzaWizardComponent', 'selector': 'app-cobranza-wizard'},{'name': 'ConfirmationModalComponent', 'selector': 'app-confirmation-modal'},{'name': 'ContactCard', 'selector': 'app-contact-card'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'ContractSelectorComponent', 'selector': 'app-contract-selector'},{'name': 'DebtTableComponent', 'selector': 'app-debt-table'},{'name': 'ErrorAlertComponent', 'selector': 'app-error-alert'},{'name': 'ErrorModalComponent', 'selector': 'app-error-modal'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'MainLayoutComponent', 'selector': 'app-main-layout'},{'name': 'NotFoundPageComponent', 'selector': 'app-not-found'},{'name': 'ProximamentePageComponent', 'selector': 'app-proximamente-page'},{'name': 'QrDisplayComponent', 'selector': 'app-qr-display'},{'name': 'SearchAssociateComponent', 'selector': 'app-search-associate'},{'name': 'StepCard', 'selector': 'app-step-card'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'WizardHeaderComponent', 'selector': 'app-wizard-header'},{'name': 'WizardNavComponent', 'selector': 'app-wizard-nav'},{'name': 'WizardProgressComponent', 'selector': 'app-wizard-progress'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ContactCard'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ContactCard.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

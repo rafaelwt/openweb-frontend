@@ -1,0 +1,950 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  FingerprintComponents</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/services/fingerprint.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Components collected for browser fingerprinting.</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#canvas" 
+>
+                                            canvas
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#deviceMemory" 
+>
+                                            deviceMemory
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#fonts" 
+>
+                                            fonts
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#hardwareConcurrency" 
+>
+                                            hardwareConcurrency
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#language" 
+>
+                                            language
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#platform" 
+>
+                                            platform
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#screen" 
+>
+                                            screen
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#timezone" 
+>
+                                            timezone
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#userAgent" 
+>
+                                            userAgent
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#webgl" 
+>
+                                            webgl
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="canvas"></a>
+                                        <span class="name "><b>canvas</b>
+                                            <a href="#canvas">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>canvas:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="deviceMemory"></a>
+                                        <span class="name "><b>deviceMemory</b>
+                                            <a href="#deviceMemory">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>deviceMemory:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="fonts"></a>
+                                        <span class="name "><b>fonts</b>
+                                            <a href="#fonts">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>fonts:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="hardwareConcurrency"></a>
+                                        <span class="name "><b>hardwareConcurrency</b>
+                                            <a href="#hardwareConcurrency">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>hardwareConcurrency:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="language"></a>
+                                        <span class="name "><b>language</b>
+                                            <a href="#language">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>language:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="platform"></a>
+                                        <span class="name "><b>platform</b>
+                                            <a href="#platform">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>platform:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="screen"></a>
+                                        <span class="name "><b>screen</b>
+                                            <a href="#screen">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>screen:         <code><a href="../interfaces/ScreenInfo.html" target="_self" >ScreenInfo</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="../interfaces/ScreenInfo.html" target="_self" >ScreenInfo</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="timezone"></a>
+                                        <span class="name "><b>timezone</b>
+                                            <a href="#timezone">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>timezone:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="userAgent"></a>
+                                        <span class="name "><b>userAgent</b>
+                                            <a href="#userAgent">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>userAgent:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="webgl"></a>
+                                        <span class="name "><b>webgl</b>
+                                            <a href="#webgl">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>webgl:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal } from &#x27;@angular/core&#x27;;
+
+/**
+ * Cached fingerprint data structure.
+ *
+ * @internal
+ */
+interface FingerprintCache {
+  fingerprint: string;
+  timestamp: number;
+}
+
+/**
+ * Screen information for fingerprinting.
+ *
+ * @internal
+ */
+interface ScreenInfo {
+  width: number;
+  height: number;
+  availWidth: number;
+  availHeight: number;
+  pixelRatio: number;
+  colorDepth: number;
+}
+
+/**
+ * Components collected for browser fingerprinting.
+ *
+ * @internal
+ */
+interface FingerprintComponents {
+  screen: ScreenInfo;
+  timezone: string;
+  language: string;
+  platform: string;
+  hardwareConcurrency: number;
+  deviceMemory: number;
+  webgl: string;
+  canvas: string;
+  fonts: string;
+  userAgent: string;
+}
+
+/**
+ * Generates unique browser fingerprints for fraud prevention.
+ *
+ * Collects browser and device characteristics to create a SHA-256 hash fingerprint.
+ * Used in payment requests to identify devices without cookies.
+ *
+ * @remarks
+ * - Fingerprints are cached in sessionStorage for 5 minutes
+ * - Uses multiple techniques: Canvas, WebGL, fonts, screen info, timezone, etc.
+ * - Normalizes user agent to reduce fingerprint volatility
+ * - Returns empty string on any error (graceful degradation)
+ *
+ * @see {@link PagoRequest.browserFingerprint}
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+export class FingerprintService {
+  private readonly CACHE_KEY &#x3D; &#x27;browser_fingerprint_cache&#x27;;
+  private readonly CACHE_DURATION &#x3D; 5 * 60 * 1000; // 5 minutes
+
+  private readonly fingerprint &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+
+  /**
+   * Readonly signal containing the most recently generated fingerprint.
+   */
+  readonly currentFingerprint &#x3D; this.fingerprint.asReadonly();
+
+  /**
+   * Generates a unique browser fingerprint.
+   *
+   * @returns Promise resolving to SHA-256 hash fingerprint (64 hex characters) or empty string on error
+   *
+   * @remarks
+   * **Flow:**
+   * 1. Checks sessionStorage cache (5 min TTL)
+   * 2. If not cached, collects device/browser components
+   * 3. Generates SHA-256 hash of components
+   * 4. Caches result in sessionStorage
+   * 5. Updates the currentFingerprint signal
+   *
+   * **Components collected:**
+   * - Screen dimensions, pixel ratio, color depth
+   * - Timezone, language, platform
+   * - Hardware concurrency, device memory
+   * - WebGL renderer info
+   * - Canvas fingerprint
+   * - Available fonts
+   * - Normalized user agent
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * const fingerprint &#x3D; await this.fingerprintService.generate();
+   * console.log(fingerprint); // &quot;a3f5e8d9c2b1...&quot;
+   * &#x60;&#x60;&#x60;
+   */
+  async generate(): Promise&lt;string&gt; {
+    try {
+      // 1. Check cache first
+      const cached &#x3D; this.getCached();
+      if (cached) {
+        this.fingerprint.set(cached);
+        return cached;
+      }
+
+      // 2. Collect components
+      const components &#x3D; await this.collectComponents();
+
+      // 3. Generate SHA-256 hash
+      const fp &#x3D; await this.hashComponents(components);
+
+      // 4. Cache result
+      if (fp) {
+        this.setCached(fp);
+        this.fingerprint.set(fp);
+      }
+
+      return fp;
+    } catch {
+      return &#x27;&#x27;;
+    }
+  }
+
+  private async collectComponents(): Promise&lt;FingerprintComponents&gt; {
+    return {
+      screen: {
+        width: screen.width,
+        height: screen.height,
+        availWidth: screen.availWidth,
+        availHeight: screen.availHeight,
+        pixelRatio: window.devicePixelRatio,
+        colorDepth: screen.colorDepth,
+      },
+      timezone: this.getTimezone(),
+      language: navigator.language || &#x27;&#x27;,
+      platform: navigator.platform || &#x27;&#x27;,
+      hardwareConcurrency: navigator.hardwareConcurrency || 0,
+      deviceMemory: (navigator as Navigator &amp; { deviceMemory?: number }).deviceMemory || 0,
+      webgl: this.getWebGLFingerprint(),
+      canvas: this.getCanvasFingerprint(),
+      fonts: this.getFontsFingerprint(),
+      userAgent: this.normalizeUserAgent(navigator.userAgent || &#x27;&#x27;),
+    };
+  }
+
+  private getTimezone(): string {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone || &#x27;UTC&#x27;;
+    } catch {
+      return &#x27;UTC&#x27;;
+    }
+  }
+
+  private getCanvasFingerprint(): string {
+    try {
+      const canvas &#x3D; document.createElement(&#x27;canvas&#x27;);
+      canvas.width &#x3D; 200;
+      canvas.height &#x3D; 50;
+      const ctx &#x3D; canvas.getContext(&#x27;2d&#x27;);
+
+      if (!ctx) return &#x27;canvas_no_context&#x27;;
+
+      ctx.textBaseline &#x3D; &#x27;top&#x27;;
+      ctx.font &#x3D; &#x27;14px Arial&#x27;;
+      ctx.fillStyle &#x3D; &#x27;#f60&#x27;;
+      ctx.fillRect(125, 1, 62, 20);
+      ctx.fillStyle &#x3D; &#x27;#069&#x27;;
+      ctx.fillText(&#x27;OpenWeb&#x27;, 2, 15);
+
+      ctx.fillStyle &#x3D; &#x27;rgba(102, 204, 0, 0.7)&#x27;;
+      ctx.fillRect(100, 5, 80, 30);
+
+      return canvas.toDataURL();
+    } catch {
+      return &#x27;canvas_error&#x27;;
+    }
+  }
+
+  private getWebGLFingerprint(): string {
+    try {
+      const canvas &#x3D; document.createElement(&#x27;canvas&#x27;);
+      const gl &#x3D; canvas.getContext(&#x27;webgl&#x27;) || (canvas.getContext(&#x27;experimental-webgl&#x27;) as WebGLRenderingContext | null);
+
+      if (!gl) return &#x27;webgl_not_supported&#x27;;
+
+      const debugInfo &#x3D; gl.getExtension(&#x27;WEBGL_debug_renderer_info&#x27;);
+      if (!debugInfo) return &#x27;webgl_no_debug&#x27;;
+
+      const vendor &#x3D; gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL) || &#x27;unknown&#x27;;
+      const renderer &#x3D; gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) || &#x27;unknown&#x27;;
+
+      return &#x60;${vendor}~${renderer}&#x60;;
+    } catch {
+      return &#x27;webgl_error&#x27;;
+    }
+  }
+
+  private getFontsFingerprint(): string {
+    const baseFonts &#x3D; [&#x27;monospace&#x27;, &#x27;sans-serif&#x27;, &#x27;serif&#x27;];
+    const testFonts &#x3D; [&#x27;Arial&#x27;, &#x27;Verdana&#x27;, &#x27;Georgia&#x27;, &#x27;Courier New&#x27;, &#x27;Times New Roman&#x27;, &#x27;Comic Sans MS&#x27;, &#x27;Impact&#x27;, &#x27;Trebuchet MS&#x27;, &#x27;Arial Black&#x27;, &#x27;Palatino&#x27;, &#x27;Lucida Console&#x27;, &#x27;Tahoma&#x27;];
+
+    const detectedFonts: string[] &#x3D; [];
+
+    for (const font of testFonts) {
+      if (this.isFontAvailable(font, baseFonts)) {
+        detectedFonts.push(font);
+      }
+    }
+
+    return detectedFonts.join(&#x27;,&#x27;) || &#x27;no_fonts_detected&#x27;;
+  }
+
+  private isFontAvailable(fontName: string, baseFonts: string[]): boolean {
+    try {
+      const testString &#x3D; &#x27;mmmmmmmmmmlli&#x27;;
+      const testSize &#x3D; &#x27;72px&#x27;;
+      const canvas &#x3D; document.createElement(&#x27;canvas&#x27;);
+      const ctx &#x3D; canvas.getContext(&#x27;2d&#x27;);
+
+      if (!ctx) return false;
+
+      for (const baseFont of baseFonts) {
+        ctx.font &#x3D; &#x60;${testSize} ${baseFont}&#x60;;
+        const baseWidth &#x3D; ctx.measureText(testString).width;
+
+        ctx.font &#x3D; &#x60;${testSize} &quot;${fontName}&quot;,${baseFont}&#x60;;
+        const testWidth &#x3D; ctx.measureText(testString).width;
+
+        if (baseWidth !&#x3D;&#x3D; testWidth) {
+          return true;
+        }
+      }
+
+      return false;
+    } catch {
+      return false;
+    }
+  }
+
+  private normalizeUserAgent(ua: string): string {
+    return ua.replace(/\d+\.\d+\.\d+\.\d+/g, &#x27;X.X.X.X&#x27;).replace(/rv:\d+\.\d+/g, &#x27;rv:X.X&#x27;);
+  }
+
+  private async hashComponents(components: FingerprintComponents): Promise&lt;string&gt; {
+    try {
+      const jsonString &#x3D; JSON.stringify(components);
+
+      if (window.crypto &amp;&amp; window.crypto.subtle) {
+        const encoder &#x3D; new TextEncoder();
+        const data &#x3D; encoder.encode(jsonString);
+        const hashBuffer &#x3D; await crypto.subtle.digest(&#x27;SHA-256&#x27;, data);
+        const hashArray &#x3D; Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map((b) &#x3D;&gt; b.toString(16).padStart(2, &#x27;0&#x27;)).join(&#x27;&#x27;);
+      }
+
+      return &#x27;&#x27;;
+    } catch {
+      return &#x27;&#x27;;
+    }
+  }
+
+  private getCached(): string | null {
+    try {
+      const cached &#x3D; sessionStorage.getItem(this.CACHE_KEY);
+      if (!cached) return null;
+
+      const { fingerprint, timestamp } &#x3D; JSON.parse(cached) as FingerprintCache;
+
+      if (Date.now() - timestamp &gt; this.CACHE_DURATION) {
+        sessionStorage.removeItem(this.CACHE_KEY);
+        return null;
+      }
+
+      return fingerprint;
+    } catch {
+      return null;
+    }
+  }
+
+  private setCached(fingerprint: string): void {
+    try {
+      const data: FingerprintCache &#x3D; {
+        fingerprint,
+        timestamp: Date.now(),
+      };
+      sessionStorage.setItem(this.CACHE_KEY, JSON.stringify(data));
+    } catch {
+      // Ignore storage errors
+    }
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'FingerprintComponents.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

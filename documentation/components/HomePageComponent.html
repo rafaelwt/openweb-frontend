@@ -1,0 +1,1297 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  HomePageComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/features/home/pages/home-page/home-page.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Home page component displaying the service catalog.</p>
+<p>Provides functionality for:</p>
+<ul>
+<li><p>Displaying all available services as cards</p>
+</li>
+<li><p>Filtering by category</p>
+</li>
+<li><p>Searching by service name</p>
+</li>
+<li><p>Showing service counts per category</p>
+</li>
+<li><p>Loads services and categories from API on initialization</p>
+</li>
+<li><p>Uses reactive forms for search and category filtering</p>
+</li>
+<li><p>Filters are applied in real-time via computed properties</p>
+</li>
+<li><p>Only displays active services (estadoServicio = true)</p>
+</li>
+</ul>
+<p>See <a href="ApiService.getServices">ApiService.getServices</a>
+See <a href="../components/BusinessCardComponent.html">BusinessCardComponent</a></p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-home-page</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>ReactiveFormsModule</code>
+                                <code><a href="../components/BusinessCardComponent.html" target="_self" >BusinessCardComponent</a></code>
+                                <code><a href="../components/LoadingComponent.html" target="_self" >LoadingComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./home-page.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#api" >api</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#business" >business</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#categories" >categories</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#error" >error</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#fb" >fb</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#searchForm" >searchForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#clearSearch" >clearSearch</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#countByCategory" >countByCategory</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#filteredBusiness" >filteredBusiness</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#loadServicios" >loadServicios</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#onCategoryChange" >onCategoryChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#currentCategory" >currentCategory</a>
+                                </li>
+                                <li>
+                                    <a href="#currentSearch" >currentSearch</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearSearch"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>clearSearch</b></span>
+                        <a href="#clearSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>clearSearch()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="countByCategory"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>countByCategory</b></span>
+                        <a href="#countByCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>countByCategory(categorie: <a href="../interfaces/Categoria.html" target="_self">Categoria</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Counts active services for a specific category.</p>
+<p>Only counts services where estadoServicio = true.
+Respects current search filter.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>categorie</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Categoria.html" target="_self" >Categoria</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Category to count services for</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Number of active services in the category matching current search</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredBusiness"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>filteredBusiness</b></span>
+                        <a href="#filteredBusiness"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>filteredBusiness()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Filters services by selected category and search text.</p>
+<p><strong>Filter logic:</strong></p>
+<ul>
+<li>Category: 0 = all, otherwise filters by categoriaServicio</li>
+<li>Search: case-insensitive substring match on nombreServicio</li>
+<li>Both filters are applied simultaneously (AND logic)</li>
+</ul>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/Servicio.html" target="_self" >Servicio[]</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Array of services matching current filters</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadServicios"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>loadServicios</b></span>
+                        <a href="#loadServicios"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadServicios()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:84</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="80"
+                                    class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:80</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCategoryChange"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>onCategoryChange</b></span>
+                        <a href="#onCategoryChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onCategoryChange(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="api"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>api</b></span>
+                        <a href="#api"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ApiService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="business"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>business</b></span>
+                        <a href="#business"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Servicio[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="categories"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>categories</b></span>
+                        <a href="#categories"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Categoria[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="error"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>error</b></span>
+                        <a href="#error"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fb"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>fb</b></span>
+                        <a href="#fb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(FormBuilder)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(true)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchForm"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>searchForm</b></span>
+                        <a href="#searchForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.fb.group({
+    searchBusiness: [&#x27;&#x27;],
+    selectedCategorie: [0],
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentCategory"></a>
+                        <span class="name"><b>currentCategory</b><a href="#currentCategory"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>currentCategory()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:45</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentSearch"></a>
+                        <span class="name"><b>currentSearch</b><a href="#currentSearch"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>currentSearch()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/features/home/pages/home-page/home-page.ts:49</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from &#x27;@angular/core&#x27;;
+import { ReactiveFormsModule, FormBuilder } from &#x27;@angular/forms&#x27;;
+import { ApiService } from &#x27;@core/services/api.service&#x27;;
+import { Servicio, Categoria } from &#x27;@models/index&#x27;;
+import { BusinessCardComponent } from &#x27;@features/home/components/business-card/business-card&#x27;;
+import { LoadingComponent } from &#x27;@shared/components/loading/loading&#x27;;
+
+/**
+ * Home page component displaying the service catalog.
+ *
+ * Provides functionality for:
+ * - Displaying all available services as cards
+ * - Filtering by category
+ * - Searching by service name
+ * - Showing service counts per category
+ *
+ * @remarks
+ * - Loads services and categories from API on initialization
+ * - Uses reactive forms for search and category filtering
+ * - Filters are applied in real-time via computed properties
+ * - Only displays active services (estadoServicio &#x3D; true)
+ *
+ * @selector app-home-page
+ *
+ * @see {@link ApiService.getServices}
+ * @see {@link BusinessCardComponent}
+ */
+@Component({
+  selector: &#x27;app-home-page&#x27;,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: &#x27;./home-page.html&#x27;,
+  imports: [ReactiveFormsModule, BusinessCardComponent, LoadingComponent],
+})
+export class HomePageComponent implements OnInit {
+  private readonly api &#x3D; inject(ApiService);
+  private readonly fb &#x3D; inject(FormBuilder);
+
+  // Reactive Form
+  protected readonly searchForm &#x3D; this.fb.group({
+    searchBusiness: [&#x27;&#x27;],
+    selectedCategorie: [0],
+  });
+
+  // Getters for form values
+  protected get currentCategory(): number {
+    return this.searchForm.get(&#x27;selectedCategorie&#x27;)!.value ?? 0;
+  }
+
+  protected get currentSearch(): string {
+    return this.searchForm.get(&#x27;searchBusiness&#x27;)!.value ?? &#x27;&#x27;;
+  }
+
+  protected readonly categories &#x3D; signal&lt;Categoria[]&gt;([]);
+  protected readonly business &#x3D; signal&lt;Servicio[]&gt;([]);
+  protected readonly loading &#x3D; signal(true);
+  protected readonly error &#x3D; signal&lt;string | null&gt;(null);
+
+  /**
+   * Filters services by selected category and search text.
+   *
+   * @returns Array of services matching current filters
+   *
+   * @remarks
+   * **Filter logic:**
+   * - Category: 0 &#x3D; all, otherwise filters by categoriaServicio
+   * - Search: case-insensitive substring match on nombreServicio
+   * - Both filters are applied simultaneously (AND logic)
+   */
+  protected filteredBusiness(): Servicio[] {
+    const currentCategory &#x3D; this.currentCategory;
+    const currentSearch &#x3D; this.currentSearch.toLowerCase();
+
+    return this.business().filter((s) &#x3D;&gt; {
+      const matchCategorie &#x3D; currentCategory &#x3D;&#x3D;&#x3D; 0 || s.categoriaServicio &#x3D;&#x3D;&#x3D; currentCategory;
+      const matchSearch &#x3D; !currentSearch || s.nombreServicio.toLowerCase().includes(currentSearch);
+      return matchCategorie &amp;&amp; matchSearch;
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadServicios();
+  }
+
+  protected loadServicios(): void {
+    this.loading.set(true);
+    this.error.set(null);
+
+    this.api.getServices().subscribe({
+      next: (response) &#x3D;&gt; {
+        if (response.success) {
+          this.business.set(response.data.servicios);
+          this.categories.set(response.data.categorias);
+        } else {
+          this.error.set(&#x27;No se pudieron cargar los servicios&#x27;);
+        }
+        this.loading.set(false);
+      },
+      error: () &#x3D;&gt; {
+        this.error.set(&#x27;Error al conectar con el servidor&#x27;);
+        this.loading.set(false);
+      },
+    });
+  }
+
+  /**
+   * Counts active services for a specific category.
+   *
+   * @param categorie - Category to count services for
+   * @returns Number of active services in the category matching current search
+   *
+   * @remarks
+   * Only counts services where estadoServicio &#x3D; true.
+   * Respects current search filter.
+   */
+  protected countByCategory(categorie: Categoria): number {
+    const currentSearch &#x3D; this.currentSearch.toLowerCase();
+
+    return this.business().filter((s) &#x3D;&gt; {
+      const matchCategorie &#x3D; categorie.codigoCategoria &#x3D;&#x3D;&#x3D; 0 || s.categoriaServicio &#x3D;&#x3D;&#x3D; categorie.codigoCategoria;
+      const matchSearch &#x3D; !currentSearch || s.nombreServicio.toLowerCase().includes(currentSearch);
+      const statusBusiness &#x3D; s.estadoServicio;
+      return matchCategorie &amp;&amp; matchSearch &amp;&amp; statusBusiness;
+    }).length;
+  }
+
+  protected clearSearch(): void {
+    this.searchForm.patchValue({ searchBusiness: &#x27;&#x27; });
+  }
+
+  protected onCategoryChange(value: number): void {
+    this.searchForm.patchValue({ selectedCategorie: value });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;main class&#x3D;&quot;pt-4 pb-4 dark:bg-gray-900&quot;&gt;
+  &lt;div class&#x3D;&quot;mx-auto max-w-7xl px-4 sm:px-6 lg:px-8&quot;&gt;
+    @if (loading()) {
+      &lt;div class&#x3D;&quot;py-12&quot;&gt;
+        &lt;app-loading text&#x3D;&quot;Cargando servicios...&quot; /&gt;
+      &lt;/div&gt;
+    } @else if (error()) {
+      &lt;div class&#x3D;&quot;py-12 text-center&quot;&gt;
+        &lt;p class&#x3D;&quot;text-red-600&quot;&gt;{{ error() }}&lt;/p&gt;
+        &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;mt-4 text-blue-600 hover:text-blue-800&quot; (click)&#x3D;&quot;loadServicios()&quot;&gt;Reintentar&lt;/button&gt;
+      &lt;/div&gt;
+    } @else {
+      &lt;!-- Services search --&gt;
+      &lt;div class&#x3D;&quot;mb-4&quot; [formGroup]&#x3D;&quot;searchForm&quot;&gt;
+        &lt;div class&#x3D;&quot;relative ml-auto w-full sm:max-w-126 lg:max-w-118 xl:max-w-98&quot;&gt;
+          &lt;input type&#x3D;&quot;text&quot; id&#x3D;&quot;searchServiceInput&quot; formControlName&#x3D;&quot;searchBusiness&quot; maxlength&#x3D;&quot;50&quot; placeholder&#x3D;&quot;Buscar servicio...&quot; aria-label&#x3D;&quot;Buscar servicio por nombre&quot; class&#x3D;&quot;w-full rounded-lg border border-gray-300 px-4 py-3 pr-12 focus:border-transparent focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400&quot; /&gt;
+          &lt;div class&#x3D;&quot;pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3&quot;&gt;
+            @if (currentSearch.length &gt; 0) {
+              &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;pointer-events-auto mr-1 text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300&quot; (click)&#x3D;&quot;clearSearch()&quot;&gt;
+                &lt;svg class&#x3D;&quot;h-5 w-5&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M6 18L18 6M6 6l12 12&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/button&gt;
+            }
+            &lt;svg class&#x3D;&quot;h-6 w-6 text-gray-400 dark:text-gray-500&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Service tabs container (Mobile - Select) --&gt;
+      &lt;div class&#x3D;&quot;mb-4 sm:hidden&quot; [formGroup]&#x3D;&quot;searchForm&quot;&gt;
+        &lt;select id&#x3D;&quot;categorySelectMobile&quot; formControlName&#x3D;&quot;selectedCategorie&quot; class&#x3D;&quot;bg-neutral-secondary-medium text-heading placeholder:text-body block w-full rounded-lg border border-gray-300 px-4 py-3 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200&quot;&gt;
+          @for (categoria of categories(); track categoria.codigoCategoria) {
+            &lt;option [ngValue]&#x3D;&quot;categoria.codigoCategoria&quot;&gt;
+              {{ categoria.nombreCategoria }}
+            &lt;/option&gt;
+          }
+        &lt;/select&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Services tabs container (Desktop) --&gt;
+      &lt;div class&#x3D;&quot;mb-6 hidden border-b border-gray-200 sm:block dark:border-gray-700&quot;&gt;
+        &lt;nav class&#x3D;&quot;-mb-px flex space-x-8&quot; aria-label&#x3D;&quot;Tabs&quot;&gt;
+          @for (categoria of categories(); track categoria.codigoCategoria) {
+            @let activo &#x3D; currentCategory &#x3D;&#x3D;&#x3D; categoria.codigoCategoria;
+
+            &lt;button type&#x3D;&quot;button&quot; (click)&#x3D;&quot;onCategoryChange(categoria.codigoCategoria)&quot; class&#x3D;&quot;group inline-flex cursor-pointer items-center border-b-2 px-1 py-4 text-sm font-medium transition-colors focus:outline-none&quot; [class]&#x3D;&quot;activo ? &#x27;border-indigo-500 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400&#x27; : &#x27;border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-gray-300&#x27;&quot;&gt;
+              &lt;span&gt;{{ categoria.nombreCategoria }}&lt;/span&gt;
+              &lt;span class&#x3D;&quot;ml-3 rounded-full px-2.5 py-0.5 text-xs font-medium&quot; [class]&#x3D;&quot;activo ? &#x27;bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300&#x27; : &#x27;bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-300&#x27;&quot;&gt;
+                {{ countByCategory(categoria) }}
+              &lt;/span&gt;
+            &lt;/button&gt;
+          }
+        &lt;/nav&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Responsive grid container --&gt;
+      &lt;div class&#x3D;&quot;grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 lg:grid-cols-5 xl:grid-cols-6&quot;&gt;
+        @for (servicio of filteredBusiness(); track servicio.aliasServicio) {
+          &lt;app-service-card [business]&#x3D;&quot;servicio&quot; /&gt;
+        }
+      &lt;/div&gt;
+
+      @if (filteredBusiness().length &#x3D;&#x3D;&#x3D; 0) {
+        &lt;div class&#x3D;&quot;py-12 text-center&quot;&gt;
+          &lt;p class&#x3D;&quot;text-gray-500 dark:text-gray-400&quot;&gt;No se encontraron servicios&lt;/p&gt;
+        &lt;/div&gt;
+      }
+    }
+  &lt;/div&gt;
+&lt;/main&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><main class="pt-4 pb-4 dark:bg-gray-900">  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">    @if (loading()) {      <div class="py-12">        <app-loading text="Cargando servicios..." />      </div>    } @else if (error()) {      <div class="py-12 text-center">        <p class="text-red-600">{{ error() }}</p>        <button type="button" class="mt-4 text-blue-600 hover:text-blue-800" (click)="loadServicios()">Reintentar</button>      </div>    } @else {      <!-- Services search -->      <div class="mb-4" [formGroup]="searchForm">        <div class="relative ml-auto w-full sm:max-w-126 lg:max-w-118 xl:max-w-98">          <input type="text" id="searchServiceInput" formControlName="searchBusiness" maxlength="50" placeholder="Buscar servicio..." aria-label="Buscar servicio por nombre" class="w-full rounded-lg border border-gray-300 px-4 py-3 pr-12 focus:border-transparent focus:ring-1 focus:ring-indigo-500 focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:placeholder-gray-400" />          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">            @if (currentSearch.length > 0) {              <button type="button" class="pointer-events-auto mr-1 text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300" (click)="clearSearch()">                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />                </svg>              </button>            }            <svg class="h-6 w-6 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />            </svg>          </div>        </div>      </div>      <!-- Service tabs container (Mobile - Select) -->      <div class="mb-4 sm:hidden" [formGroup]="searchForm">        <select id="categorySelectMobile" formControlName="selectedCategorie" class="bg-neutral-secondary-medium text-heading placeholder:text-body block w-full rounded-lg border border-gray-300 px-4 py-3 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200">          @for (categoria of categories(); track categoria.codigoCategoria) {            <option [ngValue]="categoria.codigoCategoria">              {{ categoria.nombreCategoria }}            </option>          }        </select>      </div>      <!-- Services tabs container (Desktop) -->      <div class="mb-6 hidden border-b border-gray-200 sm:block dark:border-gray-700">        <nav class="-mb-px flex space-x-8" aria-label="Tabs">          @for (categoria of categories(); track categoria.codigoCategoria) {            @let activo = currentCategory === categoria.codigoCategoria;            <button type="button" (click)="onCategoryChange(categoria.codigoCategoria)" class="group inline-flex cursor-pointer items-center border-b-2 px-1 py-4 text-sm font-medium transition-colors focus:outline-none" [class]="activo ? \'border-indigo-500 text-indigo-600 dark:border-indigo-400 dark:text-indigo-400\' : \'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:text-gray-300\'">              <span>{{ categoria.nombreCategoria }}</span>              <span class="ml-3 rounded-full px-2.5 py-0.5 text-xs font-medium" [class]="activo ? \'bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300\' : \'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-300\'">                {{ countByCategory(categoria) }}              </span>            </button>          }        </nav>      </div>      <!-- Responsive grid container -->      <div class="grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-4 lg:grid-cols-5 xl:grid-cols-6">        @for (servicio of filteredBusiness(); track servicio.aliasServicio) {          <app-service-card [business]="servicio" />        }      </div>      @if (filteredBusiness().length === 0) {        <div class="py-12 text-center">          <p class="text-gray-500 dark:text-gray-400">No se encontraron servicios</p>        </div>      }    }  </div></main></div>'
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'BusinessCardComponent', 'selector': 'app-service-card'},{'name': 'CallCenterComponent', 'selector': 'app-call-center'},{'name': 'CheckoutWizardComponent', 'selector': 'app-checkout-wizard'},{'name': 'CobranzaWizardComponent', 'selector': 'app-cobranza-wizard'},{'name': 'ConfirmationModalComponent', 'selector': 'app-confirmation-modal'},{'name': 'ContactCard', 'selector': 'app-contact-card'},{'name': 'ContactsComponent', 'selector': 'app-contacts'},{'name': 'ContractSelectorComponent', 'selector': 'app-contract-selector'},{'name': 'DebtTableComponent', 'selector': 'app-debt-table'},{'name': 'ErrorAlertComponent', 'selector': 'app-error-alert'},{'name': 'ErrorModalComponent', 'selector': 'app-error-modal'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HomePageComponent', 'selector': 'app-home-page'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'MainLayoutComponent', 'selector': 'app-main-layout'},{'name': 'NotFoundPageComponent', 'selector': 'app-not-found'},{'name': 'ProximamentePageComponent', 'selector': 'app-proximamente-page'},{'name': 'QrDisplayComponent', 'selector': 'app-qr-display'},{'name': 'SearchAssociateComponent', 'selector': 'app-search-associate'},{'name': 'StepCard', 'selector': 'app-step-card'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'WizardHeaderComponent', 'selector': 'app-wizard-header'},{'name': 'WizardNavComponent', 'selector': 'app-wizard-nav'},{'name': 'WizardProgressComponent', 'selector': 'app-wizard-progress'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HomePageComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HomePageComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

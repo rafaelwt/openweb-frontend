@@ -1,0 +1,2008 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >CartService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/services/cart.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Manages shopping cart state using signals and session storage.</p>
+<p>Provides reactive computed values for:</p>
+<ul>
+<li><p>Item counts and totals</p>
+</li>
+<li><p>Service and commission calculations</p>
+</li>
+<li><p>Cart persistence across page reloads</p>
+</li>
+<li><p>Uses Decimal.js for precise currency operations (20 precision, ROUND_HALF_UP)</p>
+</li>
+<li><p>Cart data persists in sessionStorage with session ID validation</p>
+</li>
+<li><p>Session IDs prevent cart data leakage between different sessions</p>
+</li>
+</ul>
+<p>See <a href="../interfaces/Carrito.html">Carrito</a>
+See <a href="../interfaces/ItemCarrito.html">ItemCarrito</a></p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#cart" >cart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#cartCurrency" >cartCurrency</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#hasCommissions" >hasCommissions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#isEmpty" >isEmpty</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#itemCount" >itemCount</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#items" >items</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#SESSION_KEY" >SESSION_KEY</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#STORAGE_KEY" >STORAGE_KEY</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalCommissions" >totalCommissions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalGeneral" >totalGeneral</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#totalServices" >totalServices</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addItem" >addItem</a>
+                            </li>
+                            <li>
+                                <a href="#canAddItemWithCurrency" >canAddItemWithCurrency</a>
+                            </li>
+                            <li>
+                                <a href="#clearCart" >clearCart</a>
+                            </li>
+                            <li>
+                                <a href="#findDuplicateIndex" >findDuplicateIndex</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#generateSessionId" >generateSessionId</a>
+                            </li>
+                            <li>
+                                <a href="#getItemsAsJson" >getItemsAsJson</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getOrCreateSessionId" >getOrCreateSessionId</a>
+                            </li>
+                            <li>
+                                <a href="#loadCart" >loadCart</a>
+                            </li>
+                            <li>
+                                <a href="#removeItem" >removeItem</a>
+                            </li>
+                            <li>
+                                <a href="#replaceItem" >replaceItem</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#saveCart" >saveCart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#validateSession" >validateSession</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="121" class="link-to-prism">src/app/core/services/cart.service.ts:121</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addItem"></a>
+                    <span class="name">
+                        <span ><b>addItem</b></span>
+                        <a href="#addItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addItem(item: <a href="../interfaces/ItemCarrito.html" target="_self">ItemCarrito</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="184"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:184</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Adds an item to the shopping cart.</p>
+<ul>
+<li>Creates a new session ID if none exists</li>
+<li>Updates the cart&#39;s <code>updatedAt</code> timestamp</li>
+<li>Automatically persists to sessionStorage</li>
+</ul>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">const success = cartService.addItem({
+  aliasServicio: &#39;coopappi&#39;,
+  nombreServicio: &#39;COOPAPPI&#39;,
+  totalGeneral: 150.00,
+  // ... other properties
+});
+if (success) {
+  console.log(&#39;Item added to cart&#39;);
+}</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ItemCarrito.html" target="_self" >ItemCarrito</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The cart item to add</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> if item was added successfully, <code>false</code> if an error occurred</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canAddItemWithCurrency"></a>
+                    <span class="name">
+                        <span ><b>canAddItemWithCurrency</b></span>
+                        <a href="#canAddItemWithCurrency"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>canAddItemWithCurrency(abreviacionMoneda: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="278"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:278</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Validates if an item with the given currency can be added to the cart.</p>
+<p><strong>Validation rules:</strong></p>
+<ul>
+<li>Empty cart: Always returns <code>{ canAdd: true, existingCurrency: null }</code></li>
+<li>Cart has items: Returns <code>{ canAdd: false, existingCurrency: &quot;Bs.&quot; }</code> if currency mismatch</li>
+<li>Cart has items with same currency: Returns <code>{ canAdd: true, existingCurrency: &quot;Bs.&quot; }</code></li>
+</ul>
+<p>This prevents users from mixing different currencies in a single transaction.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">const validation = cartService.canAddItemWithCurrency(&#39;USD&#39;);
+if (!validation.canAdd) {
+  console.log(`Cart already contains items in ${validation.existingCurrency}`);
+}</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>abreviacionMoneda</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Currency abbreviation to validate (e.g., &quot;Bs.&quot;, &quot;USD&quot;)</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Object with validation result</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearCart"></a>
+                    <span class="name">
+                        <span ><b>clearCart</b></span>
+                        <a href="#clearCart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearCart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="350"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:350</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Clears the entire cart.</p>
+<ul>
+<li>Removes all items from the cart signal</li>
+<li>Removes cart data from sessionStorage</li>
+<li>Does not remove the session ID</li>
+</ul>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findDuplicateIndex"></a>
+                    <span class="name">
+                        <span ><b>findDuplicateIndex</b></span>
+                        <a href="#findDuplicateIndex"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findDuplicateIndex(aliasServicio: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, codigoContrato: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="252"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:252</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Finds a duplicate item in the cart based on service alias and contract code.</p>
+<p>Duplicate is defined as having the same <code>aliasServicio</code> AND <code>codigoContrato</code>.
+This prevents users from adding the same contract payment multiple times.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">const duplicateIndex = cartService.findDuplicateIndex(&#39;coopappi&#39;, &#39;CT-12345&#39;);
+if (duplicateIndex !== -1) {
+  console.log(&#39;Duplicate found at index:&#39;, duplicateIndex);
+}</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>aliasServicio</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Service alias to match</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>codigoContrato</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Contract code to match</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Index of duplicate item, or -1 if not found</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateSessionId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>generateSessionId</b></span>
+                        <a href="#generateSessionId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>generateSessionId()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="388"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:388</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getItemsAsJson"></a>
+                    <span class="name">
+                        <span ><b>getItemsAsJson</b></span>
+                        <a href="#getItemsAsJson"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getItemsAsJson()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="363"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:363</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Serializes cart items to JSON string.</p>
+<p>Used for sending cart data to the backend API.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>JSON string representation of cart items array</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getOrCreateSessionId"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>getOrCreateSessionId</b></span>
+                        <a href="#getOrCreateSessionId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getOrCreateSessionId()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="374"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:374</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadCart"></a>
+                    <span class="name">
+                        <span ><b>loadCart</b></span>
+                        <a href="#loadCart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadCart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Loads the cart from session storage.</p>
+<ul>
+<li>Validates session ID before restoring cart data</li>
+<li>Clears cart if session ID is invalid or parsing fails</li>
+<li>Automatically called in constructor on service initialization</li>
+</ul>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeItem"></a>
+                    <span class="name">
+                        <span ><b>removeItem</b></span>
+                        <a href="#removeItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeItem(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="214"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:214</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Removes an item from the cart by its index.</p>
+<ul>
+<li>If this is the last item, the entire cart is cleared (including session data)</li>
+<li>Updates the cart&#39;s <code>updatedAt</code> timestamp</li>
+<li>Automatically persists changes to sessionStorage</li>
+</ul>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Zero-based index of the item to remove</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="replaceItem"></a>
+                    <span class="name">
+                        <span ><b>replaceItem</b></span>
+                        <a href="#replaceItem"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>replaceItem(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, newItem: <a href="../interfaces/ItemCarrito.html" target="_self">ItemCarrito</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="318"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:318</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Replaces an existing item in the cart.</p>
+<ul>
+<li>Validates index is within bounds before replacing</li>
+<li>Updates the cart&#39;s <code>updatedAt</code> timestamp</li>
+<li>Automatically persists changes to sessionStorage</li>
+</ul>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">const success = cartService.replaceItem(0, newItemData);
+if (success) {
+  console.log(&#39;Item replaced successfully&#39;);
+}</code></pre></div></div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Index of the item to replace</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>newItem</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ItemCarrito.html" target="_self" >ItemCarrito</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>New item data</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p><code>true</code> if replacement was successful, <code>false</code> otherwise</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveCart"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>saveCart</b></span>
+                        <a href="#saveCart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>saveCart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="367"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:367</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateSession"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>validateSession</b></span>
+                        <a href="#validateSession"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>validateSession(cartSessionId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="383"
+                                    class="link-to-prism">src/app/core/services/cart.service.ts:383</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cartSessionId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cart"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>cart</b></span>
+                        <a href="#cart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Carrito | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/core/services/cart.service.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cartCurrency"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>cartCurrency</b></span>
+                        <a href="#cartCurrency"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    const items &#x3D; this.items();
+    return items.length &gt; 0 ? items[0].abreviacionMoneda : null;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="118" class="link-to-prism">src/app/core/services/cart.service.ts:118</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal with the currency used in the cart.</p>
+<p>All items in cart must use the same currency.
+This returns the currency of the first item as the &quot;cart currency&quot;.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasCommissions"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>hasCommissions</b></span>
+                        <a href="#hasCommissions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.totalCommissions() &gt; 0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/app/core/services/cart.service.ts:100</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal indicating whether the cart has any commissions.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isEmpty"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>isEmpty</b></span>
+                        <a href="#isEmpty"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.itemCount() &#x3D;&#x3D;&#x3D; 0)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="107" class="link-to-prism">src/app/core/services/cart.service.ts:107</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal indicating whether the cart is empty.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="itemCount"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>itemCount</b></span>
+                        <a href="#itemCount"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.items().length)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/core/services/cart.service.ts:51</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal with the total number of items in the cart.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="items"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>items</b></span>
+                        <a href="#items"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.cart()?.items ?? [])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/core/services/cart.service.ts:44</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal containing all items in the cart.</p>
+<p>Returns an empty array if cart is null.
+Updates reactively when cart changes.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SESSION_KEY"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>SESSION_KEY</b></span>
+                        <a href="#SESSION_KEY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;redis_session_id&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/core/services/cart.service.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="STORAGE_KEY"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>STORAGE_KEY</b></span>
+                        <a href="#STORAGE_KEY"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;redis_cart_items&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/core/services/cart.service.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalCommissions"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalCommissions</b></span>
+                        <a href="#totalCommissions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt;
+    this.items()
+      .reduce((sum, item) &#x3D;&gt; sum.plus(item.totalComision), new Decimal(0))
+      .toNumber(),
+  )</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/core/services/cart.service.ts:75</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal with the total commission amount for all items.</p>
+<p>Uses Decimal.js for precise currency calculations.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalGeneral"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalGeneral</b></span>
+                        <a href="#totalGeneral"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt;
+    this.items()
+      .reduce((sum, item) &#x3D;&gt; sum.plus(item.totalGeneral), new Decimal(0))
+      .toNumber(),
+  )</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="89" class="link-to-prism">src/app/core/services/cart.service.ts:89</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal with the grand total (services + commissions).</p>
+<p>Uses Decimal.js for precise currency calculations.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="totalServices"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>totalServices</b></span>
+                        <a href="#totalServices"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt;
+    this.items()
+      .reduce((sum, item) &#x3D;&gt; sum.plus(item.totalServicio), new Decimal(0))
+      .toNumber(),
+  )</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/core/services/cart.service.ts:61</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal with the total service amount for all items.</p>
+<p>Uses Decimal.js for precise currency calculations.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal, computed } from &#x27;@angular/core&#x27;;
+
+import Decimal from &#x27;decimal.js-light&#x27;;
+
+import { Carrito, ItemCarrito } from &#x27;../models&#x27;;
+
+// Configure Decimal.js for currency operations
+Decimal.set({ precision: 20, rounding: Decimal.ROUND_HALF_UP });
+
+/**
+ * Manages shopping cart state using signals and session storage.
+ *
+ * Provides reactive computed values for:
+ * - Item counts and totals
+ * - Service and commission calculations
+ * - Cart persistence across page reloads
+ *
+ * @remarks
+ * - Uses Decimal.js for precise currency operations (20 precision, ROUND_HALF_UP)
+ * - Cart data persists in sessionStorage with session ID validation
+ * - Session IDs prevent cart data leakage between different sessions
+ *
+ * @see {@link Carrito}
+ * @see {@link ItemCarrito}
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+export class CartService {
+  private readonly STORAGE_KEY &#x3D; &#x27;redis_cart_items&#x27;;
+  private readonly SESSION_KEY &#x3D; &#x27;redis_session_id&#x27;;
+
+  private readonly cart &#x3D; signal&lt;Carrito | null&gt;(null);
+
+  /**
+   * Computed signal containing all items in the cart.
+   *
+   * @remarks
+   * Returns an empty array if cart is null.
+   * Updates reactively when cart changes.
+   *
+   * @returns Readonly array of cart items
+   */
+  readonly items &#x3D; computed(() &#x3D;&gt; this.cart()?.items ?? []);
+
+  /**
+   * Computed signal with the total number of items in the cart.
+   *
+   * @returns Number of items in the cart
+   */
+  readonly itemCount &#x3D; computed(() &#x3D;&gt; this.items().length);
+
+  /**
+   * Computed signal with the total service amount for all items.
+   *
+   * @remarks
+   * Uses Decimal.js for precise currency calculations.
+   *
+   * @returns Total service amount in Bolivianos
+   */
+  readonly totalServices &#x3D; computed(() &#x3D;&gt;
+    this.items()
+      .reduce((sum, item) &#x3D;&gt; sum.plus(item.totalServicio), new Decimal(0))
+      .toNumber(),
+  );
+
+  /**
+   * Computed signal with the total commission amount for all items.
+   *
+   * @remarks
+   * Uses Decimal.js for precise currency calculations.
+   *
+   * @returns Total commission amount in Bolivianos
+   */
+  readonly totalCommissions &#x3D; computed(() &#x3D;&gt;
+    this.items()
+      .reduce((sum, item) &#x3D;&gt; sum.plus(item.totalComision), new Decimal(0))
+      .toNumber(),
+  );
+
+  /**
+   * Computed signal with the grand total (services + commissions).
+   *
+   * @remarks
+   * Uses Decimal.js for precise currency calculations.
+   *
+   * @returns Grand total amount in Bolivianos
+   */
+  readonly totalGeneral &#x3D; computed(() &#x3D;&gt;
+    this.items()
+      .reduce((sum, item) &#x3D;&gt; sum.plus(item.totalGeneral), new Decimal(0))
+      .toNumber(),
+  );
+
+  /**
+   * Computed signal indicating whether the cart has any commissions.
+   *
+   * @returns &#x60;true&#x60; if total commissions are greater than 0, &#x60;false&#x60; otherwise
+   */
+  readonly hasCommissions &#x3D; computed(() &#x3D;&gt; this.totalCommissions() &gt; 0);
+
+  /**
+   * Computed signal indicating whether the cart is empty.
+   *
+   * @returns &#x60;true&#x60; if cart has no items, &#x60;false&#x60; otherwise
+   */
+  readonly isEmpty &#x3D; computed(() &#x3D;&gt; this.itemCount() &#x3D;&#x3D;&#x3D; 0);
+
+  /**
+   * Computed signal with the currency used in the cart.
+   *
+   * @returns Currency abbreviation from first item, or null if cart is empty
+   *
+   * @remarks
+   * All items in cart must use the same currency.
+   * This returns the currency of the first item as the &quot;cart currency&quot;.
+   */
+  readonly cartCurrency &#x3D; computed(() &#x3D;&gt; {
+    const items &#x3D; this.items();
+    return items.length &gt; 0 ? items[0].abreviacionMoneda : null;
+  });
+
+  constructor() {
+    this.loadCart();
+  }
+
+  /**
+   * Loads the cart from session storage.
+   *
+   * @remarks
+   * - Validates session ID before restoring cart data
+   * - Clears cart if session ID is invalid or parsing fails
+   * - Automatically called in constructor on service initialization
+   */
+  loadCart(): void {
+    try {
+      const stored &#x3D; sessionStorage.getItem(this.STORAGE_KEY);
+      if (stored) {
+        const cart &#x3D; JSON.parse(stored) as Carrito;
+
+        // Migration: Add default currency to old cart items
+        cart.items &#x3D; cart.items.map((item) &#x3D;&gt; {
+          if (!item.abreviacionMoneda) {
+            return { ...item, abreviacionMoneda: &#x27;Bs.&#x27; };
+          }
+          return item;
+        });
+
+        if (this.validateSession(cart.sessionId)) {
+          this.cart.set(cart);
+        } else {
+          this.clearCart();
+        }
+      }
+    } catch {
+      this.clearCart();
+    }
+  }
+
+  /**
+   * Adds an item to the shopping cart.
+   *
+   * @param item - The cart item to add
+   * @returns &#x60;true&#x60; if item was added successfully, &#x60;false&#x60; if an error occurred
+   *
+   * @remarks
+   * - Creates a new session ID if none exists
+   * - Updates the cart&#x27;s &#x60;updatedAt&#x60; timestamp
+   * - Automatically persists to sessionStorage
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * const success &#x3D; cartService.addItem({
+   *   aliasServicio: &#x27;coopappi&#x27;,
+   *   nombreServicio: &#x27;COOPAPPI&#x27;,
+   *   totalGeneral: 150.00,
+   *   // ... other properties
+   * });
+   * if (success) {
+   *   console.log(&#x27;Item added to cart&#x27;);
+   * }
+   * &#x60;&#x60;&#x60;
+   */
+  addItem(item: ItemCarrito): boolean {
+    try {
+      const currentCart &#x3D; this.cart();
+      const sessionId &#x3D; this.getOrCreateSessionId();
+
+      const newCart: Carrito &#x3D; {
+        sessionId,
+        items: currentCart ? [...currentCart.items, item] : [item],
+        createdAt: currentCart?.createdAt ?? Date.now(),
+        updatedAt: Date.now(),
+      };
+
+      this.cart.set(newCart);
+      this.saveCart();
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Removes an item from the cart by its index.
+   *
+   * @param index - Zero-based index of the item to remove
+   *
+   * @remarks
+   * - If this is the last item, the entire cart is cleared (including session data)
+   * - Updates the cart&#x27;s &#x60;updatedAt&#x60; timestamp
+   * - Automatically persists changes to sessionStorage
+   */
+  removeItem(index: number): void {
+    const currentCart &#x3D; this.cart();
+    if (!currentCart) return;
+
+    const newItems &#x3D; currentCart.items.filter((_, i) &#x3D;&gt; i !&#x3D;&#x3D; index);
+
+    if (newItems.length &#x3D;&#x3D;&#x3D; 0) {
+      this.clearCart();
+    } else {
+      const newCart: Carrito &#x3D; {
+        ...currentCart,
+        items: newItems,
+        updatedAt: Date.now(),
+      };
+      this.cart.set(newCart);
+      this.saveCart();
+    }
+  }
+
+  /**
+   * Finds a duplicate item in the cart based on service alias and contract code.
+   *
+   * @param aliasServicio - Service alias to match
+   * @param codigoContrato - Contract code to match
+   * @returns Index of duplicate item, or -1 if not found
+   *
+   * @remarks
+   * Duplicate is defined as having the same &#x60;aliasServicio&#x60; AND &#x60;codigoContrato&#x60;.
+   * This prevents users from adding the same contract payment multiple times.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * const duplicateIndex &#x3D; cartService.findDuplicateIndex(&#x27;coopappi&#x27;, &#x27;CT-12345&#x27;);
+   * if (duplicateIndex !&#x3D;&#x3D; -1) {
+   *   console.log(&#x27;Duplicate found at index:&#x27;, duplicateIndex);
+   * }
+   * &#x60;&#x60;&#x60;
+   */
+  findDuplicateIndex(aliasServicio: string, codigoContrato: string): number {
+    return this.items().findIndex((item) &#x3D;&gt; item.aliasServicio &#x3D;&#x3D;&#x3D; aliasServicio &amp;&amp; item.codigoContrato &#x3D;&#x3D;&#x3D; codigoContrato);
+  }
+
+  /**
+   * Validates if an item with the given currency can be added to the cart.
+   *
+   * @param abreviacionMoneda - Currency abbreviation to validate (e.g., &quot;Bs.&quot;, &quot;USD&quot;)
+   * @returns Object with validation result
+   *
+   * @remarks
+   * **Validation rules:**
+   * - Empty cart: Always returns &#x60;{ canAdd: true, existingCurrency: null }&#x60;
+   * - Cart has items: Returns &#x60;{ canAdd: false, existingCurrency: &quot;Bs.&quot; }&#x60; if currency mismatch
+   * - Cart has items with same currency: Returns &#x60;{ canAdd: true, existingCurrency: &quot;Bs.&quot; }&#x60;
+   *
+   * This prevents users from mixing different currencies in a single transaction.
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * const validation &#x3D; cartService.canAddItemWithCurrency(&#x27;USD&#x27;);
+   * if (!validation.canAdd) {
+   *   console.log(&#x60;Cart already contains items in ${validation.existingCurrency}&#x60;);
+   * }
+   * &#x60;&#x60;&#x60;
+   */
+  canAddItemWithCurrency(abreviacionMoneda: string): {
+    canAdd: boolean;
+    existingCurrency: string | null;
+  } {
+    const items &#x3D; this.items();
+
+    // Empty cart - allow any currency
+    if (items.length &#x3D;&#x3D;&#x3D; 0) {
+      return { canAdd: true, existingCurrency: null };
+    }
+
+    // Get currency from first item (all items must have same currency)
+    const existingCurrency &#x3D; items[0].abreviacionMoneda;
+
+    // Check if new item&#x27;s currency matches existing items
+    const canAdd &#x3D; existingCurrency &#x3D;&#x3D;&#x3D; abreviacionMoneda;
+
+    return { canAdd, existingCurrency };
+  }
+
+  /**
+   * Replaces an existing item in the cart.
+   *
+   * @param index - Index of the item to replace
+   * @param newItem - New item data
+   * @returns &#x60;true&#x60; if replacement was successful, &#x60;false&#x60; otherwise
+   *
+   * @remarks
+   * - Validates index is within bounds before replacing
+   * - Updates the cart&#x27;s &#x60;updatedAt&#x60; timestamp
+   * - Automatically persists changes to sessionStorage
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * const success &#x3D; cartService.replaceItem(0, newItemData);
+   * if (success) {
+   *   console.log(&#x27;Item replaced successfully&#x27;);
+   * }
+   * &#x60;&#x60;&#x60;
+   */
+  replaceItem(index: number, newItem: ItemCarrito): boolean {
+    try {
+      const currentCart &#x3D; this.cart();
+      if (!currentCart || index &lt; 0 || index &gt;&#x3D; currentCart.items.length) {
+        return false;
+      }
+
+      const newItems &#x3D; [...currentCart.items];
+      newItems[index] &#x3D; newItem;
+
+      const newCart: Carrito &#x3D; {
+        ...currentCart,
+        items: newItems,
+        updatedAt: Date.now(),
+      };
+
+      this.cart.set(newCart);
+      this.saveCart();
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Clears the entire cart.
+   *
+   * @remarks
+   * - Removes all items from the cart signal
+   * - Removes cart data from sessionStorage
+   * - Does not remove the session ID
+   */
+  clearCart(): void {
+    this.cart.set(null);
+    sessionStorage.removeItem(this.STORAGE_KEY);
+  }
+
+  /**
+   * Serializes cart items to JSON string.
+   *
+   * @returns JSON string representation of cart items array
+   *
+   * @remarks
+   * Used for sending cart data to the backend API.
+   */
+  getItemsAsJson(): string {
+    return JSON.stringify(this.items());
+  }
+
+  private saveCart(): void {
+    const currentCart &#x3D; this.cart();
+    if (currentCart) {
+      sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(currentCart));
+    }
+  }
+
+  private getOrCreateSessionId(): string {
+    let sessionId &#x3D; sessionStorage.getItem(this.SESSION_KEY);
+    if (!sessionId) {
+      sessionId &#x3D; this.generateSessionId();
+      sessionStorage.setItem(this.SESSION_KEY, sessionId);
+    }
+    return sessionId;
+  }
+
+  private validateSession(cartSessionId: string): boolean {
+    const currentSessionId &#x3D; sessionStorage.getItem(this.SESSION_KEY);
+    return currentSessionId &#x3D;&#x3D;&#x3D; cartSessionId;
+  }
+
+  private generateSessionId(): string {
+    return &#x60;${Date.now()}-${Math.random().toString(36).substring(2, 11)}&#x60;;
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'CartService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

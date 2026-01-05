@@ -1,0 +1,144 @@
+<div>
+  <div class="mb-4">
+    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Seleccionar las deudas que desea pagar</p>
+  </div>
+
+  <div>
+    <!-- Associate's information -->
+    <div class="mb-6">
+      <label class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200">Datos del socio</label>
+      <input type="text" readonly class="w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-base transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:font-semibold disabled:opacity-80 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:disabled:bg-gray-800" [value]="associateCode() + ' - ' + associateData()?.nombreAsociado" />
+    </div>
+
+    <!-- Message from no outstanding debts -->
+    @if (!hasOutstandingDebts()) {
+      <div class="mb-6 rounded border-l-4 border-yellow-500 bg-yellow-50 p-4 dark:border-yellow-600 dark:bg-yellow-900/20">
+        <div class="flex items-center gap-3">
+          <svg class="h-6 w-6 shrink-0 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <div>
+            <h3 class="text-base font-bold text-yellow-800 dark:text-yellow-300">Contrato sin deudas pendientes</h3>
+            <p class="mt-1 text-sm text-yellow-700 dark:text-yellow-400">Este contrato no tiene deudas pendientes de pago en este momento.</p>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Debt table/cards -->
+    @if (hasOutstandingDebts()) {
+      <div class="mt-6">
+        <!-- Mobile view: Cards (< sm breakpoint) -->
+        <div class="sm:hidden">
+          <div class="space-y-3">
+            @for (payment of outstandingDebts(); track payment.periodoCode; let i = $index) {
+              <div class="rounded-lg border-2 p-4 transition-all" [class]="selectedDebts()[i] ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-900/20' : 'border-gray-300 bg-white dark:border-gray-600 dark:bg-gray-700'">
+                <!-- Header: Checkbox + Period -->
+                <div class="flex items-start gap-3">
+                  <input type="checkbox" class="mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-700" [checked]="selectedDebts()[i]" (change)="toggleOne.emit({ index: i, checked: $any($event.target).checked })" [attr.aria-label]="'Seleccionar deuda ' + payment.periodoCobro" />
+                  <div class="flex-1">
+                    <div class="text-lg font-bold text-gray-900 dark:text-gray-100">
+                      {{ payment.periodoCobro }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Body: Invoice + Amount -->
+                <div class="mt-3 space-y-2 pl-8">
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-600 dark:text-gray-400">{{ officialDocDescription() }}:</span>
+                    <span class="font-medium text-gray-900 dark:text-gray-100">{{ payment.documentoPago }}</span>
+                  </div>
+                  <div class="flex justify-between text-base">
+                    <span class="font-semibold text-gray-700 dark:text-gray-300">Deuda {{ currencyAbbreviation() }}:</span>
+                    <span class="font-bold text-gray-900 dark:text-gray-100">{{ formatNumber(payment.periodoServicio) }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Mobile: Select All Checkbox -->
+          <div class="mt-4 flex items-center gap-3 rounded-lg border border-gray-300 bg-gray-100 p-4 dark:border-gray-600 dark:bg-gray-700">
+            <input type="checkbox" id="checkbox-select-all-mobile" class="h-5 w-5 cursor-pointer rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:border-gray-600 dark:bg-gray-700" [checked]="allSelectedDebts()" (change)="toggleAll.emit($any($event.target).checked)" />
+            <label for="checkbox-select-all-mobile" class="flex-1 cursor-pointer text-base font-semibold text-gray-800 dark:text-gray-200"> Seleccionar todas las deudas </label>
+          </div>
+
+          <!-- Mobile: Commission Row (if applicable) -->
+          @if (hasCommissions()) {
+            <div class="mt-4 rounded-lg border border-gray-300 bg-yellow-50 p-4 dark:border-gray-600 dark:bg-yellow-900/20">
+              <div class="flex justify-between">
+                <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Comision facturable</span>
+                <span class="text-base font-bold text-gray-900 dark:text-gray-100">{{ formatNumber(totalCommission()) }}</span>
+              </div>
+            </div>
+          }
+
+          <!-- Mobile: Total Row -->
+          <div class="mt-4 rounded-lg border-2 border-blue-500 bg-blue-50 p-4 dark:border-blue-400 dark:bg-blue-900/30">
+            <div class="flex justify-between">
+              <span class="text-lg font-bold text-gray-900 dark:text-gray-100">TOTAL {{ currencyAbbreviation() }}</span>
+              <span class="text-xl font-bold text-blue-600 dark:text-blue-400">{{ formatNumber(totalGeneral()) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desktop view: Table (>= sm breakpoint) -->
+        <div class="hidden sm:block">
+          <div class="my-4 overflow-x-auto rounded-md border border-gray-300 dark:border-gray-600">
+            <table class="w-full border-collapse text-lg dark:text-gray-200">
+              <thead class="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                <tr>
+                  <th class="px-3 py-3 text-left text-base font-semibold tracking-wide uppercase">Periodo</th>
+                  <th class="px-3 py-3 text-left text-base font-semibold tracking-wide uppercase">{{ officialDocDescription() }}</th>
+                  <th class="py-3 text-right text-base font-semibold tracking-wide uppercase">Deuda {{ currencyAbbreviation() }}</th>
+                  <th class="px-3 py-3 text-center text-base font-semibold tracking-wide uppercase">
+                    <input type="checkbox" id="checkbox-select-all" title="Seleccionar todas las deudas" class="h-4 w-4 cursor-pointer" [checked]="allSelectedDebts()" (change)="toggleAll.emit($any($event.target).checked)" />
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (payment of outstandingDebts(); track payment.periodoCode; let i = $index) {
+                  <tr>
+                    <td class="border-b border-gray-300 py-3 pl-3 dark:border-gray-600 dark:text-gray-200">
+                      {{ payment.periodoCobro }}
+                    </td>
+                    <td class="border-b border-gray-300 py-3 pl-3 dark:border-gray-600 dark:text-gray-200">
+                      {{ payment.documentoPago }}
+                    </td>
+                    <td class="border-b border-gray-300 py-3 text-right dark:border-gray-600 dark:text-gray-200">
+                      {{ formatNumber(payment.periodoServicio) }}
+                    </td>
+                    <td class="border-b border-gray-300 py-3 text-center dark:border-gray-600">
+                      <input type="checkbox" class="checkbox-deuda h-4 w-4 cursor-pointer dark:border-gray-600 dark:bg-gray-700" [checked]="selectedDebts()[i]" (change)="toggleOne.emit({ index: i, checked: $any($event.target).checked })" />
+                    </td>
+                  </tr>
+                }
+
+                <!-- Commission row (if applicable) -->
+                @if (hasCommissions()) {
+                  <tr>
+                    <td colspan="2" class="border-b border-gray-300 py-3 pl-3 dark:border-gray-600 dark:text-gray-200">Comision facturable a cobrar</td>
+                    <td class="border-b border-gray-300 py-3 text-right dark:border-gray-600 dark:text-gray-200">
+                      {{ formatNumber(totalCommission()) }}
+                    </td>
+                    <td class="border-b border-gray-300 py-3 dark:border-gray-600"></td>
+                  </tr>
+                }
+              </tbody>
+              <tfoot class="bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                <tr>
+                  <th colspan="2" class="border-t-2 border-gray-400 py-3 text-right dark:border-gray-500 dark:text-gray-200">TOTAL {{ currencyAbbreviation() }}</th>
+                  <th class="border-t-2 border-gray-400 py-3 text-right dark:border-gray-500 dark:text-gray-200">
+                    {{ formatNumber(totalGeneral()) }}
+                  </th>
+                  <th class="border-t-2 border-gray-400 py-3 dark:border-gray-500"></th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

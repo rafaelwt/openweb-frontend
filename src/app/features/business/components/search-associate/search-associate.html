@@ -1,0 +1,22 @@
+<div [formGroup]="form()">
+  <div class="mb-4">
+    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Ingresar codigo del socio para consultar su deuda</p>
+  </div>
+
+  <div>
+    <!-- Input associate code -->
+    <div class="mb-6">
+      <label for="codigo-asociado-input" class="mb-2 block text-lg font-semibold text-gray-800 dark:text-gray-200">Codigo del socio<span class="text-red-500"> *</span></label>
+      <div class="flex flex-col gap-3 sm:flex-row">
+        <input type="text" id="codigo-asociado-input" formControlName="codigoDeuda" maxlength="15" placeholder="Ingrese el codigo" autofocus class="w-full rounded-md border border-gray-300 bg-white px-4 py-3 text-sm transition-all focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-100 disabled:font-semibold disabled:opacity-80 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:disabled:bg-gray-800" (keydown.enter)="search.emit()" />
+        <button type="button" class="cursor-pointer items-center rounded-md bg-blue-500 px-4 py-3 text-base leading-normal font-semibold whitespace-nowrap text-white hover:bg-blue-600 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50" [disabled]="!form().get('codigoDeuda')?.value || isLoading()" (click)="search.emit()">
+          @if (isLoading()) {
+            <span>Consultando...</span>
+          } @else {
+            <span>Consultar codigo</span>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

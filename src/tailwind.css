@@ -1,0 +1,10 @@
+@import 'tailwindcss';
+
+/* Enable class-based dark mode instead of prefers-color-scheme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* REDIS brand color */
+  --color-redis: #3b80f9;
+  --color-blue-500: var(--color-redis);
+}

@@ -1,0 +1,1405 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>openweb-frontend documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">openweb-frontend documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Injectables</li>
+  <li class="breadcrumb-item" >ApiService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/core/services/api.service.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Core API service for backend communication.</p>
+<p>Provides methods for:</p>
+<ul>
+<li>Service management (listing, configuration, status)</li>
+<li>Debt and contract operations (COOPAPPI)</li>
+<li>Payment processing (cart, QR generation)</li>
+<li>Document verification (NIT)</li>
+</ul>
+<p>All endpoints use the base URL from environment configuration.
+Credentials are automatically injected via CredentialsInterceptor.</p>
+<p>See <a href="CredentialsInterceptor">CredentialsInterceptor</a></p>
+
+            </p>
+
+
+
+            <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#baseUrl" >baseUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#http" >http</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkServiceStatus" >checkServiceStatus</a>
+                            </li>
+                            <li>
+                                <a href="#consultCollectionContracts" >consultCollectionContracts</a>
+                            </li>
+                            <li>
+                                <a href="#consultCollectionDebts" >consultCollectionDebts</a>
+                            </li>
+                            <li>
+                                <a href="#consultContracts" class="deprecated-name">consultContracts</a>
+                            </li>
+                            <li>
+                                <a href="#consultDebts" class="deprecated-name">consultDebts</a>
+                            </li>
+                            <li>
+                                <a href="#generateQRcode" >generateQRcode</a>
+                            </li>
+                            <li>
+                                <a href="#getServiceConfig" >getServiceConfig</a>
+                            </li>
+                            <li>
+                                <a href="#getServices" >getServices</a>
+                            </li>
+                            <li>
+                                <a href="#processPaymentCart" >processPaymentCart</a>
+                            </li>
+                            <li>
+                                <a href="#verifyNIT" >verifyNIT</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkServiceStatus"></a>
+                    <span class="name">
+                        <span ><b>checkServiceStatus</b></span>
+                        <a href="#checkServiceStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkServiceStatus(aliasServicio: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Checks if a service is currently active/available.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>aliasServicio</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The service alias to verify</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;EstadoServicioResponse&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with service status response</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="consultCollectionContracts"></a>
+                    <span class="name">
+                        <span ><b>consultCollectionContracts</b></span>
+                        <a href="#consultCollectionContracts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>consultCollectionContracts(params: <a href="../interfaces/ConsultarContratosRequest.html" target="_self">ConsultarContratosRequest</a>, business: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Queries contracts for a collection (debt collection) service.</p>
+<p><strong>API Endpoint:</strong> POST /api/v1/cobranzas/{business}/contratos</p>
+<p>Used in collection-wizard step 1 to find all contracts for an associate.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ConsultarContratosRequest.html" target="_self" >ConsultarContratosRequest</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Request containing codigoDeuda and medioPago</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>business</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Service alias (e.g., &#39;coopappi&#39;, &#39;sajuba&#39;)</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;ContratosResponse&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with contracts response</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="consultCollectionDebts"></a>
+                    <span class="name">
+                        <span ><b>consultCollectionDebts</b></span>
+                        <a href="#consultCollectionDebts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>consultCollectionDebts(params: <a href="../interfaces/ConsultarDeudasRequest.html" target="_self">ConsultarDeudasRequest</a>, business: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves outstanding debts for a collection service contract.</p>
+<p><strong>API Endpoint:</strong> POST /api/v1/cobranzas/{business}/deudas</p>
+<p>Used in collection-wizard step 3 after contract selection.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ConsultarDeudasRequest.html" target="_self" >ConsultarDeudasRequest</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Request containing codigoContrato and checksumContrato</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>business</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Service alias (e.g., &#39;coopappi&#39;, &#39;sajuba&#39;)</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/DeudasResponse.html" target="_self" >Observable&lt;DeudasResponse&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with debts response containing payment periods and amounts</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="consultContracts"></a>
+                    <span class="name">
+                        <span class="deprecated-name"><b>consultContracts</b></span>
+                        <a href="#consultContracts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4 deprecated">
+                    [object Object],[object Object],[object Object]
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>consultContracts(params: <a href="../interfaces/ConsultarContratosRequest.html" target="_self">ConsultarContratosRequest</a>, business: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Queries contracts associated with an associate&#39;s debt code.</p>
+<p>Used in COOPAPPI wizard step 1 to find all contracts for an associate.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ConsultarContratosRequest.html" target="_self" >ConsultarContratosRequest</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Request containing codigoEncriptado and formaPago</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>business</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;ContratosResponse&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with contracts response containing matching contracts</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="consultDebts"></a>
+                    <span class="name">
+                        <span class="deprecated-name"><b>consultDebts</b></span>
+                        <a href="#consultDebts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4 deprecated">
+                    [object Object],[object Object],[object Object]
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>consultDebts(params: <a href="../interfaces/ConsultarDeudasRequest.html" target="_self">ConsultarDeudasRequest</a>, business: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves outstanding debts for a specific contract.</p>
+<p>Used in COOPAPPI wizard step 3 after contract selection.
+Returns debt periods with service amounts, commission amounts, and totals.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>params</td>
+                                            <td>
+                                                            <code><a href="../interfaces/ConsultarDeudasRequest.html" target="_self" >ConsultarDeudasRequest</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Request containing codigoContrato and checksumContrato</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>business</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/DeudasResponse.html" target="_self" >Observable&lt;DeudasResponse&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with debts response containing payment periods and amounts</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="generateQRcode"></a>
+                    <span class="name">
+                        <span ><b>generateQRcode</b></span>
+                        <a href="#generateQRcode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>generateQRcode(payment: <a href="../interfaces/PagoRequest.html" target="_self">PagoRequest</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="162"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:162</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Generates a QR code for payment without processing the transaction.</p>
+<p>Similar to processPaymentCart but only generates the QR without finalizing the payment.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>payment</td>
+                                            <td>
+                                                            <code><a href="../interfaces/PagoRequest.html" target="_self" >PagoRequest</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Payment request with transaction details</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/PagoResponse.html" target="_self" >Observable&lt;PagoResponse&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with payment response containing QR code data</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getServiceConfig"></a>
+                    <span class="name">
+                        <span ><b>getServiceConfig</b></span>
+                        <a href="#getServiceConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getServiceConfig(slug: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="54"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fetches the configuration for a specific service by its slug.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>slug</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The service slug identifier (e.g., &#39;coopappi&#39;)</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;ServicioConfigResponse&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with the service configuration including aliasServicio, nombreServicio, etc.</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getServices"></a>
+                    <span class="name">
+                        <span ><b>getServices</b></span>
+                        <a href="#getServices"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getServices()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves the list of available services with their categories.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">this.api.getServices().subscribe(response =&gt; {
+  if (response.success) {
+    console.log(response.data.servicios);
+  }
+});</code></pre></div></div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;ServiciosResponse&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with the services response containing servicios and categorias arrays</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processPaymentCart"></a>
+                    <span class="name">
+                        <span ><b>processPaymentCart</b></span>
+                        <a href="#processPaymentCart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>processPaymentCart(payment: <a href="../interfaces/PagoRequest.html" target="_self">PagoRequest</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Processes payment for cart items and generates transaction QR code.</p>
+<p>This endpoint validates cart items, generates invoices, and creates a QR code for payment.
+The QR code can be scanned by banking apps for instant payment.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>payment</td>
+                                            <td>
+                                                            <code><a href="../interfaces/PagoRequest.html" target="_self" >PagoRequest</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Payment request containing cart items, billing data, and browser fingerprint</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/PagoResponse.html" target="_self" >Observable&lt;PagoResponse&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with payment response including QR code data and transaction details</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="verifyNIT"></a>
+                    <span class="name">
+                        <span ><b>verifyNIT</b></span>
+                        <a href="#verifyNIT"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>verifyNIT(documentoSIN: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="176"
+                                    class="link-to-prism">src/app/core/services/api.service.ts:176</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Verifies if a NIT (tax ID number) is valid according to SIN registry.</p>
+<p>Special NITs (99001, 99002, 99003) are reserved for &quot;Tax Control&quot; and don&#39;t require verification.
+Used in checkout wizard to validate billing information.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>documentoSIN</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/NITResponse.html" target="_self" >Observable&lt;NITResponse&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable with verification response containing estadoDocumento field</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="baseUrl"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>baseUrl</b></span>
+                        <a href="#baseUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>environment.apiUrl</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/services/api.service.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="http"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>http</b></span>
+                        <a href="#http"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(HttpClient)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/core/services/api.service.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, inject } from &#x27;@angular/core&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+
+import { environment } from &#x27;@environments/environment&#x27;;
+import { ConsultarContratosRequest, ConsultarDeudasRequest, PagoRequest, ServiciosResponse, ServicioConfigResponse, EstadoServicioResponse, ContratosResponse, DeudasResponse, PagoResponse, NITResponse } from &#x27;../models&#x27;;
+
+/**
+ * Core API service for backend communication.
+ *
+ * Provides methods for:
+ * - Service management (listing, configuration, status)
+ * - Debt and contract operations (COOPAPPI)
+ * - Payment processing (cart, QR generation)
+ * - Document verification (NIT)
+ *
+ * @remarks
+ * All endpoints use the base URL from environment configuration.
+ * Credentials are automatically injected via CredentialsInterceptor.
+ *
+ * @see {@link CredentialsInterceptor}
+ */
+@Injectable({
+  providedIn: &#x27;root&#x27;,
+})
+export class ApiService {
+  private readonly http &#x3D; inject(HttpClient);
+  private readonly baseUrl &#x3D; environment.apiUrl;
+
+  /**
+   * Retrieves the list of available services with their categories.
+   *
+   * @returns Observable with the services response containing servicios and categorias arrays
+   *
+   * @example
+   * &#x60;&#x60;&#x60;typescript
+   * this.api.getServices().subscribe(response &#x3D;&gt; {
+   *   if (response.success) {
+   *     console.log(response.data.servicios);
+   *   }
+   * });
+   * &#x60;&#x60;&#x60;
+   */
+  getServices(): Observable&lt;ServiciosResponse&gt; {
+    return this.http.get&lt;ServiciosResponse&gt;(&#x60;${this.baseUrl}/services&#x60;);
+  }
+
+  /**
+   * Fetches the configuration for a specific service by its slug.
+   *
+   * @param slug - The service slug identifier (e.g., &#x27;coopappi&#x27;)
+   * @returns Observable with the service configuration including aliasServicio, nombreServicio, etc.
+   */
+  getServiceConfig(slug: string): Observable&lt;ServicioConfigResponse&gt; {
+    return this.http.get&lt;ServicioConfigResponse&gt;(&#x60;${this.baseUrl}/services/config&#x60;, {
+      params: { service: slug },
+    });
+  }
+
+  /**
+   * Checks if a service is currently active/available.
+   *
+   * @param aliasServicio - The service alias to verify
+   * @returns Observable with service status response
+   */
+  checkServiceStatus(aliasServicio: string): Observable&lt;EstadoServicioResponse&gt; {
+    return this.http.post&lt;EstadoServicioResponse&gt;(&#x60;${this.baseUrl}/services/verificar-estado&#x60;, {
+      aliasServicio,
+    });
+  }
+
+  /**
+   * Queries contracts associated with an associate&#x27;s debt code.
+   *
+   * @param params - Request containing codigoEncriptado and formaPago
+   * @returns Observable with contracts response containing matching contracts
+   *
+   * @remarks
+   * Used in COOPAPPI wizard step 1 to find all contracts for an associate.
+   *
+   * @deprecated Use {@link getCobranzaContratos} for cobranza services.
+   */
+  consultContracts(params: ConsultarContratosRequest, business: string): Observable&lt;ContratosResponse&gt; {
+    return this.http.post&lt;ContratosResponse&gt;(&#x60;${this.baseUrl}/services/${business}/contratos&#x60;, params);
+  }
+
+  /**
+   * Retrieves outstanding debts for a specific contract.
+   *
+   * @param params - Request containing codigoContrato and checksumContrato
+   * @returns Observable with debts response containing payment periods and amounts
+   *
+   * @remarks
+   * Used in COOPAPPI wizard step 3 after contract selection.
+   * Returns debt periods with service amounts, commission amounts, and totals.
+   *
+   * @deprecated Use {@link getCobranzaDeudas} for cobranza services.
+   */
+  consultDebts(params: ConsultarDeudasRequest, business: string): Observable&lt;DeudasResponse&gt; {
+    return this.http.post&lt;DeudasResponse&gt;(&#x60;${this.baseUrl}/services/${business}/deudas&#x60;, params);
+  }
+
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+  // COLLECTION ENDPOINTS (v1)
+  // &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+
+  /**
+   * Queries contracts for a collection (debt collection) service.
+   *
+   * @param params - Request containing codigoDeuda and medioPago
+   * @param business - Service alias (e.g., &#x27;coopappi&#x27;, &#x27;sajuba&#x27;)
+   * @returns Observable with contracts response
+   *
+   * @remarks
+   * **API Endpoint:** POST /api/v1/cobranzas/{business}/contratos
+   *
+   * Used in collection-wizard step 1 to find all contracts for an associate.
+   */
+  consultCollectionContracts(params: ConsultarContratosRequest, business: string): Observable&lt;ContratosResponse&gt; {
+    return this.http.post&lt;ContratosResponse&gt;(&#x60;${this.baseUrl}/cobranzas/${business}/contratos&#x60;, params);
+  }
+
+  /**
+   * Retrieves outstanding debts for a collection service contract.
+   *
+   * @param params - Request containing codigoContrato and checksumContrato
+   * @param business - Service alias (e.g., &#x27;coopappi&#x27;, &#x27;sajuba&#x27;)
+   * @returns Observable with debts response containing payment periods and amounts
+   *
+   * @remarks
+   * **API Endpoint:** POST /api/v1/cobranzas/{business}/deudas
+   *
+   * Used in collection-wizard step 3 after contract selection.
+   */
+  consultCollectionDebts(params: ConsultarDeudasRequest, business: string): Observable&lt;DeudasResponse&gt; {
+    return this.http.post&lt;DeudasResponse&gt;(&#x60;${this.baseUrl}/cobranzas/${business}/deudas&#x60;, params);
+  }
+
+  /**
+   * Processes payment for cart items and generates transaction QR code.
+   *
+   * @param payment - Payment request containing cart items, billing data, and browser fingerprint
+   * @returns Observable with payment response including QR code data and transaction details
+   *
+   * @remarks
+   * This endpoint validates cart items, generates invoices, and creates a QR code for payment.
+   * The QR code can be scanned by banking apps for instant payment.
+   */
+  processPaymentCart(payment: PagoRequest): Observable&lt;PagoResponse&gt; {
+    return this.http.post&lt;PagoResponse&gt;(&#x60;${this.baseUrl}/payments/cart&#x60;, payment);
+  }
+
+  /**
+   * Generates a QR code for payment without processing the transaction.
+   *
+   * @param payment - Payment request with transaction details
+   * @returns Observable with payment response containing QR code data
+   *
+   * @remarks
+   * Similar to processPaymentCart but only generates the QR without finalizing the payment.
+   */
+  generateQRcode(payment: PagoRequest): Observable&lt;PagoResponse&gt; {
+    return this.http.post&lt;PagoResponse&gt;(&#x60;${this.baseUrl}/payments/qr&#x60;, payment);
+  }
+
+  /**
+   * Verifies if a NIT (tax ID number) is valid according to SIN registry.
+   *
+   * @param documentSIN - The NIT number to verify
+   * @returns Observable with verification response containing estadoDocumento field
+   *
+   * @remarks
+   * Special NITs (99001, 99002, 99003) are reserved for &quot;Tax Control&quot; and don&#x27;t require verification.
+   * Used in checkout wizard to validate billing information.
+   */
+  verifyNIT(documentoSIN: string): Observable&lt;NITResponse&gt; {
+    return this.http.post&lt;NITResponse&gt;(&#x60;${this.baseUrl}/services/verificar-nit&#x60;, { documentoSIN });
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ApiService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

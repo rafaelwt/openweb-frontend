@@ -1,0 +1,46 @@
+@if (modal.isVisible()) {
+  <div class="animate-fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+    <div class="animate-slide-up w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-2xl dark:bg-gray-800">
+      <!-- Modal header -->
+      <div [class]="'flex items-center gap-5 border-b-2 border-gray-100 p-8 dark:border-gray-700 ' + modal.config().headerClass">
+        <div [class]="'animate-pulse-custom flex h-16 w-16 shrink-0 items-center justify-center rounded-full text-3xl ' + modal.config().iconClass">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-9">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+          </svg>
+        </div>
+        <h3 class="flex-1 text-2xl font-bold text-gray-800 dark:text-gray-100">
+          {{ modal.config().title }}
+        </h3>
+      </div>
+
+      <!-- Modal body -->
+      <div class="p-8">
+        <p class="mb-6 leading-relaxed text-gray-700 dark:text-gray-300">
+          {{ modal.config().message }}
+        </p>
+
+        <!-- Optional details section -->
+        @if (getDetailEntries().length > 0) {
+          <div [class]="'mb-6 space-y-2 rounded-lg border-l-4 bg-gray-50 p-4 dark:bg-gray-700 ' + modal.config().borderClass">
+            @for (entry of getDetailEntries(); track entry[0]) {
+              <p class="text-sm text-gray-600 dark:text-gray-300">
+                <span class="font-semibold text-gray-800 dark:text-gray-200">{{ entry[0] }}:</span>
+                {{ entry[1] }}
+              </p>
+            }
+          </div>
+        }
+
+        <!-- Action buttons -->
+        <div class="flex flex-col justify-end gap-3 sm:flex-row">
+          <button type="button" [class]="'items-center rounded-lg px-4 py-3 text-base leading-normal font-semibold hover:shadow-lg ' + modal.config().cancelButtonClass" (click)="modal.handleCancel()">
+            {{ modal.config().cancelText }}
+          </button>
+          <button type="button" [class]="'items-center rounded-lg px-4 py-3 text-base leading-normal font-semibold text-white hover:shadow-lg ' + modal.config().confirmButtonClass" (click)="modal.handleConfirm()">
+            {{ modal.config().confirmText }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
