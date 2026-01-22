@@ -44,3 +44,6 @@ Thumbs.db
 
 
 .claude/settings.local.json
+
+# Local environment config (each dev uses different ports)
+/src/environments/environment.ts
